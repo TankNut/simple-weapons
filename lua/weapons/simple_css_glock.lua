@@ -53,3 +53,11 @@ SWEP.Primary = {
 }
 
 SWEP.Zoom = 1.2
+
+function SWEP:AlternateAttack()
+	self.Primary.Automatic = false
+
+	self:SetFiremode(self:GetFiremode() == 0 and 3 or 0)
+
+	self:EmitSound("Weapon_SMG1.Special1")
+end

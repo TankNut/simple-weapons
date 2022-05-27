@@ -37,38 +37,3 @@ hook.Add("Think", "simple_base", function()
 		ply._LastActiveWeapon = newWeapon
 	end
 end)
-
-if CLIENT then
-	hook.Add("OnContextMenuOpen", "simple_base", function()
-		local weapon = LocalPlayer():GetActiveWeapon()
-
-		if IsValid(weapon) and weapon.SimpleWeapon then
-			weapon:OpenRadialMenu(weapon:BuildRadialMenu())
-
-			return true
-		end
-	end)
-
-	hook.Add("OnContextMenuClose", "simple_base", function()
-		local weapon = LocalPlayer():GetActiveWeapon()
-
-		if IsValid(weapon) and weapon.SimpleWeapon then
-			weapon:CloseRadialMenu()
-
-			return true
-		end
-	end)
-
-	local click = function(code)
-		local weapon = LocalPlayer():GetActiveWeapon()
-
-		if IsValid(weapon) and weapon.SimpleWeapon and weapon.RadialMenu and code == MOUSE_LEFT then
-			weapon:RadialMenuClick()
-
-			return true
-		end
-	end
-
-	hook.Add("GUIMousePressed", "simple_base", click)
-	hook.Add("GUIMouseDoublePressed", "simple_base", click)
-end

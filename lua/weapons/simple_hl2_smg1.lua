@@ -22,7 +22,7 @@ SWEP.WorldModel = Model("models/weapons/w_smg1.mdl")
 SWEP.HoldType = "smg"
 SWEP.LowerHoldType = "passive"
 
-SWEP.Firemodes = {-1, 3, 0}
+SWEP.Firemode = -1
 
 SWEP.LowerTime = 0.4
 

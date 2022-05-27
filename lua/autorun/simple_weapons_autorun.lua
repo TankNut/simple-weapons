@@ -37,8 +37,5 @@ function Include(name, tab)
 	end
 end
 
-AddCSLuaFile("simple_weapons/circles.lua")
-
 include("simple_weapons/sh_convars.lua")
 include("simple_weapons/sh_helpers.lua")
-include("simple_weapons/sh_ammo.lua")

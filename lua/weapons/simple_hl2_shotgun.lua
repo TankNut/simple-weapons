@@ -22,7 +22,7 @@ SWEP.WorldModel = Model("models/weapons/w_shotgun.mdl")
 SWEP.HoldType = "shotgun"
 SWEP.LowerHoldType = "passive"
 
-SWEP.Firemodes = 0
+SWEP.Firemode = 0
 
 SWEP.LowerTime = 0.4
 

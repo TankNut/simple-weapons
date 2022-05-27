@@ -22,7 +22,7 @@ SWEP.WorldModel = Model("models/weapons/w_irifle.mdl")
 SWEP.HoldType = "ar2"
 SWEP.LowerHoldType = "passive"
 
-SWEP.Firemodes = {-1, 3, 0}
+SWEP.Firemode = -1
 
 SWEP.LowerTime = 0.5
 

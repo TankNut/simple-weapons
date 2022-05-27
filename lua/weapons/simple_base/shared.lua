@@ -14,7 +14,7 @@ SWEP.SimpleWeapon = true
 SWEP.HoldType = "ar2"
 SWEP.LowerHoldType = "passive"
 
-SWEP.Firemodes = -1
+SWEP.Firemode = -1
 
 SWEP.LowerTime = 0.5
 
@@ -67,23 +67,19 @@ SWEP.AmmoTypes = {}
 
 if CLIENT then
 	include("cl_hud.lua")
-	include("cl_menu.lua")
 	include("cl_viewmodel.lua")
 else
 	AddCSLuaFile("cl_hud.lua")
-	AddCSLuaFile("cl_menu.lua")
 	AddCSLuaFile("cl_viewmodel.lua")
 end
 
-include("sh_ammo.lua")
 include("sh_animations.lua")
 include("sh_helpers.lua")
 include("sh_hooks.lua")
-include("sh_net.lua")
 include("sh_reload.lua")
 
 function SWEP:Initialize()
-	self:SetFiremode(istable(self.Firemodes) and self.Firemodes[1] or self.Firemodes)
+	self:SetFiremode(self.Firemode)
 
 	self.StoredAmmoStats = {}
 
@@ -99,7 +95,6 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Int", 0, "Firemode")
 	self:NetworkVar("Int", 1, "ShotsFired")
 	self:NetworkVar("Int", 2, "BurstFired")
-	self:NetworkVar("Int", 3, "AmmoIndex")
 
 	self:NetworkVar("Float", 0, "LowerTime")
 	self:NetworkVar("Float", 1, "NextIdle")
@@ -138,7 +133,7 @@ function SWEP:SetLower(lower)
 	self.Primary.Automatic = true
 end
 
-function SWEP:CanPrimaryAttack()
+function SWEP:CanAttack()
 	if (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
 		self:SetLower(false)
 
@@ -153,6 +148,10 @@ function SWEP:CanPrimaryAttack()
 		return false
 	end
 
+	return true
+end
+
+function SWEP:CanPrimaryAttack()
 	if self.Primary.Ammo != -1 and self:Clip1() <= 0 then
 		self:EmitSound(")weapons/pistol/pistol_empty.wav", 75, 100, 0.7, CHAN_ITEM)
 		self:SetNextPrimaryFire(CurTime() + 0.2)
@@ -162,6 +161,10 @@ function SWEP:CanPrimaryAttack()
 		return false
 	end
 
+	return true
+end
+
+function SWEP:CanAlternateAttack()
 	return true
 end
 
@@ -181,6 +184,22 @@ end
 local convar_infinite = simple_weapons.Convars.InfiniteAmmo
 
 function SWEP:PrimaryAttack()
+	if not self:CanAttack() then
+		return
+	end
+
+	local ply = self:GetOwner()
+
+	if ply:KeyDown(IN_USE) then
+		if not self:CanAlternateAttack() then
+			return
+		end
+
+		self:AlternateAttack()
+
+		return
+	end
+
 	if not self:CanPrimaryAttack() then
 		return
 	end
@@ -209,8 +228,6 @@ function SWEP:PrimaryAttack()
 	local delay = self:GetDelay(firemode)
 
 	self:FireWeapon()
-
-	local ply = self:GetOwner()
 
 	if ply:IsPlayer() then
 		local command = ply:GetCurrentCommand()
@@ -249,6 +266,9 @@ function SWEP:PrimaryAttack()
 	self:SetNextPrimaryFire(CurTime() + delay)
 end
 
+function SWEP:AlternateAttack()
+end
+
 function SWEP:FireWeapon()
 	local ply = self:GetOwner()
 	local primary = self.Primary
@@ -274,9 +294,6 @@ function SWEP:FireWeapon()
 	}
 
 	ply:FireBullets(bullet)
-end
-
-function SWEP:FireSecondary()
 end
 
 function SWEP:SecondaryAttack()
@@ -365,7 +382,6 @@ end
 
 function SWEP:OnReloaded()
 	self:SetWeaponHoldType(self:GetHoldType())
-	self:SetAmmoType(self:GetAmmoIndex())
 end
 
 function SWEP:OnRemove()

@@ -22,7 +22,7 @@ SWEP.WorldModel = Model("models/weapons/w_pistol.mdl")
 SWEP.HoldType = "pistol"
 SWEP.LowerHoldType = "normal"
 
-SWEP.Firemodes = 0
+SWEP.Firemode = 0
 
 SWEP.LowerTime = 0.3
 

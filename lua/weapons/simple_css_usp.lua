@@ -75,25 +75,12 @@ function SWEP:AlternateAttack()
 
 	self:SetSuppressed(suppressed)
 
-	self.Primary.Sound = suppressed and "Weapon_USP.SilencedShot" or "Weapon_USP.Single"
-	self.Primary.TracerName = suppressed and "" or "Tracer"
-
 	self:SendTranslatedWeaponAnim(suppressed and ACT_VM_ATTACH_SILENCER or ACT_VM_DETACH_SILENCER)
-
-	self:SetWorldModel(suppressed and "models/weapons/w_pist_usp_silencer.mdl" or "models/weapons/w_pist_usp.mdl")
-
-	if game.SinglePlayer() then
-		self:CallOnClient("SetWorldModel", suppressed and "models/weapons/w_pist_usp_silencer.mdl" or "models/weapons/w_pist_usp.mdl")
-	end
 
 	local duration = CurTime() + self:SequenceDuration()
 
 	self:SetNextPrimaryFire(duration)
 	self:SetNextIdle(duration)
-end
-
-function SWEP:SetWorldModel(mdl)
-	self.WorldModel = mdl
 end
 
 local replace = {
@@ -103,10 +90,28 @@ local replace = {
 	[ACT_VM_RELOAD] = ACT_VM_RELOAD_SILENCED
 }
 
+function SWEP:EmitFireSound()
+	self:EmitSound(self:GetSuppressed() and "Weapon_USP.SilencedShot" or "Weapon_USP.Single")
+end
+
+function SWEP:ModifyBulletTable(bullet)
+	if self:GetSuppressed() then
+		bullet.Tracer = 0
+	end
+end
+
 function SWEP:TranslateWeaponAnim(act)
 	if self:GetSuppressed() then
 		return replace[act] or act
 	end
 
 	return act
+end
+
+if CLIENT then
+	function SWEP:DrawWorldModel(flags)
+		self.WorldModel = self:GetSuppressed() and "models/weapons/w_pist_usp_silencer.mdl" or "models/weapons/w_pist_usp.mdl"
+
+		BaseClass.DrawWorldModel(self, flags)
+	end
 end

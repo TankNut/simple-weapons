@@ -7,6 +7,10 @@ function SWEP:IsReloading()
 end
 
 function SWEP:CanReload()
+	if self:GetNextPrimaryFire() > CurTime() then
+		return false
+	end
+
 	if self:IsReloading() or self:Clip1() >= self.Primary.ClipSize then
 		return false
 	end

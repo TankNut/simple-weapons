@@ -36,6 +36,7 @@ SWEP.Primary = {
 	Damage = 5,
 	Delay = 60 / 400,
 	BurstDelay = 60 / 1200,
+	BurstEndDelay = 0.4,
 
 	Spread = Spread(500),
 

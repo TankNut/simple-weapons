@@ -7,6 +7,8 @@ SWEP.Base = "simple_base"
 SWEP.PrintName = "Desert Eagle"
 SWEP.Category = "Simple Weapons: Counter-Strike: Source"
 
+SWEP.CSMuzzleFlashes = true
+
 SWEP.Slot = 1
 
 SWEP.Spawnable = true

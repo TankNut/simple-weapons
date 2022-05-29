@@ -107,6 +107,8 @@ function SWEP:OnDeploy()
 	self:SetLowerTime(0)
 
 	self:SetHoldType(self.LowerHoldType)
+
+	self:SendTranslatedWeaponAnim(ACT_VM_DRAW)
 end
 
 function SWEP:OnHolster(removing)

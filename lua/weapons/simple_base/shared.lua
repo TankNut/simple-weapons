@@ -133,7 +133,7 @@ function SWEP:SetLower(lower)
 	self.Primary.Automatic = true
 end
 
-function SWEP:CanAttack()
+function SWEP:CanPrimaryAttack()
 	if (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
 		self:SetLower(false)
 
@@ -148,10 +148,6 @@ function SWEP:CanAttack()
 		return false
 	end
 
-	return true
-end
-
-function SWEP:CanPrimaryAttack()
 	if self.Primary.Ammo != -1 and self:Clip1() <= 0 then
 		self:EmitSound(")weapons/pistol/pistol_empty.wav", 75, 100, 0.7, CHAN_ITEM)
 		self:SetNextPrimaryFire(CurTime() + 0.2)
@@ -184,10 +180,6 @@ end
 local convar_infinite = simple_weapons.Convars.InfiniteAmmo
 
 function SWEP:PrimaryAttack()
-	if not self:CanAttack() then
-		return
-	end
-
 	local ply = self:GetOwner()
 
 	if ply:KeyDown(IN_USE) then
@@ -342,11 +334,12 @@ function SWEP:Think()
 
 	if self:GetBurstFired() > 0 and CurTime() > self:GetNextPrimaryFire() + engine.TickInterval() then
 		self:SetBurstFired(0)
+		self:SetNextPrimaryFire(CurTime() + self:GetDelay(self:GetFiremode()))
 	end
 
 	-- Shots fired reset
 
-	if self:GetShotsFired() > 0 and CurTime() > self:GetNextPrimaryFire() + self.Primary.Recoil.Reset then
+	if self:GetShotsFired() > 0 and CurTime() - self:GetLastFire() > self.Primary.Recoil.Reset then
 		self:SetShotsFired(0)
 	end
 end

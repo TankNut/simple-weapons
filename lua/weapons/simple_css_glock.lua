@@ -8,7 +8,6 @@ SWEP.PrintName = "Glock-18"
 SWEP.Category = "Simple Weapons: Counter-Strike: Source"
 
 SWEP.Slot = 1
-SWEP.SlotPos = 13
 
 SWEP.Spawnable = true
 

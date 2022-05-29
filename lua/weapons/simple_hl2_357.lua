@@ -8,7 +8,6 @@ SWEP.PrintName = ".357 Magnum"
 SWEP.Category = "Simple Weapons: Half-Life 2"
 
 SWEP.Slot = 1
-SWEP.SlotPos = 12
 
 SWEP.Spawnable = true
 

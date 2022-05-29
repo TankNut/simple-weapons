@@ -8,7 +8,6 @@ SWEP.PrintName = "Desert Eagle"
 SWEP.Category = "Simple Weapons: Counter-Strike: Source"
 
 SWEP.Slot = 1
-SWEP.SlotPos = 14
 
 SWEP.Spawnable = true
 

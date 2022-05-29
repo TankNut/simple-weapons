@@ -8,7 +8,6 @@ SWEP.PrintName = "Pulse-Rifle"
 SWEP.Category = "Simple Weapons: Half-Life 2"
 
 SWEP.Slot = 2
-SWEP.SlotPos = 12
 
 SWEP.Spawnable = true
 

@@ -8,7 +8,6 @@ SWEP.PrintName = "XM1014"
 SWEP.Category = "Simple Weapons: Counter-Strike: Source"
 
 SWEP.Slot = 3
-SWEP.SlotPos = 12
 
 SWEP.Spawnable = true
 

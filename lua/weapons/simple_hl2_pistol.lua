@@ -8,7 +8,6 @@ SWEP.PrintName = "9mm Pistol"
 SWEP.Category = "Simple Weapons: Half-Life 2"
 
 SWEP.Slot = 1
-SWEP.SlotPos = 11
 
 SWEP.Spawnable = true
 

@@ -263,11 +263,18 @@ end
 function SWEP:AlternateAttack()
 end
 
+function SWEP:EmitFireSound()
+	self:EmitSound(self.Primary.Sound)
+end
+
+function SWEP:ModifyBulletTable(bullet)
+end
+
 function SWEP:FireWeapon()
 	local ply = self:GetOwner()
 	local primary = self.Primary
 
-	self:EmitSound(primary.Sound)
+	self:EmitFireSound()
 
 	self:SendTranslatedWeaponAnim(ACT_VM_PRIMARYATTACK)
 
@@ -283,9 +290,10 @@ function SWEP:FireWeapon()
 		TracerName = primary.TracerName,
 		Tracer = primary.TracerName == "" and 0 or 1,
 		Force = 5,
-		Damage = primary.Damage,
-		Callback = primary.Callback
+		Damage = primary.Damage
 	}
+
+	self:ModifyBulletTable(bullet)
 
 	ply:FireBullets(bullet)
 end

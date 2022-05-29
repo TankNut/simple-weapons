@@ -38,6 +38,16 @@ local replacements = {
 	[ACT_HL2MP_IDLE_CROUCH_PASSIVE] = ACT_HL2MP_IDLE_CROUCH
 }
 
+function SWEP:TranslateWeaponAnim(act)
+	return act
+end
+
+function SWEP:SendTranslatedWeaponAnim(act)
+	act = self:TranslateWeaponAnim(act)
+
+	self:SendWeaponAnim(act)
+end
+
 function SWEP:TranslateActivity(act)
 	local translated
 

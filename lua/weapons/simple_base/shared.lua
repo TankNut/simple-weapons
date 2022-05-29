@@ -267,7 +267,7 @@ function SWEP:FireWeapon()
 
 	self:EmitSound(primary.Sound)
 
-	self:SendWeaponAnim(ACT_VM_PRIMARYATTACK)
+	self:SendTranslatedWeaponAnim(ACT_VM_PRIMARYATTACK)
 
 	ply:SetAnimation(PLAYER_ATTACK1)
 
@@ -300,7 +300,7 @@ function SWEP:Think()
 	local idle = self:GetNextIdle()
 
 	if idle > 0 and idle <= CurTime() then
-		self:SendWeaponAnim(ACT_VM_IDLE)
+		self:SendTranslatedWeaponAnim(ACT_VM_IDLE)
 
 		self:SetNextIdle(0)
 	end
@@ -316,7 +316,7 @@ function SWEP:Think()
 	-- Pump action
 
 	if self:GetNeedPump() and not self:IsReloading() and self:GetNextPrimaryFire() <= CurTime() and self:Clip1() > 0 then
-		self:SendWeaponAnim(ACT_SHOTGUN_PUMP)
+		self:SendTranslatedWeaponAnim(ACT_SHOTGUN_PUMP)
 
 		if primary.PumpSound != "" then
 			self:EmitSound(self.Primary.PumpSound)

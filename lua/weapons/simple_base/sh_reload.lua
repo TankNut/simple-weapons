@@ -36,11 +36,11 @@ function SWEP:StartReload()
 	self:GetOwner():SetAnimation(PLAYER_RELOAD)
 
 	if reload.Shotgun then
-		self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_START)
+		self:SendTranslatedWeaponAnim(ACT_SHOTGUN_RELOAD_START)
 
 		self:SetFirstReload(true)
 	else
-		self:SendWeaponAnim(ACT_VM_RELOAD)
+		self:SendTranslatedWeaponAnim(ACT_VM_RELOAD)
 
 		if reload.Sound != "" then
 			self:EmitSound(reload.Sound)
@@ -73,7 +73,7 @@ function SWEP:FinishReload()
 		end
 
 		if self:Clip1() >= primary.ClipSize or amount <= 0 or self:GetAbortReload() then
-			self:SendWeaponAnim(ACT_SHOTGUN_RELOAD_FINISH)
+			self:SendTranslatedWeaponAnim(ACT_SHOTGUN_RELOAD_FINISH)
 
 			local duration = self:SequenceDuration()
 
@@ -83,7 +83,7 @@ function SWEP:FinishReload()
 			self:SetAbortReload(false)
 			self:SetFinishReload(0)
 		else
-			self:SendWeaponAnim(ACT_VM_RELOAD)
+			self:SendTranslatedWeaponAnim(ACT_VM_RELOAD)
 
 			if self:GetFirstReload() then
 				self:SetFirstReload(false)

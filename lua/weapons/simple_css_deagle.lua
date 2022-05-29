@@ -39,13 +39,13 @@ SWEP.Primary = {
 	Spread = Spread(700),
 
 	Recoil = {
-		MinAng = Angle(1, -0.3, 0),
-		MaxAng = Angle(2, 0.3, 0),
-		Min = 1,
-		Grow = 0,
-		Punch = 0.3,
+		MinAng = Angle(4, -2, 0),
+		MaxAng = Angle(5, 2, 0),
+		Min = 0.2,
+		Grow = 7,
+		Punch = 0.5,
 		Ratio = 0.2,
-		Reset = 1
+		Reset = 0.5
 	},
 
 	Sound = "Weapon_DEagle.Single",

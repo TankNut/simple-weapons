@@ -39,11 +39,8 @@ SWEP.Primary.BurstEndDelay = 0
 SWEP.Primary.Recoil = {
 	MinAng = angle_zero,
 	MaxAng = angle_zero,
-	Min = 0,
-	Grow = 0,
 	Punch = 0,
 	Ratio = 0,
-	Reset = 1
 }
 
 SWEP.Primary.Reload = {
@@ -89,13 +86,13 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", 3, "AbortReload")
 
 	self:NetworkVar("Int", 0, "Firemode")
-	self:NetworkVar("Int", 1, "ShotsFired")
-	self:NetworkVar("Int", 2, "BurstFired")
+	self:NetworkVar("Int", 1, "BurstFired")
 
 	self:NetworkVar("Float", 0, "LowerTime")
 	self:NetworkVar("Float", 1, "NextIdle")
 	self:NetworkVar("Float", 2, "LastFire")
 	self:NetworkVar("Float", 3, "FinishReload")
+	self:NetworkVar("Float", 4, "RecoilMult")
 end
 
 function SWEP:OnDeploy()
@@ -229,10 +226,9 @@ function SWEP:PrimaryAttack()
 		local command = ply:GetCurrentCommand()
 
 		local recoil = self.Primary.Recoil
-		local mult = math.Clamp(math.Remap((self:GetShotsFired() + 1) / recoil.Grow, 0, 1, recoil.Min, 1), recoil.Min, 1)
 
-		local pitch = -util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "1", recoil.MinAng.p, recoil.MaxAng.p) * mult
-		local yaw = util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "2", recoil.MinAng.y, recoil.MaxAng.y) * mult
+		local pitch = -util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "1", recoil.MinAng.p, recoil.MaxAng.p)
+		local yaw = util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "2", recoil.MinAng.y, recoil.MaxAng.y)
 
 		if game.SinglePlayer() or (CLIENT and IsFirstTimePredicted()) then
 			ply:SetEyeAngles(ply:EyeAngles() + Angle(pitch, yaw, 0) * recoil.Punch)
@@ -250,7 +246,6 @@ function SWEP:PrimaryAttack()
 	end
 
 	self:SetLastFire(CurTime())
-	self:SetShotsFired(self:GetShotsFired() + 1)
 
 	local duration = self:SequenceDuration()
 
@@ -347,12 +342,6 @@ function SWEP:Think()
 	if self:GetBurstFired() > 0 and CurTime() > self:GetNextPrimaryFire() + engine.TickInterval() then
 		self:SetBurstFired(0)
 		self:SetNextPrimaryFire(CurTime() + self:GetDelay(self:GetFiremode()))
-	end
-
-	-- Shots fired reset
-
-	if self:GetShotsFired() > 0 and CurTime() - self:GetLastFire() > self.Primary.Recoil.Reset then
-		self:SetShotsFired(0)
 	end
 end
 

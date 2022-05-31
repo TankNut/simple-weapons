@@ -37,13 +37,10 @@ SWEP.Primary = {
 	Spread = Spread(800),
 
 	Recoil = {
-		MinAng = Angle(1, -0.6, 0),
-		MaxAng = Angle(1.3, 0.6, 0),
-		Min = 0.3,
-		Grow = 10,
+		MinAng = Angle(0.5, -0.3, 0),
+		MaxAng = Angle(0.7, 0.3, 0),
 		Punch = 0.2,
-		Ratio = 0.6,
-		Reset = 1
+		Ratio = 0.6
 	},
 
 	Sound = "Weapon_AR2.Single",

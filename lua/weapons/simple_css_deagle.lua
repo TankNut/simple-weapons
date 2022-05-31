@@ -41,11 +41,8 @@ SWEP.Primary = {
 	Recoil = {
 		MinAng = Angle(4, -2, 0),
 		MaxAng = Angle(5, 2, 0),
-		Min = 0.2,
-		Grow = 7,
 		Punch = 0.5,
-		Ratio = 0.2,
-		Reset = 0.5
+		Ratio = 0.2
 	},
 
 	Sound = "Weapon_DEagle.Single",

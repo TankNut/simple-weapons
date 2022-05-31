@@ -39,11 +39,8 @@ SWEP.Primary = {
 	Recoil = {
 		MinAng = Angle(2, -0.3, 0),
 		MaxAng = Angle(3, 0.3, 0),
-		Min = 1,
-		Grow = 0,
 		Punch = 0.5,
-		Ratio = 0,
-		Reset = 1
+		Ratio = 0
 	},
 
 	Sound = "Weapon_357.Single",

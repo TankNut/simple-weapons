@@ -118,6 +118,8 @@ function SWEP:OnHolster(removing)
 	self:SetFirstReload(false)
 	self:SetAbortReload(false)
 	self:SetFinishReload(0)
+
+	self:GetOwner():SetFOV(0, 0.1, self)
 end
 
 function SWEP:SetLower(lower)
@@ -130,6 +132,10 @@ function SWEP:SetLower(lower)
 		self:SetLowerTime(CurTime())
 
 		self:SetHoldType(lower and self.LowerHoldType or self.HoldType)
+
+		local ply = self:GetOwner()
+
+		ply:SetFOV(lower and 0 or ply:GetInfo("fov_desired") / self.Zoom, self.LowerTime, self)
 	end
 
 	self.Primary.Automatic = true
@@ -354,15 +360,18 @@ function SWEP:Think()
 	end
 end
 
-local ease = math.ease.InOutQuad
-
 if CLIENT then
 	function SWEP:AdjustMouseSensitivity()
 		if not self:HasCameraControl() then
 			return 1
 		end
 
-		return Lerp(ease(self:GetLowerFraction()), 1 / self.Zoom, 1)
+		local ply = self:GetOwner()
+
+		local desired = ply:GetInfo("fov_desired")
+		local fov = ply:GetFOV()
+
+		return fov / desired
 	end
 end
 
@@ -373,14 +382,11 @@ function SWEP:TranslateFOV(fov)
 		return fov
 	end
 
-	local fraction = ease(self:GetLowerFraction())
 	local desired = self:GetOwner():GetInfo("fov_desired")
 
-	local new = Lerp(fraction, fov / self.Zoom, fov)
+	self.ViewModelFOV = self.ViewModelTargetFOV + (desired - fov) * 0.6
 
-	self.ViewModelFOV = self.ViewModelTargetFOV + (desired - new) * 0.6
-
-	return new
+	return fov
 end
 
 function SWEP:OnReloaded()

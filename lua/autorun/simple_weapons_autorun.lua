@@ -7,8 +7,6 @@ local blacklist = {
 	["_PACKAGE"] = true
 }
 
-Weapons = Weapons or {}
-
 function Include(name, tab)
 	local lib = getfenv(1)
 

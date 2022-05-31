@@ -80,10 +80,6 @@ include("sh_reload.lua")
 
 function SWEP:Initialize()
 	self:SetFiremode(self.Firemode)
-
-	self.StoredAmmoStats = {}
-
-	simple_weapons.Weapons[self] = true
 end
 
 function SWEP:SetupDataTables()
@@ -399,6 +395,4 @@ function SWEP:OnRemove()
 	if IsValid(ply) and ply._ActiveWeapon == self then
 		self:OnHolster(true)
 	end
-
-	simple_weapons.Weapons[self] = nil
 end

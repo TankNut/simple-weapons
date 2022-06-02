@@ -40,7 +40,7 @@ SWEP.Primary = {
 		MinAng = Angle(0.5, -0.3, 0),
 		MaxAng = Angle(0.7, 0.3, 0),
 		Punch = 0.2,
-		Ratio = 0.6
+		Ratio = 0.7
 	},
 
 	Sound = "Weapon_AR2.Single",

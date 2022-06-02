@@ -35,7 +35,7 @@ SWEP.Primary = {
 	ClipSize = 12,
 	DefaultClip = 12,
 
-	Damage = 5,
+	Damage = 13,
 	Delay = 60 / 400,
 
 	Spread = Spread(700),
@@ -47,7 +47,6 @@ SWEP.Primary = {
 		Ratio = 0.6
 	},
 
-	Sound = "Weapon_USP.Single",
 	TracerName = "Tracer"
 }
 

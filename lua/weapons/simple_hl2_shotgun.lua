@@ -59,6 +59,3 @@ SWEP.Primary = {
 }
 
 SWEP.Zoom = 1.2
-
-SWEP.DefaultAmmo = "Buckshot"
-SWEP.AmmoTypes = {"base_slugs"}

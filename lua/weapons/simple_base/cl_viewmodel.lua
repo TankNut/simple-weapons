@@ -31,3 +31,7 @@ function SWEP:GetViewModelPosition(pos, ang)
 
 	return pos, ang
 end
+
+function SWEP:DrawWorldModelTranslucent(flags)
+	self:DrawWorldModel(flags)
+end

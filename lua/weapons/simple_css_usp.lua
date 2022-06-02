@@ -112,10 +112,6 @@ if CLIENT then
 
 		BaseClass.DrawWorldModel(self, flags)
 	end
-
-	function SWEP:DrawWorldModelTranslucent(flags)
-		self:DrawWorldModel(flags)
-	end
 end
 
 function SWEP:FireAnimationEvent(_, _, event)

@@ -1,5 +1,7 @@
 DEFINE_BASECLASS("weapon_base")
 
+simple_weapons.Include("Convars")
+
 function SWEP:CalcView(ply, pos, ang, fov)
 	if not self:HasCameraControl() then
 		return
@@ -8,10 +10,13 @@ function SWEP:CalcView(ply, pos, ang, fov)
 	return pos, ang - ply:GetViewPunchAngles() * self.Primary.Recoil.Ratio, fov
 end
 
-function SWEP:GetViewModelPosition(pos, ang)
-	local offset = self:GetEasedLowerFraction()
+local defaultOffset = Vector()
+local altOffset = Vector(0, 0, 1)
 
-	ang:RotateAroundAxis(ang:Right(), -offset * 15)
+function SWEP:GetViewModelPosition(pos, ang)
+	local fraction = self:GetEasedLowerFraction()
+
+	pos, ang = LocalToWorld(AltOffset:GetBool() and altOffset or defaultOffset, Angle(fraction * 15, 0, 0), pos, ang)
 
 	local ply = self:GetOwner()
 

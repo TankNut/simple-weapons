@@ -92,7 +92,6 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Float", 1, "NextIdle")
 	self:NetworkVar("Float", 2, "LastFire")
 	self:NetworkVar("Float", 3, "FinishReload")
-	self:NetworkVar("Float", 4, "RecoilMult")
 end
 
 function SWEP:OnDeploy()

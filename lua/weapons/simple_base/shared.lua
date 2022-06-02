@@ -128,7 +128,7 @@ function SWEP:SetLower(lower)
 
 		local ply = self:GetOwner()
 
-		ply:SetFOV(lower and 0 or ply:GetInfo("fov_desired") / self.Zoom, self.LowerTime, self)
+		ply:SetFOV(self:GetFOV(), self.LowerTime, self)
 	end
 
 	self.Primary.Automatic = true

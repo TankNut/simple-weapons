@@ -302,6 +302,14 @@ end
 function SWEP:Think()
 	local primary = self.Primary
 
+	-- Reload handling
+
+	local reload = self:GetFinishReload()
+
+	if reload > 0 and reload <= CurTime() then
+		self:FinishReload()
+	end
+
 	-- Idle
 
 	local idle = self:GetNextIdle()
@@ -310,14 +318,6 @@ function SWEP:Think()
 		self:SendTranslatedWeaponAnim(ACT_VM_IDLE)
 
 		self:SetNextIdle(0)
-	end
-
-	-- Reload handling
-
-	local reload = self:GetFinishReload()
-
-	if reload > 0 and reload <= CurTime() then
-		self:FinishReload()
 	end
 
 	-- Pump action

@@ -68,6 +68,8 @@ function SWEP:CanAlternateAttack()
 end
 
 function SWEP:AlternateAttack()
+	self.Primary.Automatic = false
+
 	local suppressed = not self:GetSuppressed()
 
 	self:SetSuppressed(suppressed)
@@ -116,4 +118,9 @@ if CLIENT then
 		self:DrawWorldModel(flags)
 	end
 end
+
+function SWEP:FireAnimationEvent(_, _, event)
+	if self:GetSuppressed() and (event == 5001 or event == 5003) then
+		return true
+	end
 end

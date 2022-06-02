@@ -81,13 +81,6 @@ function SWEP:AlternateAttack()
 	self:SetNextIdle(duration)
 end
 
-local replace = {
-	[ACT_VM_DRAW] = ACT_VM_DRAW_SILENCED,
-	[ACT_VM_PRIMARYATTACK] = ACT_VM_PRIMARYATTACK_SILENCED,
-	[ACT_VM_IDLE] = ACT_VM_IDLE_SILENCED,
-	[ACT_VM_RELOAD] = ACT_VM_RELOAD_SILENCED
-}
-
 function SWEP:EmitFireSound()
 	self:EmitSound(self:GetSuppressed() and "Weapon_USP.SilencedShot" or "Weapon_USP.Single")
 end
@@ -97,6 +90,13 @@ function SWEP:ModifyBulletTable(bullet)
 		bullet.Tracer = 0
 	end
 end
+
+local replace = {
+	[ACT_VM_DRAW] = ACT_VM_DRAW_SILENCED,
+	[ACT_VM_PRIMARYATTACK] = ACT_VM_PRIMARYATTACK_SILENCED,
+	[ACT_VM_IDLE] = ACT_VM_IDLE_SILENCED,
+	[ACT_VM_RELOAD] = ACT_VM_RELOAD_SILENCED
+}
 
 function SWEP:TranslateWeaponAnim(act)
 	if self:GetSuppressed() then
@@ -120,6 +120,19 @@ end
 
 function SWEP:FireAnimationEvent(_, _, event)
 	if self:GetSuppressed() and (event == 5001 or event == 5003) then
+		return true
+	end
+
+	if CLIENT and (event == 5001 or event == 5011 or event == 5021 or event == 5031) then
+		local data = EffectData()
+
+		data:SetFlags(0)
+		data:SetEntity(self:GetOwner():GetViewModel())
+		data:SetAttachment(math.floor((event - 4991) / 10))
+		data:SetScale(1)
+
+		util.Effect(self.CSMuzzleX and "CS_MuzzleFlash_X" or "CS_MuzzleFlash", data)
+
 		return true
 	end
 end

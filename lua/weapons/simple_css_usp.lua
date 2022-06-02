@@ -107,8 +107,13 @@ end
 
 if CLIENT then
 	function SWEP:DrawWorldModel(flags)
-		self.WorldModel = self:GetSuppressed() and "models/weapons/w_pist_usp_silencer.mdl" or "models/weapons/w_pist_usp.mdl"
+		self:SetModel(self:GetSuppressed() and "models/weapons/w_pist_usp_silencer.mdl" or "models/weapons/w_pist_usp.mdl")
 
 		BaseClass.DrawWorldModel(self, flags)
 	end
+
+	function SWEP:DrawWorldModelTranslucent(flags)
+		self:DrawWorldModel(flags)
+	end
+end
 end

@@ -42,3 +42,7 @@ function SWEP:GetFOV()
 
 	return self:GetOwner():GetInfo("fov_desired") / self.Zoom
 end
+
+function SWEP:GetViewModel(index)
+	return self:GetOwner():GetViewModel()
+end

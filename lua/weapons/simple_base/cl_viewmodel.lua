@@ -21,12 +21,10 @@ function SWEP:GetViewModelPosition(pos, ang)
 	local ply = self:GetOwner()
 
 	if IsValid(ply) then
-		local fov = ply:GetFOV()
-		local ratio = math.min(self.ViewModelFOV / fov, fov / self.ViewModelFOV)
+		local const = math.pi / 360
+		local ratio = math.tan(ply:GetFOV() * const) / math.tan(self.ViewModelFOV * const)
 
-		local recoil = self.Primary.Recoil
-
-		ang = ang + ply:GetViewPunchAngles() * ratio * recoil.Ratio
+		ang = ang + ply:GetViewPunchAngles() * ratio * self.Primary.Recoil.Ratio
 	end
 
 	return pos, ang

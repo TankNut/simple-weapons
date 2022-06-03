@@ -4,10 +4,12 @@ simple_weapons.Include("Helpers")
 
 SWEP.Base = "simple_base"
 
-SWEP.PrintName = "TMP"
+SWEP.PrintName = "M249"
 SWEP.Category = "Simple Weapons: Counter-Strike: Source"
 
-SWEP.Slot = 2
+SWEP.CSMuzzleFlashes = true
+
+SWEP.Slot = 3
 
 SWEP.Spawnable = true
 
@@ -15,10 +17,10 @@ SWEP.UseHands = true
 
 SWEP.ViewModelTargetFOV = 54
 
-SWEP.ViewModel = Model("models/weapons/cstrike/c_smg_tmp.mdl")
-SWEP.WorldModel = Model("models/weapons/w_smg_tmp.mdl")
+SWEP.ViewModel = Model("models/weapons/cstrike/c_mach_m249para.mdl")
+SWEP.WorldModel = Model("models/weapons/w_mach_m249para.mdl")
 
-SWEP.HoldType = "smg"
+SWEP.HoldType = "ar2"
 SWEP.LowerHoldType = "passive"
 
 SWEP.Firemode = -1
@@ -26,13 +28,13 @@ SWEP.Firemode = -1
 SWEP.LowerTime = 0.4
 
 SWEP.Primary = {
-	Ammo = "SMG1",
+	Ammo = "AR2",
 
-	ClipSize = 30,
-	DefaultClip = 30,
+	ClipSize = 100,
+	DefaultClip = 100,
 
-	Damage = 8,
-	Delay = 60 / 857,
+	Damage = 4,
+	Delay = 60 / 750,
 
 	Spread = Spread(500),
 
@@ -43,14 +45,8 @@ SWEP.Primary = {
 		Ratio = 0.6
 	},
 
-	Sound = "Weapon_TMP.Single",
-	TracerName = ""
+	Sound = "Weapon_M249.Single",
+	TracerName = "Tracer"
 }
 
 SWEP.Zoom = 1.2
-
-function SWEP:FireAnimationEvent(_, _, event)
-	if event == 5001 or event == 5003 then
-		return true
-	end
-end

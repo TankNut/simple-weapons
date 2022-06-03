@@ -4,8 +4,10 @@ simple_weapons.Include("Helpers")
 
 SWEP.Base = "simple_base"
 
-SWEP.PrintName = "TMP"
+SWEP.PrintName = "P90"
 SWEP.Category = "Simple Weapons: Counter-Strike: Source"
+
+SWEP.CSMuzzleFlashes = true
 
 SWEP.Slot = 2
 
@@ -15,8 +17,8 @@ SWEP.UseHands = true
 
 SWEP.ViewModelTargetFOV = 54
 
-SWEP.ViewModel = Model("models/weapons/cstrike/c_smg_tmp.mdl")
-SWEP.WorldModel = Model("models/weapons/w_smg_tmp.mdl")
+SWEP.ViewModel = Model("models/weapons/cstrike/c_smg_p90.mdl")
+SWEP.WorldModel = Model("models/weapons/w_smg_p90.mdl")
 
 SWEP.HoldType = "smg"
 SWEP.LowerHoldType = "passive"
@@ -28,10 +30,10 @@ SWEP.LowerTime = 0.4
 SWEP.Primary = {
 	Ammo = "SMG1",
 
-	ClipSize = 30,
-	DefaultClip = 30,
+	ClipSize = 50,
+	DefaultClip = 50,
 
-	Damage = 8,
+	Damage = 4,
 	Delay = 60 / 857,
 
 	Spread = Spread(500),
@@ -43,14 +45,8 @@ SWEP.Primary = {
 		Ratio = 0.6
 	},
 
-	Sound = "Weapon_TMP.Single",
-	TracerName = ""
+	Sound = "Weapon_P90.Single",
+	TracerName = "Tracer"
 }
 
 SWEP.Zoom = 1.2
-
-function SWEP:FireAnimationEvent(_, _, event)
-	if event == 5001 or event == 5003 then
-		return true
-	end
-end

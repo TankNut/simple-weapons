@@ -175,6 +175,12 @@ function SWEP:GetDelay(firemode)
 		end
 	end
 
+	local delay = self.Primary.Delay
+
+	if delay == -1 then
+		delay = self:SequenceDuration()
+	end
+
 	return self.Primary.Delay
 end
 
@@ -218,9 +224,9 @@ function SWEP:PrimaryAttack()
 		end
 	end
 
-	local delay = self:GetDelay(firemode)
-
 	self:FireWeapon()
+
+	local delay = self:GetDelay(firemode)
 
 	if ply:IsPlayer() then
 		local command = ply:GetCurrentCommand()
@@ -246,12 +252,6 @@ function SWEP:PrimaryAttack()
 	end
 
 	self:SetLastFire(CurTime())
-
-	local duration = self:SequenceDuration()
-
-	if delay == -1 then
-		delay = duration
-	end
 
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
 	self:SetNextPrimaryFire(CurTime() + delay)

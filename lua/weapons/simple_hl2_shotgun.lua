@@ -34,7 +34,7 @@ SWEP.Primary = {
 	PumpAction = true,
 	PumpSound = "Weapon_Shotgun.Special1",
 
-	Damage = 8,
+	Damage = 17,
 	Count = 7,
 
 	Delay = -1,

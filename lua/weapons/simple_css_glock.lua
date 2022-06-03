@@ -33,7 +33,7 @@ SWEP.Primary = {
 	ClipSize = 20,
 	DefaultClip = 20,
 
-	Damage = 5,
+	Damage = 16,
 	Delay = 60 / 400,
 	BurstDelay = 60 / 1200,
 	BurstEndDelay = 0.4,

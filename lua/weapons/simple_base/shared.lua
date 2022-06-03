@@ -351,10 +351,8 @@ if CLIENT then
 			return 1
 		end
 
-		local ply = self:GetOwner()
-
-		local desired = ply:GetInfo("fov_desired")
-		local fov = ply:GetFOV()
+		local desired = self:GetOwnerDefaultFOV()
+		local fov = self:GetOwner():GetFOV()
 
 		return fov / desired
 	end
@@ -367,7 +365,7 @@ function SWEP:TranslateFOV(fov)
 		return fov
 	end
 
-	local desired = self:GetOwner():GetInfo("fov_desired")
+	local desired = self:GetOwnerDefaultFOV()
 
 	self.ViewModelFOV = self.ViewModelTargetFOV + (desired - fov) * 0.6
 

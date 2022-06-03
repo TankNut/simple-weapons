@@ -109,7 +109,7 @@ function SWEP:GetFOV()
 		return 0
 	end
 
-	local desired = self:GetOwner():GetInfo("fov_desired")
+	local desired = self:GetOwnerDefaultFOV()
 
 	return self:GetInScope() and desired / self.ScopeZoom or desired / self.Zoom
 end

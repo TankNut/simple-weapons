@@ -35,12 +35,16 @@ function SWEP:HasCameraControl()
 	return ply:GetViewEntity() == ply
 end
 
+function SWEP:GetOwnerDefaultFOV()
+	return self:GetOwner():GetInfoNum("fov_desired", 75)
+end
+
 function SWEP:GetFOV()
 	if self:GetLowered() then
 		return 0
 	end
 
-	return self:GetOwner():GetInfo("fov_desired") / self.Zoom
+	return self:GetOwnerDefaultFOV() / self.Zoom
 end
 
 function SWEP:GetViewModel(index)

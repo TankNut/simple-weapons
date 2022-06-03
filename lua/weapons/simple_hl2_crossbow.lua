@@ -41,10 +41,6 @@ SWEP.Primary = {
 		MaxAng = Angle(2, 0.3, 0),
 		Punch = 0.2,
 		Ratio = 0.6
-	},
-
-	Reload = {
-		Sound = "Weapon_Crossbow.Reload"
 	}
 }
 
@@ -143,14 +139,9 @@ function SWEP:AlternateAttack()
 	self:SetScope(not self:GetInScope())
 end
 
-
-local replace = {
-	[ACT_VM_IDLE] = ACT_VM_FIDGET
-}
-
 function SWEP:TranslateWeaponAnim(act)
-	if self:Clip1() == 0 then
-		return replace[act] or act
+	if self:Clip1() == 0 and act == ACT_VM_IDLE then
+		return ACT_VM_FIDGET
 	end
 
 	return act

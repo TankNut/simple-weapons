@@ -181,7 +181,7 @@ function SWEP:GetDelay(firemode)
 		delay = self:SequenceDuration()
 	end
 
-	return self.Primary.Delay
+	return delay
 end
 
 local convar_infinite = simple_weapons.Convars.InfiniteAmmo

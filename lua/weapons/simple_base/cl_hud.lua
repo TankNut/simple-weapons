@@ -1,3 +1,3 @@
 function SWEP:DoDrawCrosshair(x, y)
-	return self:GetLowered()
+	return self:GetLowered() or self:IsReloading()
 end

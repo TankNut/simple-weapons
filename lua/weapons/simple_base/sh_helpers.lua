@@ -64,5 +64,9 @@ function SWEP:GetViewModel(index)
 end
 
 function SWEP:GetRecoilMultiplier()
+	if self:GetFiremode() > 0 then
+		return 1 / self:GetZoom() / self:GetFiremode()
+	end
+
 	return 1 / self:GetZoom()
 end

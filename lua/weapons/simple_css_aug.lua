@@ -1,10 +1,8 @@
 AddCSLuaFile()
 
-DEFINE_BASECLASS("simple_base")
-
 simple_weapons.Include("Helpers")
 
-SWEP.Base = "simple_base"
+SWEP.Base = "simple_base_scoped"
 
 SWEP.PrintName = "AUG"
 SWEP.Category = "Simple Weapons: Counter-Strike: Source"
@@ -52,60 +50,8 @@ SWEP.Primary = {
 
 SWEP.Zoom = 1.5
 SWEP.ScopeZoom = 3
-
-function SWEP:SetupDataTables()
-	BaseClass.SetupDataTables(self)
-
-	self:NetworkVar("Bool", 4, "InScope")
-end
-
-function SWEP:OnDeploy()
-	BaseClass.OnDeploy(self)
-
-	self:SetInScope(false)
-end
-
-function SWEP:OnHolster(removing)
-	BaseClass.OnHolster(self, removing)
-
-	self:SetInScope(false)
-end
+SWEP.ScopeSound = "Default.Zoom"
 
 function SWEP:GetDelay(firemode)
 	return self:GetInScope() and 60 / 429 or 60 / 666
-end
-
-function SWEP:GetFOV()
-	if self:GetLowered() then
-		return 0
-	end
-
-	local desired = self:GetOwnerDefaultFOV()
-
-	return self:GetInScope() and desired / self.ScopeZoom or desired / self.Zoom
-end
-
-function SWEP:SetScope(bool)
-	if self:GetInScope() == bool then
-		return
-	end
-
-	self:SetInScope(bool)
-
-	self:GetOwner():SetFOV(self:GetFOV(), 0.2, self)
-	self:EmitSound("Default.Zoom")
-end
-
-function SWEP:CanAlternateAttack()
-	if self:GetLowered() then
-		return false
-	end
-
-	return BaseClass.CanAlternateAttack(self)
-end
-
-function SWEP:AlternateAttack()
-	self.Primary.Automatic = false
-
-	self:SetScope(not self:GetInScope())
 end

@@ -1,10 +1,10 @@
 AddCSLuaFile()
 
-DEFINE_BASECLASS("simple_base")
+DEFINE_BASECLASS("simple_base_scoped")
 
 simple_weapons.Include("Helpers")
 
-SWEP.Base = "simple_base"
+SWEP.Base = "simple_base_scoped"
 
 SWEP.PrintName = "Crossbow"
 SWEP.Category = "Simple Weapons: Half-Life 2"
@@ -47,26 +47,12 @@ SWEP.Primary = {
 SWEP.Zoom = 2
 SWEP.ScopeZoom = 4.5
 
-function SWEP:SetupDataTables()
-	BaseClass.SetupDataTables(self)
-
-	self:NetworkVar("Bool", 4, "InScope")
-end
-
 function SWEP:OnDeploy()
 	BaseClass.OnDeploy(self)
-
-	self:SetInScope(false)
 
 	if self:Clip1() > 0 then
 		self:GetViewModel():SetSkin(1)
 	end
-end
-
-function SWEP:OnHolster(removing)
-	BaseClass.OnHolster(self, removing)
-
-	self:SetInScope(false)
 end
 
 function SWEP:EmitFireSound()
@@ -102,41 +88,6 @@ function SWEP:FireWeapon()
 	end
 
 	self:GetViewModel():SetSkin(0)
-end
-
-function SWEP:GetFOV()
-	if self:GetLowered() then
-		return 0
-	end
-
-	local desired = self:GetOwnerDefaultFOV()
-
-	return self:GetInScope() and desired / self.ScopeZoom or desired / self.Zoom
-end
-
-function SWEP:SetScope(bool)
-	if self:GetInScope() == bool then
-		return
-	end
-
-	self:SetInScope(bool)
-
-	self:GetOwner():SetFOV(self:GetFOV(), 0.2, self)
-	--self:EmitSound("Default.Zoom") CS:S content so we can't use it
-end
-
-function SWEP:CanAlternateAttack()
-	if self:GetLowered() then
-		return false
-	end
-
-	return BaseClass.CanAlternateAttack(self)
-end
-
-function SWEP:AlternateAttack()
-	self.Primary.Automatic = false
-
-	self:SetScope(not self:GetInScope())
 end
 
 function SWEP:TranslateWeaponAnim(act)

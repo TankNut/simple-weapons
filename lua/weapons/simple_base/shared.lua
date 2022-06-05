@@ -227,18 +227,7 @@ function SWEP:PrimaryAttack()
 	local delay = self:GetDelay(firemode)
 
 	if ply:IsPlayer() then
-		local command = ply:GetCurrentCommand()
-
-		local recoil = self.Primary.Recoil
-
-		local pitch = -util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "1", recoil.MinAng.p, recoil.MaxAng.p)
-		local yaw = util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "2", recoil.MinAng.y, recoil.MaxAng.y)
-
-		if game.SinglePlayer() or (CLIENT and IsFirstTimePredicted()) then
-			ply:SetEyeAngles(ply:EyeAngles() + Angle(pitch, yaw, 0) * recoil.Punch)
-		end
-
-		ply:ViewPunch(Angle(pitch, yaw, 0))
+		self:ApplyRecoil(ply)
 	end
 
 	if convar_infinite:GetInt() != 2 then
@@ -256,6 +245,22 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:AlternateAttack()
+end
+
+function SWEP:ApplyRecoil(ply)
+	local command = ply:GetCurrentCommand()
+
+	local recoil = self.Primary.Recoil
+	local mult = self:GetRecoilMultiplier()
+
+	local pitch = -util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "1", recoil.MinAng.p, recoil.MaxAng.p) * mult
+	local yaw = util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "2", recoil.MinAng.y, recoil.MaxAng.y) * mult
+
+	if game.SinglePlayer() or (CLIENT and IsFirstTimePredicted()) then
+		ply:SetEyeAngles(ply:EyeAngles() + Angle(pitch, yaw, 0) * recoil.Punch)
+	end
+
+	ply:ViewPunch(Angle(pitch, yaw, 0))
 end
 
 function SWEP:EmitFireSound()

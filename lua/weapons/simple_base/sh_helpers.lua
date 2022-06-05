@@ -62,3 +62,7 @@ end
 function SWEP:GetViewModel(index)
 	return self:GetOwner():GetViewModel()
 end
+
+function SWEP:GetRecoilMultiplier()
+	return 1
+end

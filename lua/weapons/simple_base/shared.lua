@@ -112,7 +112,7 @@ function SWEP:OnHolster(removing)
 	self:SetAbortReload(false)
 	self:SetFinishReload(0)
 
-	self:GetOwner():SetFOV(0, 0.1, self)
+	self:UpdateFOV(0.1, true)
 end
 
 function SWEP:SetLower(lower)
@@ -126,9 +126,7 @@ function SWEP:SetLower(lower)
 
 		self:SetHoldType(lower and self.LowerHoldType or self.HoldType)
 
-		local ply = self:GetOwner()
-
-		ply:SetFOV(self:GetFOV(), self.LowerTime, self)
+		self:UpdateFOV(self.LowerTime)
 	end
 
 	self.Primary.Automatic = true
@@ -352,7 +350,7 @@ if CLIENT then
 		end
 
 		local desired = self:GetOwnerDefaultFOV()
-		local fov = self:GetOwner():GetFOV()
+		local fov = self:GetFOV()
 
 		return fov / desired
 	end

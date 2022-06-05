@@ -39,12 +39,24 @@ function SWEP:GetOwnerDefaultFOV()
 	return self:GetOwner():GetInfoNum("fov_desired", 75)
 end
 
-function SWEP:GetFOV()
+function SWEP:GetZoom()
 	if self:GetLowered() then
-		return 0
+		return 1
 	end
 
-	return self:GetOwnerDefaultFOV() / self.Zoom
+	return self.Zoom
+end
+
+function SWEP:GetTargetFOV()
+	return self:GetOwnerDefaultFOV() / self:GetZoom()
+end
+
+function SWEP:UpdateFOV(time, reset)
+	self:GetOwner():SetFOV(reset and 0 or self:GetTargetFOV(), time, self)
+end
+
+function SWEP:GetFOV()
+	return self:GetOwner():GetFOV()
 end
 
 function SWEP:GetViewModel(index)

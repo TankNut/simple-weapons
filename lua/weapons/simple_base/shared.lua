@@ -1,5 +1,7 @@
 AddCSLuaFile()
 
+simple_weapons.Include("Convars")
+
 SWEP.Base = "weapon_base"
 
 SWEP.m_WeaponDeploySpeed = 1
@@ -251,7 +253,7 @@ function SWEP:ApplyRecoil(ply)
 	local command = ply:GetCurrentCommand()
 
 	local recoil = self.Primary.Recoil
-	local mult = self:GetRecoilMultiplier()
+	local mult = self:GetRecoilMultiplier() * RecoilMult:GetFloat()
 
 	local pitch = -util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "1", recoil.MinAng.p, recoil.MaxAng.p) * mult
 	local yaw = util.SharedRandom(self:EntIndex() .. command:CommandNumber() .. "2", recoil.MinAng.y, recoil.MaxAng.y) * mult
@@ -280,7 +282,7 @@ function SWEP:FireWeapon()
 
 	ply:SetAnimation(PLAYER_ATTACK1)
 
-	local spread = Vector(math.rad(primary.Spread.x) * 0.5, math.rad(primary.Spread.y), 0)
+	local spread = Vector(math.rad(primary.Spread.x) * 0.5, math.rad(primary.Spread.y), 0) * SpreadMult:GetFloat()
 
 	local bullet = {
 		Num = primary.Count,
@@ -290,7 +292,7 @@ function SWEP:FireWeapon()
 		TracerName = primary.TracerName,
 		Tracer = primary.TracerName == "" and 0 or 1,
 		Force = 5,
-		Damage = primary.Damage
+		Damage = primary.Damage * DamageMult:GetFloat()
 	}
 
 	self:ModifyBulletTable(bullet)

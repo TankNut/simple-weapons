@@ -4,6 +4,10 @@ module("simple_weapons.Convars", package.seeall)
 
 InfiniteAmmo = CreateConVar("simple_weapons_infinite_ammo", 0, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Ammo mode to use for weapons. 0 = standard behavior, 1 = infinite reserves, 2 = bottomless magazines", 0, 2)
 
+DamageMult = CreateConVar("simple_weapons_damage_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The damage modifier to use for weapons.", 0)
+SpreadMult = CreateConVar("simple_weapons_spread_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The accuracy modifier to use for weapons. Less = more accurate", 0)
+RecoilMult = CreateConVar("simple_weapons_recoil_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The recoil modifier to use for weapons.", 0)
+
 if CLIENT then
 	AltOffset = CreateClientConVar("simple_weapons_alt_offset", 0, true, false, "Use a slightly higher viewmodel position.", 0, 1)
 end

@@ -3,6 +3,7 @@ AddCSLuaFile()
 DEFINE_BASECLASS("simple_base_scoped")
 
 simple_weapons.Include("Helpers")
+simple_weapons.Include("Convars")
 
 SWEP.Base = "simple_base_scoped"
 
@@ -81,7 +82,7 @@ function SWEP:FireWeapon()
 		ent:SetOwner(ply)
 
 		ent:SetVelocity(dir * 3500)
-		ent:Fire("SetDamage", self.Primary.Damage)
+		ent:Fire("SetDamage", self.Primary.Damage * DamageMult:GetFloat())
 
 		ent:Spawn()
 		ent:Activate()

@@ -73,7 +73,6 @@ end
 include("sh_animations.lua")
 include("sh_fire.lua")
 include("sh_helpers.lua")
-include("sh_hooks.lua")
 include("sh_recoil.lua")
 include("sh_reload.lua")
 include("sh_view.lua")

@@ -7,10 +7,12 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 		local default = {
 			simple_weapons_vm_offset_x = 0,
 			simple_weapons_vm_offset_y = 0,
-			simple_weapons_vm_offset_z = 0
+			simple_weapons_vm_offset_z = 0,
 		}
 
 		pnl:AddControl("ComboBox", {MenuButton = 1, Folder = "simple_weapons_cl", Options = {["Default"] = default}, CVars = table.GetKeys(default)})
+
+		pnl:CheckBox("Auto reload when empty", "simple_weapons_auto_reload")
 
 		pnl:Help("Viewmodel Offset")
 

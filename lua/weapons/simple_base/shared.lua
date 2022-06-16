@@ -150,7 +150,12 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	if self.Primary.Ammo != -1 and self:Clip1() <= 0 then
-		self:EmitSound(")weapons/pistol/pistol_empty.wav", 75, 100, 0.7, CHAN_ITEM)
+		self:EmitSound(")weapons/pistol/pistol_empty.wav", 75, 100, 0.7, CHAN_STATIC)
+
+		if self:GetOwner():GetInfoNum("simple_weapons_auto_reload", 0) then
+			self:Reload()
+		end
+
 		self:SetNextPrimaryFire(CurTime() + 0.2)
 
 		self.Primary.Automatic = false

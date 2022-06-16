@@ -1,0 +1,13 @@
+{
+	"title": "Simple Weapons: Base",
+	"type":	"weapon",
+	"tags":	["fun", "roleplay"],
+	"ignore":
+	[
+		"*.bat",
+		"*.jpg",
+		"*.md",
+		".git*",
+		"LICENSE"
+	]
+}

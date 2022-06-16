@@ -5,7 +5,7 @@ Instead of trying to imitate something other people have already done a much bet
 
 Acting as the 'base', this addon includes accurate recreations of the original Half-Life 2 weapons, including a crossbow and RPG that fire the exact same projectiles as their vanilla counterparts.
 
-### [Workshop link]()
+### [Workshop link](https://steamcommunity.com/sharedfiles/filedetails/?id=2821862386)
 
 ## Addon packs
 * [CS:S Weapons](https://github.com/TankNut/simple-weapons-css)
@@ -15,7 +15,7 @@ Acting as the 'base', this addon includes accurate recreations of the original H
 * DarkRP-style raise/lower system
 * A simplified recoil system inspired by counter-strike
 * Easy configurability through the spawnmenu
-* The ability to configure multipliers for damage, recoil and weapon spread
+* The ability to configure multipliers for damage, spread and recoil
 * Built-in support for infinite ammo (both 'infinite reserves' and bottomless magazines)
 ### For developers:
 * Minimal amounts of configuration required per weapon
@@ -30,3 +30,6 @@ Features that may or may not be coming somewhere down the line
 * 'proper' scopes for snipers (reticle)
 * Custom crosshairs
 * TTT support
+* NPC support
+* SMG grenades
+* AR2 alt-fire

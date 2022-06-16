@@ -53,6 +53,6 @@ SWEP.Zoom = 1.5
 SWEP.ScopeZoom = 3
 SWEP.ScopeSound = "Default.Zoom"
 
-function SWEP:GetDelay(firemode)
+function SWEP:GetDelay()
 	return self:GetInScope() and 60 / 429 or 60 / 666
 end

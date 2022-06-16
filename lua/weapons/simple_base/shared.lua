@@ -182,7 +182,7 @@ function SWEP:PrimaryAttack()
 	self:UpdateAutomatic()
 	self:FireWeapon()
 
-	local delay = self:GetDelay(firemode)
+	local delay = self:GetDelay()
 
 	if ply:IsPlayer() then
 		self:ApplyRecoil(ply)
@@ -192,7 +192,7 @@ function SWEP:PrimaryAttack()
 		self:TakePrimaryAmmo(1)
 	end
 
-	if primary.PumpAction then
+	if self:ShouldPump() then
 		self:SetNeedPump(true)
 	end
 
@@ -238,7 +238,7 @@ end
 function SWEP:HandleBurst()
 	if self:GetBurstFired() > 0 and CurTime() > self:GetNextPrimaryFire() + engine.TickInterval() then
 		self:SetBurstFired(0)
-		self:SetNextPrimaryFire(CurTime() + self:GetDelay(self:GetFiremode()))
+		self:SetNextPrimaryFire(CurTime() + self:GetDelay())
 	end
 end
 

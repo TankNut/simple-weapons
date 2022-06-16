@@ -1,6 +1,10 @@
 AddCSLuaFile()
 
-function SWEP:GetDelay(firemode)
+simple_weapons.Include("Convars")
+
+function SWEP:GetDelay()
+	local firemode = self:GetFiremode()
+
 	-- Basic support for burst fire
 	if firemode > 0 then
 		if self:GetBurstFired() == 0 and self.Primary.BurstEndDelay != 0 then
@@ -90,4 +94,8 @@ function SWEP:CanAlternateAttack()
 end
 
 function SWEP:AlternateAttack()
+end
+
+function SWEP:ShouldPump()
+	return self.Primary.PumpAction
 end

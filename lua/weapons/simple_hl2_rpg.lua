@@ -79,7 +79,7 @@ function SWEP:AlternateAttack()
 		end
 	end
 
-	self:EmitSound("Weapon_SMG1.Special1")
+	self:EmitSound(self:GetDotEnabled() and "Weapon_RPG.LaserOn" or "Weapon_RPG.LaserOff")
 end
 
 if SERVER then

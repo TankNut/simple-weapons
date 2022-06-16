@@ -2,9 +2,6 @@ AddCSLuaFile()
 
 DEFINE_BASECLASS("simple_base_scoped")
 
-simple_weapons.Include("Helpers")
-simple_weapons.Include("Convars")
-
 SWEP.Base = "simple_base_scoped"
 
 SWEP.PrintName = "Crossbow"

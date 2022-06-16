@@ -41,7 +41,7 @@ SWEP.Primary = {
 	Recoil = {
 		MinAng = Angle(0.5, -0.3, 0),
 		MaxAng = Angle(0.7, 0.3, 0),
-		Punch = 0.4,
+		Punch = 0.6,
 		Ratio = 0.6
 	},
 

@@ -41,10 +41,10 @@ SWEP.Primary = {
 	Spread = Spread(700),
 
 	Recoil = {
-		MinAng = Angle(0.7, -0.3, 0),
-		MaxAng = Angle(1, 0.3, 0),
-		Punch = 0.2,
-		Ratio = 0.6
+		MinAng = Angle(1.4, -0.3, 0),
+		MaxAng = Angle(1.8, 0.3, 0),
+		Punch = 0.3,
+		Ratio = 0.4
 	},
 
 	TracerName = "Tracer"

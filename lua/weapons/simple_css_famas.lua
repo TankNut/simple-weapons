@@ -41,10 +41,10 @@ SWEP.Primary = {
 	Spread = Spread(500),
 
 	Recoil = {
-		MinAng = Angle(0.7, -0.3, 0),
-		MaxAng = Angle(1, 0.3, 0),
-		Punch = 0.2,
-		Ratio = 0.6
+		MinAng = Angle(1, -0.3, 0),
+		MaxAng = Angle(1.2, 0.3, 0),
+		Punch = 0.4,
+		Ratio = 0.4
 	},
 
 	Sound = "Weapon_FAMAS.Single",

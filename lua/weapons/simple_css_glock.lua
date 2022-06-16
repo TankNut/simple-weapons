@@ -41,9 +41,9 @@ SWEP.Primary = {
 	Spread = Spread(500),
 
 	Recoil = {
-		MinAng = Angle(0.7, -0.3, 0),
+		MinAng = Angle(0.9, -0.3, 0),
 		MaxAng = Angle(1, 0.3, 0),
-		Punch = 0.2,
+		Punch = 0.4,
 		Ratio = 0.6
 	},
 

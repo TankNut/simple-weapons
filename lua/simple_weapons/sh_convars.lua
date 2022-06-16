@@ -9,5 +9,7 @@ SpreadMult = CreateConVar("simple_weapons_spread_mult", 1, {FCVAR_ARCHIVE, FCVAR
 RecoilMult = CreateConVar("simple_weapons_recoil_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The recoil modifier to use for weapons.", 0)
 
 if CLIENT then
-	AltOffset = CreateClientConVar("simple_weapons_alt_offset", 0, true, false, "Use a slightly higher viewmodel position.", 0, 1)
+	VMOffsetX = CreateClientConVar("simple_weapons_vm_offset_x", 0, true, false, "Use a slightly higher viewmodel position.")
+	VMOffsetY = CreateClientConVar("simple_weapons_vm_offset_y", 0, true, false, "Use a slightly higher viewmodel position.")
+	VMOffsetZ = CreateClientConVar("simple_weapons_vm_offset_z", 0, true, false, "Use a slightly higher viewmodel position.")
 end

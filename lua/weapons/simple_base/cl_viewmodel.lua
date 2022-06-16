@@ -10,13 +10,11 @@ function SWEP:CalcView(ply, pos, ang, fov)
 	return pos, ang - ply:GetViewPunchAngles() * self.Primary.Recoil.Ratio, fov
 end
 
-local defaultOffset = Vector()
-local altOffset = Vector(0, 0, 1)
-
 function SWEP:GetViewModelPosition(pos, ang)
 	local fraction = self:GetEasedLowerFraction()
+	local offset = Vector(VMOffsetX:GetFloat(), VMOffsetY:GetFloat(), VMOffsetZ:GetFloat())
 
-	pos, ang = LocalToWorld(AltOffset:GetBool() and altOffset or defaultOffset, Angle(fraction * 15, 0, 0), pos, ang)
+	pos, ang = LocalToWorld(offset, Angle(fraction * 15, 0, 0), pos, ang)
 
 	local ply = self:GetOwner()
 

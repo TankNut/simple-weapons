@@ -53,6 +53,14 @@ function SWEP:StartReload()
 	self:SetNextIdle(CurTime() + duration)
 end
 
+function SWEP:HandleReload()
+	local reload = self:GetFinishReload()
+
+	if reload > 0 and reload <= CurTime() then
+		self:FinishReload()
+	end
+end
+
 function SWEP:FinishReload()
 	local primary = self.Primary
 	local reload = primary.Reload

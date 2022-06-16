@@ -82,7 +82,7 @@ function SWEP:FireWeapon()
 		ent:SetOwner(ply)
 
 		ent:SetVelocity(dir * 3500)
-		ent:Fire("SetDamage", self.Primary.Damage * DamageMult:GetFloat())
+		ent:Fire("SetDamage", self:GetDamage())
 
 		ent:Spawn()
 		ent:Activate()

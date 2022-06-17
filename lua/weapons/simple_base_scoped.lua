@@ -19,8 +19,8 @@ function SWEP:OnDeploy()
 	self:SetInScope(false)
 end
 
-function SWEP:OnHolster(removing)
-	BaseClass.OnHolster(self, removing)
+function SWEP:OnHolster(removing, ply)
+	BaseClass.OnHolster(self, removing, ply)
 
 	self:SetInScope(false)
 end

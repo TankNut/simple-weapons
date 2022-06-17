@@ -26,7 +26,7 @@ hook.Add("Think", "simple_base", function()
 
 		if not oldWeapon or oldWeapon != newWeapon then
 			if IsValid(oldWeapon) and oldWeapon.SimpleWeapon then
-				oldWeapon:OnHolster(false)
+				oldWeapon:OnHolster(false, ply)
 			end
 
 			if IsValid(newWeapon) and newWeapon.SimpleWeapon then

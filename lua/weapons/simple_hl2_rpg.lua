@@ -154,8 +154,8 @@ function SWEP:Think()
 	end
 end
 
-function SWEP:OnHolster(removing)
-	BaseClass.OnHolster(self, removing)
+function SWEP:OnHolster(removing, ply)
+	BaseClass.OnHolster(self, removing, ply)
 
 	if SERVER then
 		SafeRemoveEntity(self:GetDot())

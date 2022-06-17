@@ -106,7 +106,7 @@ function SWEP:OnDeploy()
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
 end
 
-function SWEP:OnHolster(removing)
+function SWEP:OnHolster(removing, ply)
 	self:SetLowered(true)
 	self:SetLowerTime(0)
 
@@ -114,7 +114,7 @@ function SWEP:OnHolster(removing)
 	self:SetAbortReload(false)
 	self:SetFinishReload(0)
 
-	self:UpdateFOV(0.1, true)
+	ply:SetFOV(0, 0.1, self)
 end
 
 function SWEP:SetLower(lower)
@@ -261,6 +261,6 @@ function SWEP:OnRemove()
 	local ply = self:GetOwner()
 
 	if IsValid(ply) and ply._ActiveWeapon == self then
-		self:OnHolster(true)
+		self:OnHolster(true, ply)
 	end
 end

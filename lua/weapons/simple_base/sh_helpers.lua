@@ -43,8 +43,8 @@ function SWEP:GetTargetFOV()
 	return self:GetOwnerDefaultFOV() / self:GetZoom()
 end
 
-function SWEP:UpdateFOV(time, reset)
-	self:GetOwner():SetFOV(reset and 0 or self:GetTargetFOV(), time, self)
+function SWEP:UpdateFOV(time)
+	self:GetOwner():SetFOV(self:GetTargetFOV(), time, self)
 end
 
 function SWEP:GetFOV()

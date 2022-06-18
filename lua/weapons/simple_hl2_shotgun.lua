@@ -23,8 +23,6 @@ SWEP.LowerHoldType = "passive"
 
 SWEP.Firemode = 0
 
-SWEP.LowerTime = 0.4
-
 SWEP.Primary = {
 	Ammo = "Buckshot",
 

@@ -18,8 +18,6 @@ SWEP.LowerHoldType = "passive"
 
 SWEP.Firemode = -1
 
-SWEP.LowerTime = 0.5
-
 SWEP.Primary.Ammo = ""
 
 SWEP.Primary.ClipSize = -1
@@ -128,7 +126,7 @@ function SWEP:SetLower(lower)
 
 		self:SetHoldType(lower and self.LowerHoldType or self.HoldType)
 
-		self:UpdateFOV(self.LowerTime)
+		self:UpdateFOV(ReadyTime:GetFloat())
 	end
 
 	self.Primary.Automatic = true

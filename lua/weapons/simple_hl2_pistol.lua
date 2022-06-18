@@ -23,8 +23,6 @@ SWEP.LowerHoldType = "normal"
 
 SWEP.Firemode = 0
 
-SWEP.LowerTime = 0.3
-
 SWEP.Primary = {
 	Ammo = "Pistol",
 

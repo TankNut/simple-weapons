@@ -1,11 +1,13 @@
 AddCSLuaFile()
 
+simple_weapons.Include("Convars")
+
 function SWEP:IsReady()
-	return CurTime() - self:GetLowerTime() >= self.LowerTime
+	return CurTime() - self:GetLowerTime() >= ReadyTime:GetFloat()
 end
 
 function SWEP:GetLowerFraction()
-	local frac = math.Clamp(math.Remap(CurTime() - self:GetLowerTime(), 0, self.LowerTime, 0, 1), 0, 1)
+	local frac = math.Clamp(math.Remap(CurTime() - self:GetLowerTime(), 0, ReadyTime:GetFloat(), 0, 1), 0, 1)
 
 	return self:GetLowered() and frac or 1 - frac
 end

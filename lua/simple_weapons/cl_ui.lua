@@ -4,11 +4,15 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 
 		pnl:Help("Client Settings. These settings save automatically.")
 
-		local default = {
-			simple_weapons_vm_offset_x = 0,
-			simple_weapons_vm_offset_y = 0,
-			simple_weapons_vm_offset_z = 0,
-		}
+		local default = {}
+
+		for _, v in pairs(simple_weapons.Convars) do
+			if TypeID(v) != TYPE_CONVAR or v:IsFlagSet(FCVAR_REPLICATED) then
+				continue
+			end
+
+			default[v:GetName()] = v:GetDefault()
+		end
 
 		pnl:AddControl("ComboBox", {MenuButton = 1, Folder = "simple_weapons_cl", Options = {["Default"] = default}, CVars = table.GetKeys(default)})
 
@@ -26,14 +30,19 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 
 		pnl:Help("Server Settings. These settings can only be changed by the person who created the game server through the main menu.")
 
-		local default = {
-			simple_weapons_infinite_ammo = 0,
-			simple_weapons_damage_mult = 1,
-			simple_weapons_spread_mult = 1,
-			simple_weapons_recoil_mult = 1
-		}
+		local default = {}
+
+		for _, v in pairs(simple_weapons.Convars) do
+			if TypeID(v) != TYPE_CONVAR then
+				continue
+			end
+
+			default[v:GetName()] = v:GetDefault()
+		end
 
 		pnl:AddControl("ComboBox", {MenuButton = 1, Folder = "simple_weapons_sv", Options = {["Default"] = default}, CVars = table.GetKeys(default)})
+
+		pnl:NumSlider("Ready time", "simple_weapons_ready_time", 0, 1, 1)
 
 		pnl:AddControl("ComboBox", {
 			Label = "Infinite Ammo",

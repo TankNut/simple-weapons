@@ -9,7 +9,7 @@ function SWEP:GetZoom()
 		return 1
 	end
 
-	return self.Zoom
+	return self:GetOwner():GetInfoNum("simple_weapons_zoom", 1.25)
 end
 
 function SWEP:TranslateFOV(fov)

@@ -42,8 +42,6 @@ SWEP.Primary = {
 	Sound = "Weapon_RPG.Single"
 }
 
-SWEP.Zoom = 1.5
-
 function SWEP:SetupDataTables()
 	BaseClass.SetupDataTables(self)
 

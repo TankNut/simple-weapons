@@ -30,7 +30,7 @@ function SWEP:GetZoom()
 		return 1
 	end
 
-	return self:GetInScope() and self.ScopeZoom or self.Zoom
+	return self:GetInScope() and self.ScopeZoom or self:GetOwner():GetInfoNum("simple_weapons_zoom", 1.25)
 end
 
 function SWEP:SetScope(bool)

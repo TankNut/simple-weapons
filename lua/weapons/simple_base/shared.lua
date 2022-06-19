@@ -57,8 +57,6 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = 0
 SWEP.Secondary.Automatic = false
 
-SWEP.Zoom = 1
-
 SWEP.DefaultAmmo = "Default"
 SWEP.AmmoTypes = {}
 

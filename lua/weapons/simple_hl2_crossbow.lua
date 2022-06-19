@@ -40,7 +40,6 @@ SWEP.Primary = {
 	}
 }
 
-SWEP.Zoom = 2
 SWEP.ScopeZoom = 4.5
 
 function SWEP:OnDeploy()

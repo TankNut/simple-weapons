@@ -10,19 +10,19 @@ SWEP.ScopeSound = ""
 function SWEP:SetupDataTables()
 	BaseClass.SetupDataTables(self)
 
-	self:NetworkVar("Bool", 4, "InScope")
+	self:NetworkVar("Int", 2, "ScopeIndex")
 end
 
 function SWEP:OnDeploy()
 	BaseClass.OnDeploy(self)
 
-	self:SetInScope(false)
+	self:SetScopeIndex(0)
 end
 
 function SWEP:OnHolster(removing, ply)
 	BaseClass.OnHolster(self, removing, ply)
 
-	self:SetInScope(false)
+	self:SetScopeIndex(0)
 end
 
 function SWEP:GetZoom()
@@ -30,15 +30,25 @@ function SWEP:GetZoom()
 		return 1
 	end
 
-	return self:GetInScope() and self.ScopeZoom or self:GetOwner():GetInfoNum("simple_weapons_zoom", 1.25)
+	local index = self:GetScopeIndex()
+
+	if index == 0 then
+		return self:GetOwner():GetInfoNum("simple_weapons_zoom", 1.25)
+	else
+		return istable(self.ScopeZoom) and self.ScopeZoom[index] or self.ScopeZoom
+	end
 end
 
-function SWEP:SetScope(bool)
-	if self:GetInScope() == bool then
-		return
+function SWEP:CycleScope()
+	local index = self:GetScopeIndex()
+
+	if istable(self.ScopeZoom) then
+		index = (index + 1) % (#self.ScopeZoom + 1)
+	else
+		index = math.abs(index - 1)
 	end
 
-	self:SetInScope(bool)
+	self:SetScopeIndex(index)
 
 	self:UpdateFOV(0.2)
 
@@ -58,5 +68,5 @@ end
 function SWEP:AlternateAttack()
 	self.Primary.Automatic = false
 
-	self:SetScope(not self:GetInScope())
+	self:CycleScope()
 end

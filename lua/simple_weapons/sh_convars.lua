@@ -6,6 +6,8 @@ ReadyTime = CreateConVar("simple_weapons_ready_time", 0.4, {FCVAR_ARCHIVE, FCVAR
 
 InfiniteAmmo = CreateConVar("simple_weapons_infinite_ammo", 0, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Ammo mode to use for weapons. 0 = standard behavior, 1 = infinite reserves, 2 = bottomless magazines", 0, 2)
 
+LoweredReloads = CreateConVar("simple_weapons_lowered_reloads", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether weapons can be reloaded when lowered.", 0, 1)
+
 DamageMult = CreateConVar("simple_weapons_damage_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The damage modifier to use for weapons.", 0)
 SpreadMult = CreateConVar("simple_weapons_spread_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The accuracy modifier to use for weapons. Less = more accurate", 0)
 RecoilMult = CreateConVar("simple_weapons_recoil_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The recoil modifier to use for weapons.", 0)

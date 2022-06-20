@@ -113,8 +113,20 @@ function SWEP:OnHolster(removing, ply)
 	ply:SetFOV(0, 0.1, self)
 end
 
-function SWEP:SetLower(lower)
+function SWEP:CanLower()
 	if not self:IsReady() then
+		return false
+	end
+
+	if not LoweredReloads:GetBool() and self:IsReloading() then
+		return false
+	end
+
+	return true
+end
+
+function SWEP:SetLower(lower)
+	if not self:CanLower() then
 		return
 	end
 

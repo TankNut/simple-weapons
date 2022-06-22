@@ -64,9 +64,9 @@ function SWEP:GetDamageFalloff(distance)
 end
 
 function SWEP:GetSpread()
-	local range = self.Primary.Range * RangeMult:GetFloat()
+	local range = self.Primary.Accuracy * RangeMult:GetFloat()
 
-	local inches = self.Primary.Accuracy / 0.75
+	local inches = self.Primary.AccuracyRef / 0.75
 	local yards = (range / 0.75) / 36
 	local MOA = (inches * 100) / yards
 

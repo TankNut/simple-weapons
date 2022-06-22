@@ -32,7 +32,8 @@ SWEP.Primary.Count = 1
 SWEP.Primary.Spread = Vector(0, 0, 0)
 
 SWEP.Primary.Range = 1000
-SWEP.Primary.Accuracy = 12 -- Headshot size
+SWEP.Primary.Accuracy = 1000
+SWEP.Primary.AccuracyRef = 12 -- Headshot size
 
 SWEP.Primary.Delay = 0.1
 

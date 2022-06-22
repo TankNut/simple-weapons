@@ -47,6 +47,7 @@ function SWEP:DrawHUDBackground()
 	local dist = tr.Fraction * 56756
 	local damage = self:GetDamage()
 	local range = self.Primary.Range * RangeMult:GetFloat()
+	local accuracy = self.Primary.Accuracy * RangeMult:GetFloat()
 
 	self:DrawDebugText(string.format("Firemode: %s", self:GetFiremode()), -4)
 
@@ -54,7 +55,7 @@ function SWEP:DrawHUDBackground()
 
 	self:DrawDebugText(string.format("Weapon damage: %.2f (%.2fx)", damage, DamageMult:GetFloat()), 0)
 	self:DrawDebugText(string.format("Weapon range: %.0f units (%.2fx)", range, RangeMult:GetFloat()), 1)
-	self:DrawDebugText(string.format("Weapon spread: %.0f units", self.Primary.Accuracy), 2)
+	self:DrawDebugText(string.format("Weapon accuracy: %.0f units (%.2fx)", accuracy, RangeMult:GetFloat()), 2)
 
 	self:DrawDebugText(string.format("Aim distance: %.2f units (%.2fx)", dist, dist / range), 4)
 
@@ -70,7 +71,7 @@ function SWEP:DrawHUDBackground()
 
 	self:DrawDebugText(string.format("Approximate damage: %.2f (%.2f%%)", damage * falloff, falloff * 100), 5, col)
 
-	local spread = self.Primary.Accuracy * (dist / range)
+	local spread = self.Primary.AccuracyRef * (dist / accuracy)
 
 	col = color_red
 

@@ -47,8 +47,10 @@ SWEP.Primary = {
 	BurstDelay = 60 / 1200, -- Burst only: the delay between shots during a burst
 	BurstEndDelay = 0.4, -- Burst only: the delay added after a burst
 
-	Range = 750, -- The effective range of a weapon in units, use developer 1 in singleplayer for tools
-	Accuracy = 12, -- The accuracy of a weapon at Range, lower is less accurate (12 = headshots, 24 = bodyshots)
+	Range = 750, -- The range up to which a weapon does full damage, use developer 1 in singleplayer for tools
+
+	Accuracy = 750, -- The range at which the weapon is can hit a plate with a diameter of AccuracyRef units
+	AccuracyRef = 12, -- The reference value to use for the previous option, 12 = headshots, 24 = bodyshots
 
 	Recoil = {
 		MinAng = Angle(1, -0.3, 0), -- The minimum amount of recoil punch per shot

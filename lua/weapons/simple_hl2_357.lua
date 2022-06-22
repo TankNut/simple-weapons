@@ -1,7 +1,5 @@
 AddCSLuaFile()
 
-simple_weapons.Include("Helpers")
-
 SWEP.Base = "simple_base"
 
 SWEP.PrintName = ".357 Magnum"

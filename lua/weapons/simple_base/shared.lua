@@ -144,7 +144,9 @@ end
 
 function SWEP:CanPrimaryAttack()
 	if (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
-		self:SetLower(false)
+		if self:GetOwner():GetInfoNum("simple_weapons_disable_raise", 0) == 0 then
+			self:SetLower(false)
+		end
 
 		return false
 	end

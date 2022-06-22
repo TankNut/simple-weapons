@@ -13,6 +13,8 @@ SpreadMult = CreateConVar("simple_weapons_spread_mult", 1, {FCVAR_ARCHIVE, FCVAR
 RecoilMult = CreateConVar("simple_weapons_recoil_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The recoil modifier to use for weapons.", 0)
 
 if CLIENT then
+	NoAutoRaise = CreateClientConVar("simple_weapons_disable_raise", 0, true, true, "Disables left click raising your weapon.", 0, 1)
+
 	AimZoom = CreateClientConVar("simple_weapons_zoom", 1.25, true, true, "The amount of zoom to apply when raising a weapon.", 1, 1.5)
 
 	AutoReload = CreateClientConVar("simple_weapons_auto_reload", 1, true, true, "Whether weapons should automatically reload when you fire them.")

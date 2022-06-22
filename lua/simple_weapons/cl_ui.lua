@@ -16,6 +16,8 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 
 		pnl:AddControl("ComboBox", {MenuButton = 1, Folder = "simple_weapons_cl", Options = {["Default"] = default}, CVars = table.GetKeys(default)})
 
+		pnl:CheckBox("Disable left click raising", "simple_weapons_disable_raise")
+
 		pnl:NumSlider("Aim focus (zoom)", "simple_weapons_zoom", 1, 1.5, 2)
 
 		pnl:CheckBox("Auto reload when empty", "simple_weapons_auto_reload")

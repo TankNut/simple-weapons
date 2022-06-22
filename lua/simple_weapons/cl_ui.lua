@@ -22,6 +22,7 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 
 		pnl:CheckBox("Auto reload when empty", "simple_weapons_auto_reload")
 
+		pnl:Help("")
 		pnl:Help("Viewmodel Offset")
 
 		pnl:NumSlider("X offset (Forward)", "simple_weapons_vm_offset_x", -10, 10, 2)
@@ -62,7 +63,13 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 		})
 
 		pnl:NumSlider("Damage multiplier", "simple_weapons_damage_mult", 0.1, 4, 1)
-		pnl:NumSlider("Spread multiplier", "simple_weapons_spread_mult", 0, 4, 1)
+		pnl:NumSlider("Range multiplier", "simple_weapons_range_mult", 0, 4, 1)
 		pnl:NumSlider("Recoil multiplier", "simple_weapons_recoil_mult", 0, 2, 1)
+
+		pnl:Help("Weapons will always do at least this much damage regardless of the distance they're fired at.")
+		pnl:NumSlider("Minimum damage", "simple_weapons_min_damage", 0, 1, 2)
+
+		pnl:Help("The falloff distance determines how far a weapon can fire beyond it's normal range before it hits 0% damage (assuming minimum damage is set to 0)")
+		pnl:NumSlider("Falloff distance", "simple_weapons_damage_falloff", 0, 4, 2)
 	end)
 end)

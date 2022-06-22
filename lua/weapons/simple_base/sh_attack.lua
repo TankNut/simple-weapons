@@ -54,10 +54,25 @@ function SWEP:GetDamage()
 	return self.Primary.Damage * DamageMult:GetFloat()
 end
 
-function SWEP:GetSpread()
-	local spread = self.Primary.Spread
+function SWEP:GetDamageFalloff(distance)
+	local range = self.Primary.Range * RangeMult:GetFloat()
 
-	return Vector(math.rad(spread.x) * 0.5, math.rad(spread.y), 0) * SpreadMult:GetFloat()
+	local over = math.max(distance - range, 0)
+	local mult = range * FalloffDist:GetFloat()
+
+	return math.max(1 - (over / mult), MinDamage:GetFloat())
+end
+
+function SWEP:GetSpread()
+	local range = self.Primary.Range * RangeMult:GetFloat()
+
+	local inches = self.Primary.Accuracy / 0.75
+	local yards = (range / 0.75) / 36
+	local MOA = (inches * 100) / yards
+
+	local spread = math.rad(MOA / 60)
+
+	return Vector(spread * 0.5, spread, 0)
 end
 
 function SWEP:FireWeapon()
@@ -78,7 +93,10 @@ function SWEP:FireWeapon()
 		TracerName = primary.TracerName,
 		Tracer = primary.TracerName == "" and 0 or 1,
 		Force = 5,
-		Damage = self:GetDamage()
+		Damage = self:GetDamage(),
+		Callback = function(attacker, tr, dmginfo)
+			dmginfo:ScaleDamage(self:GetDamageFalloff(tr.StartPos:Distance(tr.HitPos)))
+		end
 	}
 
 	self:ModifyBulletTable(bullet)

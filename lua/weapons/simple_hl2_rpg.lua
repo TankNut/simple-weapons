@@ -135,7 +135,7 @@ function SWEP:Think()
 		local tr = util.TraceLine({
 			start = ply:GetShootPos(),
 			endpos = ply:GetShootPos() + ply:GetAimVector() * 56756,
-			mask = MASK_SHOT - CONTENTS_WINDOW,
+			mask = MASK_SHOT,
 			filter = ply
 		})
 

@@ -42,5 +42,4 @@ if CLIENT then
 end
 
 include("simple_weapons/sh_convars.lua")
-include("simple_weapons/sh_helpers.lua")
 include("simple_weapons/sh_hooks.lua")

@@ -9,7 +9,7 @@ InfiniteAmmo = CreateConVar("simple_weapons_infinite_ammo", 0, {FCVAR_ARCHIVE, F
 LoweredReloads = CreateConVar("simple_weapons_lowered_reloads", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether weapons can be reloaded when lowered.", 0, 1)
 
 MinDamage = CreateConVar("simple_weapons_min_damage", 0.2, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The minimum percentage of damage a weapon deals regardless of range.", 0, 1)
-FalloffDist = CreateConVar("simple_weapons_damage_falloff", 3, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "How far you can aim a weapon beyond it's range before it hits 0% damage.", 0)
+Falloff = CreateConVar("simple_weapons_falloff_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "How aggressively damage falloff applies.", 0)
 
 DamageMult = CreateConVar("simple_weapons_damage_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The damage modifier to use for weapons.", 0)
 RangeMult = CreateConVar("simple_weapons_range_mult", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The range modifier to use for weapons.", 0)

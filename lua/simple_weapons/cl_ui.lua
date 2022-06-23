@@ -69,7 +69,6 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 		pnl:Help("Weapons will always do at least this much damage regardless of the distance they're fired at.")
 		pnl:NumSlider("Minimum damage", "simple_weapons_min_damage", 0, 1, 2)
 
-		pnl:Help("The falloff distance determines how far a weapon can fire beyond it's normal range before it hits 0% damage (assuming minimum damage is set to 0)")
-		pnl:NumSlider("Falloff distance", "simple_weapons_damage_falloff", 0, 4, 2)
+		pnl:NumSlider("Damage falloff modifier", "simple_weapons_falloff_mult", 0.01, 10, 2)
 	end)
 end)

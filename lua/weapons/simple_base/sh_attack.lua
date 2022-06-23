@@ -55,18 +55,15 @@ function SWEP:GetDamage()
 end
 
 function SWEP:GetDamageFalloff(distance)
-	local range = self.Primary.Range * RangeMult:GetFloat()
+	local distMod = 1000 * Falloff:GetFloat()
 
-	local over = math.max(distance - range, 0)
-	local mult = range * FalloffDist:GetFloat()
-
-	return math.max(1 - (over / mult), MinDamage:GetFloat())
+	return math.max(self.Primary.RangeModifier ^ (distance / distMod), MinDamage:GetFloat())
 end
 
 function SWEP:GetSpread()
-	local range = self.Primary.Accuracy * RangeMult:GetFloat()
+	local range = self.Primary.Range * RangeMult:GetFloat()
 
-	local inches = self.Primary.AccuracyRef / 0.75
+	local inches = self.Primary.Accuracy / 0.75
 	local yards = (range / 0.75) / 36
 	local MOA = (inches * 100) / yards
 

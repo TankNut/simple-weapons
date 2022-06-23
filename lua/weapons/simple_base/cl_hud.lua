@@ -47,15 +47,15 @@ function SWEP:DrawHUDBackground()
 	local dist = tr.Fraction * 56756
 	local damage = self:GetDamage()
 	local range = self.Primary.Range * RangeMult:GetFloat()
-	local accuracy = self.Primary.Accuracy * RangeMult:GetFloat()
 
 	self:DrawDebugText(string.format("Firemode: %s", self:GetFiremode()), -4)
 
 	self:DrawDebugText(string.format("Recoil multiplier: %.2f", self:GetRecoilMultiplier()), -2)
 
 	self:DrawDebugText(string.format("Weapon damage: %.2f (%.2fx)", damage, DamageMult:GetFloat()), 0)
-	self:DrawDebugText(string.format("Weapon range: %.0f units (%.2fx)", range, RangeMult:GetFloat()), 1)
-	self:DrawDebugText(string.format("Weapon accuracy: %.0f units (%.2fx)", accuracy, RangeMult:GetFloat()), 2)
+	self:DrawDebugText(string.format("Damage falloff: %.2f", self.Primary.RangeModifier), 1)
+	self:DrawDebugText(string.format("Weapon range: %.0f at %.0f units (%.2fx)", self.Primary.Accuracy, range, RangeMult:GetFloat()), 2)
+
 
 	self:DrawDebugText(string.format("Aim distance: %.2f units (%.2fx)", dist, dist / range), 4)
 
@@ -63,15 +63,13 @@ function SWEP:DrawHUDBackground()
 
 	local col = color_white
 
-	if falloff >= 1 then
-		col = color_green
-	elseif falloff <= MinDamage:GetFloat() then
+	if falloff <= MinDamage:GetFloat() then
 		col = color_red
 	end
 
 	self:DrawDebugText(string.format("Approximate damage: %.2f (%.2f%%)", damage * falloff, falloff * 100), 5, col)
 
-	local spread = self.Primary.AccuracyRef * (dist / accuracy)
+	local spread = self.Primary.Accuracy * (dist / range)
 
 	col = color_red
 

@@ -132,7 +132,7 @@ end
 
 function SWEP:SetLower(lower)
 	if not self:CanLower() then
-		return
+		return false
 	end
 
 	if self:GetLowered() != lower then
@@ -145,6 +145,8 @@ function SWEP:SetLower(lower)
 	end
 
 	self.Primary.Automatic = true
+
+	return true
 end
 
 function SWEP:CanPrimaryAttack()

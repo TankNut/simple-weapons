@@ -25,7 +25,6 @@ Acting as the 'base', this addon includes accurate recreations of the original H
 
 ## TODO
 Features that may or may not be coming somewhere down the line
-* Melee weapons
 * Grenades
 * 'proper' scopes for snipers (reticle)
 * Custom crosshairs

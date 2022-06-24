@@ -279,3 +279,7 @@ function SWEP:OnRemove()
 		self:OnHolster(true, ply)
 	end
 end
+
+function SWEP:GetMovementSlow()
+	return self:GetLowerFraction()
+end

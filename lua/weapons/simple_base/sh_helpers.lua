@@ -6,25 +6,17 @@ function SWEP:IsReady()
 	return CurTime() - self:GetLowerTime() >= ReadyTime:GetFloat()
 end
 
-function SWEP:GetLowerFraction()
-	local frac = math.Clamp(math.Remap(CurTime() - self:GetLowerTime(), 0, ReadyTime:GetFloat(), 0, 1), 0, 1)
-
-	return self:GetLowered() and frac or 1 - frac
-end
-
 local easeIn = math.ease.InQuad
 local easeOut = math.ease.OutQuad
 
-function SWEP:GetEasedLowerFraction()
-	local fraction = self:GetLowerFraction()
+function SWEP:GetLowerFraction()
+	local frac = math.Clamp(math.Remap(CurTime() - self:GetLowerTime(), 0, ReadyTime:GetFloat(), 0, 1), 0, 1)
 
 	if self:GetLowered() then
-		fraction = easeOut(fraction)
+		return easeOut(frac)
 	else
-		fraction = easeIn(fraction)
+		return easeIn(1 - frac)
 	end
-
-	return fraction
 end
 
 function SWEP:HasCameraControl()

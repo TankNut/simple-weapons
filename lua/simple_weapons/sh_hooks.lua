@@ -7,7 +7,11 @@ hook.Add("SetupMove", "simple_base", function(ply, mv)
 		return
 	end
 
-	local fraction = weapon:GetEasedLowerFraction()
+	if not weapon.GetMovementSlow then
+		return
+	end
+
+	local fraction = weapon:GetMovementSlow()
 	local speed = math.Remap(fraction, 0, 1, ply:GetWalkSpeed(), mv:GetMaxClientSpeed())
 
 	mv:SetMaxClientSpeed(speed)

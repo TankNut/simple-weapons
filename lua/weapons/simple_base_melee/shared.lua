@@ -152,6 +152,10 @@ function SWEP:OnReloaded()
 end
 
 if CLIENT then
+	function SWEP:DoDrawCrosshair(x, y)
+		return self:GetLowered()
+	end
+
 	local easeIn = math.ease.InQuad
 	local easeOut = math.ease.OutQuad
 

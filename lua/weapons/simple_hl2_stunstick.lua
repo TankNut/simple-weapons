@@ -27,11 +27,11 @@ SWEP.Primary = {
 	ChargeTime = 0.4,
 
 	Light = {
-		Damage = 36,
+		Damage = 40,
 		DamageType = DMG_CLUB,
 
 		Range = 75,
-		Delay = 0.6,
+		Delay = 0.8,
 
 		Act = {ACT_VM_HITCENTER, ACT_VM_MISSCENTER},
 
@@ -79,27 +79,75 @@ end
 
 if CLIENT then
 	local vmGlow = Material("sprites/light_glow02_add_noz")
+	local vmGlow2 = Material("sprites/light_glow02_add")
+
 	local wmGlow = Material("effects/blueflare1")
+
+	local function translatefov(fov, pos, inverse)
+		local worldx = math.tan(LocalPlayer():GetFOV() * (math.pi / 360))
+		local viewx = math.tan(fov * (math.pi / 360))
+
+		local factor = Vector(worldx / viewx, worldx / viewx, 0)
+		local tmp = pos - EyePos()
+
+		local eye = EyeAngles()
+		local transformed = Vector(eye:Right():Dot(tmp), eye:Up():Dot(tmp), eye:Forward():Dot(tmp))
+
+		if inverse then
+			transformed.x = transformed.x / factor.x
+			transformed.y = transformed.y / factor.y
+		else
+			transformed.x = transformed.x * factor.x
+			transformed.y = transformed.y * factor.y
+		end
+
+		local out = (eye:Right() * transformed.x) + (eye:Up() * transformed.y) + (eye:Forward() * transformed.z)
+
+		return EyePos() + out
+	end
+
+	local exceptions = {
+		[1] = true,
+		[2] = true,
+		[9] = true
+	}
 
 	function SWEP:PostDrawViewModel(vm, weapon, ply)
 		if not self:GetLowered() then
-			cam.Start3D()
-				render.SetMaterial(vmGlow)
+			local att = vm:GetAttachment(vm:LookupAttachment("sparkrear"))
 
-				for i = 1, 18 do
-					local att = vm:GetAttachment(i)
+			render.SetMaterial(vmGlow2)
 
-					if att then
-						local size = math.Rand(4, 5)
+			local scale = math.Rand(4, 6)
 
-						vmGlow:SetFloat("$alpha", math.Rand(0.05, 0.5))
+			render.DrawSprite(translatefov(self.ViewModelFOV, att.Pos, true), scale, scale)
 
-						render.DrawSprite(att.Pos, size, size, color)
-					end
+			render.SetMaterial(vmGlow)
+
+			for i = 1, 9 do
+				if exceptions[i] then
+					continue
 				end
 
-				vmGlow:SetFloat("$alpha", 1)
-			cam.End3D()
+				att = vm:GetAttachment(vm:LookupAttachment("spark" .. i .. "a"))
+
+				if att then
+					vmGlow:SetFloat("$alpha", math.Rand(0.05, 0.5))
+
+					render.DrawSprite(translatefov(self.ViewModelFOV, att.Pos, true), 1, 1)
+				end
+
+				att = vm:GetAttachment(vm:LookupAttachment("spark" .. i .. "b"))
+
+				if att then
+					vmGlow:SetFloat("$alpha", math.Rand(0.05, 0.5))
+
+					render.DrawSprite(translatefov(self.ViewModelFOV, att.Pos, true), 1, 1)
+				end
+			end
+
+			vmGlow:SetFloat("$alpha", 1)
+			vmGlow2:SetFloat("$alpha", 1)
 		end
 	end
 

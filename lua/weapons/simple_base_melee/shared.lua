@@ -151,22 +151,22 @@ function SWEP:OnReloaded()
 	self:SetWeaponHoldType(self:GetHoldType())
 end
 
+local easeIn = math.ease.InQuad
+local easeOut = math.ease.OutQuad
+
+function SWEP:GetLowerFraction()
+	local frac = math.Clamp(math.Remap(CurTime() - self:GetLowerTime(), 0, ReadyTime:GetFloat(), 0, 1), 0, 1)
+
+	if self:GetLowered() then
+		return easeOut(frac)
+	else
+		return easeIn(1 - frac)
+	end
+end
+
 if CLIENT then
 	function SWEP:DoDrawCrosshair(x, y)
 		return self:GetLowered()
-	end
-
-	local easeIn = math.ease.InQuad
-	local easeOut = math.ease.OutQuad
-
-	function SWEP:GetLowerFraction()
-		local frac = math.Clamp(math.Remap(CurTime() - self:GetLowerTime(), 0, ReadyTime:GetFloat(), 0, 1), 0, 1)
-
-		if self:GetLowered() then
-			return easeOut(frac)
-		else
-			return easeIn(1 - frac)
-		end
 	end
 
 	local ease = math.ease.OutBack
@@ -189,5 +189,14 @@ if CLIENT then
 		end
 
 		return pos, ang
+	end
+end
+
+function SWEP:SetupMove(ply, mv)
+	local fraction = self:GetLowerFraction()
+	local speed = math.Remap(fraction, 0, 1, ply:GetWalkSpeed(), ply:GetRunSpeed())
+
+	if mv:GetForwardSpeed() <= 0 then
+		mv:SetMaxClientSpeed(speed)
 	end
 end

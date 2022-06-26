@@ -282,6 +282,9 @@ function SWEP:OnRemove()
 	end
 end
 
-function SWEP:GetMovementSlow()
-	return self:GetLowerFraction()
+function SWEP:SetupMove(ply, mv)
+	local fraction = self:GetLowerFraction()
+	local speed = math.Remap(fraction, 0, 1, ply:GetWalkSpeed(), ply:GetRunSpeed())
+
+	mv:SetMaxClientSpeed(speed)
 end

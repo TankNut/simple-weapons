@@ -11,7 +11,7 @@ hook.Add("SetupMove", "simple_base", function(ply, mv)
 		return
 	end
 
-	weapon.SetupMove(ply, mv)
+	weapon:SetupMove(ply, mv)
 end)
 
 hook.Add("Think", "simple_base", function()

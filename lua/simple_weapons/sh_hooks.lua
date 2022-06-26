@@ -1,6 +1,12 @@
 AddCSLuaFile()
 
+simple_weapons.Include("Convars")
+
 hook.Add("SetupMove", "simple_base", function(ply, mv)
+	if not LimitMovement:GetBool() then
+		return
+	end
+
 	local weapon = ply:GetActiveWeapon()
 
 	if not IsValid(weapon) or not weapon.SimpleWeapon then

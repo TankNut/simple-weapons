@@ -33,10 +33,10 @@ SWEP.Primary = {
 	Delay = 0.75,
 
 	Recoil = {
-		MinAng = Angle(4, -0.3, 0),
-		MaxAng = Angle(5, 0.3, 0),
+		MinAng = Angle(2, -0.3, 0),
+		MaxAng = Angle(3, 0.3, 0),
 		Punch = 0.2,
-		Ratio = 0.6
+		Ratio = 0.4
 	}
 }
 

@@ -49,6 +49,8 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 
 		pnl:NumSlider("Ready time", "simple_weapons_ready_time", 0, 1, 1)
 
+		pnl:CheckBox("Limit player movement", "simple_weapons_limit_movement")
+
 		pnl:CheckBox("Allow reloading while lowered", "simple_weapons_lowered_reloads")
 
 		pnl:AddControl("ComboBox", {

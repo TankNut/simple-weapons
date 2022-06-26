@@ -35,7 +35,7 @@ SWEP.Primary = {
 
 		Act = {ACT_VM_HITCENTER, ACT_VM_MISSCENTER},
 
-		Sound = {"Weapon_StunStick.Melee_HitWorld", "Weapon_StunStick.Swing"}
+		Sound = {"Weapon_StunStick.Melee_Hit", "Weapon_StunStick.Swing"}
 	},
 
 	Heavy = {

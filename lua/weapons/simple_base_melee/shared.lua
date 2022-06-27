@@ -90,7 +90,7 @@ function SWEP:IsReady()
 end
 
 function SWEP:CanLower()
-	return self:IsReady()
+	return self:IsReady() and self:GetChargeTime() == 0
 end
 
 function SWEP:SetLower(lower)

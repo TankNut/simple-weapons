@@ -41,11 +41,6 @@ function SWEP:GetDamage(heavy, trace)
 	return tab.Damage * DamageMult:GetFloat(), tab.DamageType
 end
 
-function SWEP:SetNextFire(time)
-	self:SetNextPrimaryFire(time)
-	self:SetNextSecondaryFire(time)
-end
-
 function SWEP:HandleCharge()
 	if game.SinglePlayer() and CLIENT then
 		return
@@ -220,7 +215,7 @@ function SWEP:GenericAttack(heavy)
 		delay = self:SequenceDuration()
 	end
 
-	self:SetNextFire(CurTime() + delay)
+	self:SetNextPrimaryFire(CurTime() + delay)
 
 	self.Primary.Automatic = true
 

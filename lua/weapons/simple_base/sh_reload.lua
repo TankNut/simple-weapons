@@ -114,4 +114,6 @@ function SWEP:FinishReload()
 		self:SetClip1(self:Clip1() + amount)
 		self:SetFinishReload(0)
 	end
+
+	primary.Automatic = true
 end

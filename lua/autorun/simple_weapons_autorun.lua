@@ -42,4 +42,6 @@ AddCSLuaFile("simple_weapons/cl_ui.lua")
 
 if CLIENT then
 	include("simple_weapons/cl_ui.lua")
+else
+	resource.AddWorkshop("2821862386")
 end

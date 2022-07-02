@@ -62,8 +62,7 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = 0
 SWEP.Secondary.Automatic = false
 
-SWEP.DefaultAmmo = "Default"
-SWEP.AmmoTypes = {}
+SWEP.ViewOffset = Vector()
 
 if CLIENT then
 	include("cl_hud.lua")

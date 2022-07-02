@@ -69,5 +69,7 @@ SWEP.Primary = {
 	TracerName = "Tracer" -- Tracer effect, leave blank for no tracer
 }
 
+SWEP.ViewOffset = Vector(0, 0, 0) -- Optional: Applies an offset to the viewmodel's position
+
 SWEP.ScopeZoom = {2, 6} -- Scope base only: A number (or table) containing the zoom levels the weapon can cycle through
 SWEP.ScopeSound = "Default.Zoom" -- Scope base only, optional: Sound to play when cycling through zoom levels

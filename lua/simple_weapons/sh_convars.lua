@@ -2,6 +2,8 @@ AddCSLuaFile()
 
 module("simple_weapons.Convars", package.seeall)
 
+ReplaceWeapons = CreateConVar("simple_weapons_replace_weapons", 0, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the default HL2 weapons should be replaced.", 0, 1)
+
 ReadyTime = CreateConVar("simple_weapons_ready_time", 0.4, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The amount of time it takes to raise/lower weapons.", 0)
 
 InfiniteAmmo = CreateConVar("simple_weapons_infinite_ammo", 0, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Ammo mode to use for weapons. 0 = standard behavior, 1 = infinite reserves, 2 = bottomless magazines", 0, 2)

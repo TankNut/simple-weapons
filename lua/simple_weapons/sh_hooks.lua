@@ -44,3 +44,61 @@ hook.Add("Think", "simple_base", function()
 		ply._LastActiveWeapon = newWeapon
 	end
 end)
+
+if SERVER then
+	local key = {
+		["weapon_crowbar"] = "simple_hl2_crowbar",
+		["weapon_stunstick"] = "simple_hl2_stunstick",
+		["weapon_pistol"] = "simple_hl2_pistol",
+		["weapon_357"] = "simple_hl2_357",
+		["weapon_smg1"] = "simple_hl2_smg1",
+		["weapon_ar2"] = "simple_hl2_ar2",
+		["weapon_shotgun"] = "simple_hl2_shotgun",
+		["weapon_crossbow"] = "simple_hl2_crossbow",
+		["weapon_frag"] = "simple_hl2_frag",
+		["weapon_rpg"] = "simple_hl2_rpg"
+	}
+
+	local isGiving = false
+
+	hook.Add("PlayerGiveSWEP", "simple_base", function(ply, weapon)
+		local replacement = key[weapon]
+
+		isGiving = ReplaceWeapons:GetBool() and replacement
+	end)
+
+	hook.Add("PlayerCanPickupWeapon", "simple_base", function(ply, weapon)
+		local replacement = key[weapon:GetClass()]
+
+		if weapon.IgnorePickup then -- For whatever reason, PlayerCanPickupWeapon is called multiple times if we return false, even when removing the original weapon
+			return false
+		end
+
+		if ReplaceWeapons:GetBool() and replacement then
+			local swep = weapons.Get(replacement)
+
+			local new = ply:Give(replacement)
+
+			if not isGiving and not IsValid(new) then
+				local amount = swep.Primary.DefaultClip
+
+				if swep.SimpleWeaponThrowing then
+					amount = 1
+				end
+
+				ply:GiveAmmo(amount, swep.Primary.Ammo)
+			end
+
+			weapon.IgnorePickup = true
+			weapon:Remove()
+
+			if isGiving then
+				ply:SelectWeapon(replacement)
+
+				isGiving = false
+			end
+
+			return false
+		end
+	end)
+end

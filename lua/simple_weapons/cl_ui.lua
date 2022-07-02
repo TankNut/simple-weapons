@@ -47,6 +47,8 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 
 		pnl:AddControl("ComboBox", {MenuButton = 1, Folder = "simple_weapons_sv", Options = {["Default"] = default}, CVars = table.GetKeys(default)})
 
+		pnl:CheckBox("Replace weapons", "simple_weapons_replace_weapons")
+
 		pnl:NumSlider("Ready time", "simple_weapons_ready_time", 0, 1, 1)
 
 		pnl:CheckBox("Limit player movement", "simple_weapons_limit_movement")

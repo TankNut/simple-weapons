@@ -11,6 +11,7 @@ SWEP.DrawWeaponInfoBox = false
 SWEP.ViewModelFOV = 54
 
 SWEP.SimpleWeapon = true
+SWEP.SimpleWeaponThrowing = true
 
 SWEP.HoldType = "grenade"
 SWEP.LowerHoldType = "normal"

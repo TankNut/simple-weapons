@@ -27,7 +27,7 @@ SWEP.Primary = {
 	Ammo = "XBowBolt",
 
 	ClipSize = 1,
-	DefaultClip = 1,
+	DefaultClip = 5,
 
 	Damage = 120,
 	Delay = 0.75,

@@ -52,9 +52,13 @@ if CLIENT then
 		end
 
 		for _, ply in ipairs(player.GetAll()) do
+			if ply:IsDormant() then
+				continue
+			end
+
 			local weapon = ply:GetActiveWeapon()
 
-			if not IsValid(weapon) or not weapon.SimpleWeapon then
+			if not IsValid(weapon) or weapon:IsDormant() or not weapon.SimpleWeapon then
 				continue
 			end
 

@@ -42,6 +42,10 @@ function SWEP:EmitReloadSound()
 	end
 end
 
+function SWEP:GetReloadTime()
+	return self.Primary.Reload.Time > 0 and self.Primary.Reload.Time or self:SequenceDuration()
+end
+
 function SWEP:StartReload()
 	local reload = self.Primary.Reload
 
@@ -57,7 +61,7 @@ function SWEP:StartReload()
 		self:EmitReloadSound()
 	end
 
-	local duration = self:SequenceDuration()
+	local duration = self:GetReloadTime()
 
 	self:SetFinishReload(CurTime() + duration)
 	self:SetNextIdle(CurTime() + duration)

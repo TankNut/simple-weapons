@@ -60,6 +60,7 @@ SWEP.Primary = {
 	},
 
 	Reload = {
+		Time = 0, -- Optional: The time it takes for the weapon to reload (only supports non-shotgun reloads, defaults to animation duration)
 		Amount = math.huge, -- Optional: Amount of ammo to reload per reload
 		Shotgun = false, -- Optional: Interruptable shotgun reloads
 		Sound = "Weapon_Pistol.Reload" -- Optional: Sound to play when starting a reload

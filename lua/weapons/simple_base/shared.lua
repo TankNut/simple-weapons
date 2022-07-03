@@ -49,6 +49,7 @@ SWEP.Primary.Recoil = {
 }
 
 SWEP.Primary.Reload = {
+	Time = 0,
 	Amount = math.huge,
 	Shotgun = false,
 	Sound = ""

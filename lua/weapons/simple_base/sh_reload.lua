@@ -34,6 +34,14 @@ function SWEP:Reload()
 	self:StartReload()
 end
 
+function SWEP:EmitReloadSound()
+	local reload = self.Primary.Reload
+
+	if reload.Sound != "" then
+		self:EmitSound(reload.Sound)
+	end
+end
+
 function SWEP:StartReload()
 	local reload = self.Primary.Reload
 
@@ -46,9 +54,7 @@ function SWEP:StartReload()
 	else
 		self:SendTranslatedWeaponAnim(ACT_VM_RELOAD)
 
-		if reload.Sound != "" then
-			self:EmitSound(reload.Sound)
-		end
+		self:EmitReloadSound()
 	end
 
 	local duration = self:SequenceDuration()

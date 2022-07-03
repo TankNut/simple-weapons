@@ -13,12 +13,6 @@ function SWEP:GetZoom()
 end
 
 function SWEP:TranslateFOV(fov)
-	if not self:HasCameraControl() then
-		self.ViewModelFOV = self.ViewModelTargetFOV
-
-		return fov
-	end
-
 	local desired = self:GetOwnerDefaultFOV()
 
 	self.ViewModelFOV = self.ViewModelTargetFOV + (desired - fov) * 0.6

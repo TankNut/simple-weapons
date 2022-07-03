@@ -21,7 +21,7 @@ hook.Add("SetupMove", "simple_base", function(ply, mv)
 end)
 
 hook.Add("Think", "simple_base", function()
-	for _, ply in pairs(player.GetAll()) do
+	for _, ply in ipairs(player.GetAll()) do
 		if CLIENT and ply != LocalPlayer() then
 			continue
 		end
@@ -45,7 +45,27 @@ hook.Add("Think", "simple_base", function()
 	end
 end)
 
-if SERVER then
+if CLIENT then
+	hook.Add("PostDrawTranslucentRenderables", "simple_base", function(depth, skybox, skybox3d)
+		if skybox or skybox3d then
+			return
+		end
+
+		for _, ply in ipairs(player.GetAll()) do
+			local weapon = ply:GetActiveWeapon()
+
+			if not IsValid(weapon) or not weapon.SimpleWeapon then
+				continue
+			end
+
+			if not weapon.PostDrawTranslucentRenderables then
+				continue
+			end
+
+			weapon:PostDrawTranslucentRenderables()
+		end
+	end)
+else
 	local key = {
 		["weapon_crowbar"] = "simple_hl2_crowbar",
 		["weapon_stunstick"] = "simple_hl2_stunstick",

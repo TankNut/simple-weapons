@@ -208,9 +208,7 @@ function SWEP:PrimaryAttack()
 		self:ApplyRecoil(ply)
 	end
 
-	if InfiniteAmmo:GetInt() != 2 then
-		self:TakePrimaryAmmo(1)
-	end
+	self:ConsumeAmmo()
 
 	if self:ShouldPump() then
 		self:SetNeedPump(true)

@@ -50,6 +50,12 @@ function SWEP:EmitFireSound()
 	self:EmitSound(self.Primary.Sound)
 end
 
+function SWEP:ConsumeAmmo()
+	if InfiniteAmmo:GetInt() != 2 then
+		self:TakePrimaryAmmo(1)
+	end
+end
+
 function SWEP:GetDamage()
 	return self.Primary.Damage * DamageMult:GetFloat()
 end
@@ -82,6 +88,8 @@ function SWEP:FireWeapon()
 
 	ply:SetAnimation(PLAYER_ATTACK1)
 
+	local damage = self:GetDamage()
+
 	local bullet = {
 		Num = primary.Count,
 		Src = ply:GetShootPos(),
@@ -89,8 +97,8 @@ function SWEP:FireWeapon()
 		Spread = self:GetSpread(),
 		TracerName = primary.TracerName,
 		Tracer = primary.TracerName == "" and 0 or 1,
-		Force = 5,
-		Damage = self:GetDamage(),
+		Force = damage,
+		Damage = damage,
 		Callback = function(attacker, tr, dmginfo)
 			dmginfo:ScaleDamage(self:GetDamageFalloff(tr.StartPos:Distance(tr.HitPos)))
 		end

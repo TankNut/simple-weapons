@@ -93,7 +93,7 @@ function SWEP:FireWeapon()
 		Spread = self:GetSpread(),
 		TracerName = primary.TracerName,
 		Tracer = primary.TracerName == "" and 0 or 1,
-		Force = damage,
+		Force = damage * 0.25,
 		Damage = damage,
 		Callback = function(attacker, tr, dmginfo)
 			dmginfo:ScaleDamage(self:GetDamageFalloff(tr.StartPos:Distance(tr.HitPos)))

@@ -46,10 +46,6 @@ function SWEP:UpdateAutomatic()
 	end
 end
 
-function SWEP:EmitFireSound()
-	self:EmitSound(self.Primary.Sound)
-end
-
 function SWEP:ConsumeAmmo()
 	if InfiniteAmmo:GetInt() != 2 then
 		self:TakePrimaryAmmo(1)

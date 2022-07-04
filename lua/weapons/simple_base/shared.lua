@@ -76,6 +76,7 @@ include("sh_attack.lua")
 include("sh_helpers.lua")
 include("sh_recoil.lua")
 include("sh_reload.lua")
+include("sh_sound.lua")
 include("sh_view.lua")
 
 function SWEP:Initialize()
@@ -166,8 +167,8 @@ function SWEP:CanPrimaryAttack()
 		return false
 	end
 
-	if self.Primary.ClipSize != -1 and self:Clip1() <= 0 then
-		self:EmitSound(")weapons/pistol/pistol_empty.wav", 75, 100, 0.7, CHAN_STATIC)
+	if self:GetAmmoCount() == 0 then
+		self:EmitEmptySound()
 
 		if self:GetOwner():GetInfoNum("simple_weapons_auto_reload", 0) == 1 and self:GetBurstFired() == 0 then
 			self:Reload()

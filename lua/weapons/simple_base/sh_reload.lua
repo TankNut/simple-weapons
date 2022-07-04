@@ -34,14 +34,6 @@ function SWEP:Reload()
 	self:StartReload()
 end
 
-function SWEP:EmitReloadSound()
-	local reload = self.Primary.Reload
-
-	if reload.Sound != "" then
-		self:EmitSound(reload.Sound)
-	end
-end
-
 function SWEP:GetReloadTime()
 	return self.Primary.Reload.Time > 0 and self.Primary.Reload.Time or self:SequenceDuration()
 end

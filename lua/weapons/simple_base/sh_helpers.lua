@@ -48,3 +48,7 @@ end
 function SWEP:GetViewModel(index)
 	return self:GetOwner():GetViewModel()
 end
+
+function SWEP:GetAmmoCount()
+	return self:Clip1()
+end

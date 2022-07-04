@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 SWEP.Base = "simple_base"
 
-SWEP.PrintName = "Pulse-Rifle"
+SWEP.PrintName = "Pulse Rifle"
 SWEP.Category = "Simple Weapons: Half-Life 2"
 
 SWEP.Slot = 2

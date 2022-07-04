@@ -284,5 +284,6 @@ function SWEP:SetupMove(ply, mv)
 	local fraction = self:GetLowerFraction()
 	local speed = math.Remap(fraction, 0, 1, ply:GetWalkSpeed(), ply:GetRunSpeed())
 
+	mv:SetMaxSpeed(speed)
 	mv:SetMaxClientSpeed(speed)
 end

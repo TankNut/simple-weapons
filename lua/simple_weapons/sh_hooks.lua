@@ -103,11 +103,11 @@ else
 
 			local new = ply:Give(replacement)
 
-			if not isGiving and not IsValid(new) then
+			if not isGiving and not IsValid(new) then -- Picked up a weapon that we already have from the ground
 				local amount = swep.Primary.DefaultClip
 
 				if swep.SimpleWeaponThrowing then
-					amount = 1
+					amount = 1 -- Grenades don't use ammo the 'normal' way
 				end
 
 				ply:GiveAmmo(amount, swep.Primary.Ammo)
@@ -116,7 +116,7 @@ else
 			weapon.IgnorePickup = true
 			weapon:Remove()
 
-			if isGiving then
+			if isGiving then -- Otherwise we won't auto-select replaced weapons
 				ply:SelectWeapon(replacement)
 
 				isGiving = false

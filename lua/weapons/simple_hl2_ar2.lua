@@ -47,7 +47,7 @@ SWEP.Primary = {
 }
 
 function SWEP:DoImpactEffect(tr, dmgtype)
-	if not IsFirstTimePredicted() then
+	if not IsFirstTimePredicted() or tr.HitSky then
 		return
 	end
 

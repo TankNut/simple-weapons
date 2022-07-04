@@ -45,3 +45,16 @@ SWEP.Primary = {
 	Sound = "Weapon_AR2.Single",
 	TracerName = "AR2Tracer"
 }
+
+function SWEP:DoImpactEffect(tr, dmgtype)
+	if not IsFirstTimePredicted() then
+		return
+	end
+
+	local effect = EffectData()
+
+	effect:SetOrigin(tr.HitPos + tr.HitNormal)
+	effect:SetNormal(tr.HitNormal)
+
+	util.Effect("AR2Impact", effect)
+end

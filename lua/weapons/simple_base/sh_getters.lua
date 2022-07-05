@@ -1,5 +1,7 @@
 AddCSLuaFile()
 
+simple_weapons.Include("Convars")
+
 -- Firing
 function SWEP:GetDelay()
 	local firemode = self:GetFiremode()

@@ -24,3 +24,11 @@ function SWEP:ConsumeAmmo()
 
 	self:TakePrimaryAmmo(self.Primary.Cost)
 end
+
+function SWEP:GetAmmo()
+	if self.AmmoType == AMMO_NORMAL or self.AmmoType == AMMO_INTERNAL then
+		return self:Clip1()
+	elseif self.AmmoType == AMMO_NOMAG then
+		return self:GetOwner():GetAmmoCount(self.Primary.Ammo)
+	end
+end

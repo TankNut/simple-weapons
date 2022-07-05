@@ -26,9 +26,9 @@ function SWEP:UpdateAutomatic()
 end
 
 function SWEP:GetSpread()
-	local range = self:GetRange()
+	local range, accuracy = self:GetRange()
 
-	local inches = self.Primary.Accuracy / 0.75
+	local inches = accuracy / 0.75
 	local yards = (range / 0.75) / 36
 	local MOA = (inches * 100) / yards
 

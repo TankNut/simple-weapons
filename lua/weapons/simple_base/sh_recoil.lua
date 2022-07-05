@@ -2,10 +2,6 @@ AddCSLuaFile()
 
 simple_weapons.Include("Convars")
 
-function SWEP:GetRecoilMultiplier()
-	return math.tan(self:GetFOV() * (math.pi / 360)) * RecoilMult:GetFloat() * self:GetZoom()
-end
-
 function SWEP:ApplyRecoil(ply)
 	local command = ply:GetCurrentCommand()
 

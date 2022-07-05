@@ -1,4 +1,5 @@
 simple_weapons.Include("Convars")
+simple_weapons.Include("Enums")
 
 function SWEP:DoDrawCrosshair(x, y)
 	return self:GetLowered() or self:IsReloading()
@@ -88,4 +89,26 @@ function SWEP:DrawHUDBackground()
 		render.SetColorMaterial()
 		render.DrawSphere(tr.HitPos, spread * 0.5, 20, 20, sphere_red)
 	cam.End3D()
+end
+
+function SWEP:CustomAmmoDisplay()
+	if self.AmmoType == AMMO_NONE then
+		return {Draw = false}
+	elseif self.AmmoType == AMMO_NORMAL then
+		return {
+			Draw = true,
+			PrimaryClip = self:Clip1(),
+			PrimaryAmmo = self:GetOwner():GetAmmoCount(self.Primary.Ammo)
+		}
+	elseif self.AmmoType == AMMO_NOMAG then
+		return {
+			Draw = true,
+			PrimaryClip = self:GetOwner():GetAmmoCount(self.Primary.Ammo)
+		}
+	elseif self.AmmoType == AMMO_INTERNAL then
+		return {
+			Draw = true,
+			PrimaryClip = self:Clip1()
+		}
+	end
 end

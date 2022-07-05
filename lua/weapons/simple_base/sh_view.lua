@@ -4,14 +4,6 @@ DEFINE_BASECLASS("weapon_base")
 
 simple_weapons.Include("Convars")
 
-function SWEP:GetZoom()
-	if self:GetLowered() then
-		return 1
-	end
-
-	return self:GetOwner():GetInfoNum("simple_weapons_zoom", 1.25)
-end
-
 function SWEP:TranslateFOV(fov)
 	local desired = self:GetOwnerDefaultFOV()
 

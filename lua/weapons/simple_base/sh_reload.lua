@@ -1,12 +1,17 @@
 AddCSLuaFile()
 
 simple_weapons.Include("Convars")
+simple_weapons.Include("Enums")
 
 function SWEP:IsReloading()
 	return self:GetFinishReload() != 0
 end
 
 function SWEP:CanReload()
+	if self.AmmoType != AMMO_NORMAL then
+		return false
+	end
+
 	if self:GetNextPrimaryFire() > CurTime() then
 		return false
 	end
@@ -32,10 +37,6 @@ function SWEP:Reload()
 	end
 
 	self:StartReload()
-end
-
-function SWEP:GetReloadTime()
-	return self.Primary.Reload.Time > 0 and self.Primary.Reload.Time or self:SequenceDuration()
 end
 
 function SWEP:StartReload()

@@ -23,6 +23,7 @@ SWEP.Firemode = 0
 
 SWEP.Primary = {
 	Ammo = "357",
+	Cost = 1,
 
 	ClipSize = 6,
 	DefaultClip = 12,

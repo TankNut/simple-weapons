@@ -1,6 +1,7 @@
 AddCSLuaFile()
 
 simple_weapons.Include("Convars")
+simple_weapons.Include("Enums")
 
 function SWEP:IsReady()
 	return CurTime() - self:GetLowerTime() >= ReadyTime:GetFloat()
@@ -49,6 +50,14 @@ function SWEP:GetViewModel(index)
 	return self:GetOwner():GetViewModel()
 end
 
-function SWEP:GetAmmoCount()
-	return self:Clip1()
+function SWEP:IsEmpty()
+	if self.AmmoType == AMMO_NORMAL then
+		return InfiniteAmmo:GetInt() != 2 and self:Clip1() == 0
+	elseif self.AmmoType == AMMO_NOMAG then
+		return InfiniteAmmo:GetInt() == 0 and self:GetOwner():GetAmmoCount(self.Primary.Ammo) == 0
+	elseif self.AmmoType == AMMO_INTERNAL then
+		return self:Clip1() == 0
+	end
+
+	return false
 end

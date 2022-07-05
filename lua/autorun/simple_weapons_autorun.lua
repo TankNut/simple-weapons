@@ -36,6 +36,7 @@ function Include(name, tab)
 end
 
 include("simple_weapons/sh_convars.lua")
+include("simple_weapons/sh_enums.lua")
 include("simple_weapons/sh_hooks.lua")
 
 AddCSLuaFile("simple_weapons/cl_ui.lua")

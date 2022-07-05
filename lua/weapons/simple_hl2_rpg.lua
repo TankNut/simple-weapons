@@ -25,6 +25,7 @@ SWEP.Firemode = 0
 
 SWEP.Primary = {
 	Ammo = "RPG_Round",
+	Cost = 1,
 
 	ClipSize = 1,
 	DefaultClip = 3,

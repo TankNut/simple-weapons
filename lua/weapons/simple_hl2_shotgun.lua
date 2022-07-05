@@ -23,7 +23,6 @@ SWEP.Firemode = 0
 
 SWEP.Primary = {
 	Ammo = "Buckshot",
-	Cost = 1,
 
 	ClipSize = 6,
 	DefaultClip = 6,
@@ -36,7 +35,7 @@ SWEP.Primary = {
 
 	Delay = -1,
 
-	Range = 500,
+	Range = 150,
 	Accuracy = 24,
 
 	RangeModifier = 0.7,

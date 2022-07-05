@@ -23,7 +23,6 @@ SWEP.Firemode = -1
 
 SWEP.Primary = {
 	Ammo = "SMG1",
-	Cost = 1,
 
 	ClipSize = 45,
 	DefaultClip = 45,
@@ -31,7 +30,7 @@ SWEP.Primary = {
 	Damage = 11,
 	Delay = 60 / 800,
 
-	Range = 500,
+	Range = 300,
 	Accuracy = 12,
 
 	RangeModifier = 0.85,

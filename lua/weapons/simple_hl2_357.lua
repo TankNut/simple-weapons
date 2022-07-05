@@ -43,5 +43,6 @@ SWEP.Primary = {
 	},
 
 	Sound = "Weapon_357.Single",
-	TracerName = "Tracer"
+	TracerName = "Tracer",
+	TracerFrequency = 4
 }

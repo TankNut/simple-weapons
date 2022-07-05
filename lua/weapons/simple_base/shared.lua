@@ -208,6 +208,8 @@ function SWEP:PrimaryAttack()
 	end
 
 	self:UpdateAutomatic()
+	self:ConsumeAmmo()
+
 	self:FireWeapon()
 
 	local delay = self:GetDelay()
@@ -215,8 +217,6 @@ function SWEP:PrimaryAttack()
 	if ply:IsPlayer() then
 		self:ApplyRecoil(ply)
 	end
-
-	self:ConsumeAmmo()
 
 	if self:ShouldPump() then
 		self:SetNeedPump(true)

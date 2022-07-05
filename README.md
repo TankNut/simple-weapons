@@ -25,10 +25,7 @@ Acting as the 'base', this addon includes accurate recreations of the original H
 
 ## TODO
 Features that may or may not be coming somewhere down the line
-* Grenades
 * 'proper' scopes for snipers (reticle)
 * Custom crosshairs
 * TTT support
 * NPC support
-* SMG grenades
-* AR2 alt-fire

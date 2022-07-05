@@ -100,8 +100,7 @@ function SWEP:SetupDataTables()
 
 	self:NetworkVar("Float", 0, "LowerTime")
 	self:NetworkVar("Float", 1, "NextIdle")
-	self:NetworkVar("Float", 2, "LastFire")
-	self:NetworkVar("Float", 3, "FinishReload")
+	self:NetworkVar("Float", 2, "FinishReload")
 end
 
 function SWEP:OnDeploy()
@@ -221,8 +220,6 @@ function SWEP:PrimaryAttack()
 	if self:ShouldPump() then
 		self:SetNeedPump(true)
 	end
-
-	self:SetLastFire(CurTime())
 
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
 	self:SetNextPrimaryFire(CurTime() + delay)

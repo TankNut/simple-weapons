@@ -35,7 +35,7 @@ function SWEP:GetDamageFalloff(distance)
 end
 
 function SWEP:GetRange()
-	return self.Primary.Range * RangeMult:GetFloat(), self.Primary.AccuracyRef
+	return self.Primary.Range * RangeMult:GetFloat(), self.Primary.Accuracy
 end
 
 -- Recoil

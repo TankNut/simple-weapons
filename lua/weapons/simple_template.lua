@@ -49,7 +49,10 @@ SWEP.Primary = {
 	BurstEndDelay = 0.4, -- Burst only: the delay added after a burst
 
 	Range = 750, -- The range at which the weapon can hit a plate with a diameter of <Accuracy> units
-	AccuracyRef = 12, -- The reference value to use for the previous option, 12 = headshots, 24 = bodyshots
+	Accuracy = 12, -- The reference value to use for the previous option, 12 = headshots, 24 = bodyshots
+
+	UnscopedRange = 0, -- Scope base only, optional: The range to use when unscoped
+	UnscopedAccuracy = 0, -- Scope base only, optional: The accuracy reference to use when unscoped
 
 	RangeModifier = 0.85, -- The damage decrease applied for every 1000 units a bullet travels, e.g. 2000 units = 0.85 * 0.85 = 61% damage left
 

@@ -37,7 +37,7 @@ SWEP.Primary = {
 	Delay = -1,
 
 	Range = 500,
-	AccuracyRef = 24,
+	Accuracy = 24,
 
 	RangeModifier = 0.7,
 

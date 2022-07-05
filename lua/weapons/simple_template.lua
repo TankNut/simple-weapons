@@ -71,7 +71,8 @@ SWEP.Primary = {
 	},
 
 	Sound = "Weapon_Pistol.Single", -- Firing sound
-	TracerName = "Tracer" -- Tracer effect, leave blank for no tracer
+	TracerName = "Tracer", -- Tracer effect, leave blank for no tracer
+	TracerFrequency = 2 -- Tracer frequency, 1 tracer per X bullets
 }
 
 SWEP.ViewOffset = Vector(0, 0, 0) -- Optional: Applies an offset to the viewmodel's position

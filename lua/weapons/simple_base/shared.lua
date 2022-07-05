@@ -58,6 +58,7 @@ SWEP.Primary.Reload = {
 
 SWEP.Primary.Sound = ""
 SWEP.Primary.TracerName = ""
+SWEP.Primary.TracerFrequency = 2
 
 SWEP.Secondary.Ammo = ""
 SWEP.Secondary.ClipSize = -1

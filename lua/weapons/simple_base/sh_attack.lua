@@ -25,6 +25,18 @@ function SWEP:UpdateAutomatic()
 	end
 end
 
+function SWEP:GetSpread()
+	local range = self:GetRange()
+
+	local inches = self.Primary.Accuracy / 0.75
+	local yards = (range / 0.75) / 36
+	local MOA = (inches * 100) / yards
+
+	local spread = math.rad(MOA / 60)
+
+	return Vector(spread * 0.5, spread, 0)
+end
+
 function SWEP:FireWeapon()
 	local ply = self:GetOwner()
 	local primary = self.Primary

@@ -1,8 +1,13 @@
 AddCSLuaFile()
 
+simple_weapons.Include("Convars")
+
 DEFINE_BASECLASS("simple_base")
 
 SWEP.Base = "simple_base"
+
+SWEP.Primary.UnscopedRange = 0
+SWEP.Primary.UnscopedAccuracy = 0
 
 SWEP.ScopeZoom = 1
 SWEP.ScopeSound = ""
@@ -23,6 +28,23 @@ function SWEP:OnHolster(removing, ply)
 	BaseClass.OnHolster(self, removing, ply)
 
 	self:SetScopeIndex(0)
+end
+
+function SWEP:GetRange()
+	local range = self.Primary.Range
+	local accuracy = self.Primary.Accuracy
+
+	if self:GetScopeIndex() == 0 then
+		if self.Primary.UnscopedRange > 0 then
+			range = self.Primary.UnscopedRange
+		end
+
+		if self.Primary.UnscopedAccuracy > 0 then
+			accuracy = self.Primary.UnscopedAccuracy
+		end
+	end
+
+	return range * RangeMult:GetFloat(), accuracy
 end
 
 function SWEP:GetZoom()

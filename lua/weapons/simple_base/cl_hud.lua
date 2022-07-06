@@ -94,17 +94,6 @@ end
 function SWEP:CustomAmmoDisplay()
 	if self.AmmoType == AMMO_NONE then
 		return {Draw = false}
-	elseif self.AmmoType == AMMO_NORMAL then
-		return {
-			Draw = true,
-			PrimaryClip = self:Clip1(),
-			PrimaryAmmo = self:GetOwner():GetAmmoCount(self.Primary.Ammo)
-		}
-	elseif self.AmmoType == AMMO_NOMAG then
-		return {
-			Draw = true,
-			PrimaryClip = self:GetOwner():GetAmmoCount(self.Primary.Ammo)
-		}
 	elseif self.AmmoType == AMMO_INTERNAL then
 		return {
 			Draw = true,

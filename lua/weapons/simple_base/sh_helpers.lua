@@ -52,11 +52,11 @@ end
 
 function SWEP:IsEmpty()
 	if self.AmmoType == AMMO_NORMAL then
-		return InfiniteAmmo:GetInt() != 2 and self:Clip1() == 0
+		return InfiniteAmmo:GetInt() != 2 and self:Clip1() < self.Primary.Cost
 	elseif self.AmmoType == AMMO_NOMAG then
-		return InfiniteAmmo:GetInt() == 0 and self:GetOwner():GetAmmoCount(self.Primary.Ammo) == 0
+		return InfiniteAmmo:GetInt() == 0 and self:GetOwner():GetAmmoCount(self.Primary.Ammo) < self.Primary.Cost
 	elseif self.AmmoType == AMMO_INTERNAL then
-		return self:Clip1() == 0
+		return self:Clip1() < self.Primary.Cost
 	end
 
 	return false

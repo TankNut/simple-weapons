@@ -52,7 +52,7 @@ if CLIENT then
 		end
 
 		for _, ply in ipairs(player.GetAll()) do
-			if ply:IsDormant() then
+			if ply:IsDormant() or ply:InVehicle() then
 				continue
 			end
 

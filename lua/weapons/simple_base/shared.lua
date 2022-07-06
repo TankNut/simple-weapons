@@ -172,10 +172,12 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	if self:IsEmpty() then
-		self:EmitEmptySound()
-
 		if self:GetOwner():GetInfoNum("simple_weapons_auto_reload", 0) == 1 and self:GetBurstFired() == 0 then
 			self:Reload()
+		end
+
+		if not self:IsReloading() then
+			self:EmitEmptySound()
 		end
 
 		self:SetNextPrimaryFire(CurTime() + 0.2)

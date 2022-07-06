@@ -55,7 +55,7 @@ function SWEP:FireWeapon()
 		Dir = (ply:GetAimVector():Angle() + ply:GetViewPunchAngles()):Forward(),
 		Spread = self:GetSpread(),
 		TracerName = primary.TracerName,
-		Tracer = primary.TracerName == "" and 0 or primary.TracerFrequency,
+		Tracer = primary.TracerName == "" and 0 or 1,
 		Force = damage * 0.25,
 		Damage = damage,
 		Callback = function(attacker, tr, dmginfo)

@@ -31,4 +31,6 @@ function SWEP:GetAmmo()
 	elseif self.AmmoType == AMMO_NOMAG then
 		return self:GetOwner():GetAmmoCount(self.Primary.Ammo)
 	end
+
+	return 1
 end

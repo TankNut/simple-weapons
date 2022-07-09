@@ -52,7 +52,7 @@ function SWEP:FireWeapon()
 	local bullet = {
 		Num = primary.Count,
 		Src = ply:GetShootPos(),
-		Dir = (ply:GetAimVector():Angle() + ply:GetViewPunchAngles()):Forward(),
+		Dir = self:GetShootDir(),
 		Spread = self:GetSpread(),
 		TracerName = primary.TracerName,
 		Tracer = primary.TracerName == "" and 0 or 1,

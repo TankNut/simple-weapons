@@ -25,7 +25,11 @@ function SWEP:GetDelay()
 end
 
 function SWEP:GetDamage()
-	return self.Primary.Damage * DamageMult:GetFloat()
+	if self:GetOwner():IsNPC() then
+		return self.Primary.Damage * NPCDamageMult:GetFloat()
+	else
+		return self.Primary.Damage * DamageMult:GetFloat()
+	end
 end
 
 function SWEP:GetDamageFalloff(distance)

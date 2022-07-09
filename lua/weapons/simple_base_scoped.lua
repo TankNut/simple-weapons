@@ -34,6 +34,10 @@ function SWEP:GetRange()
 	local range = self.Primary.Range
 	local accuracy = self.Primary.Accuracy
 
+	if self:GetOwner():IsNPC() then
+		return range * RangeMult:GetFloat(), accuracy
+	end
+
 	if self:GetScopeIndex() == 0 then
 		if self.Primary.UnscopedRange > 0 then
 			range = self.Primary.UnscopedRange

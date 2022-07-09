@@ -61,3 +61,13 @@ function SWEP:IsEmpty()
 
 	return false
 end
+
+function SWEP:GetShootDir()
+	local ply = self:GetOwner()
+
+	if ply:IsNPC() then
+		return ply:GetAimVector()
+	else
+		return (ply:GetAimVector():Angle() + ply:GetViewPunchAngles()):Forward()
+	end
+end

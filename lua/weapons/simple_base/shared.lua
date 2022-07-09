@@ -66,6 +66,12 @@ SWEP.Secondary.Automatic = false
 
 SWEP.ViewOffset = Vector()
 
+SWEP.NPCData = {
+	Burst = {3, 5},
+	Delay = 0.1,
+	Rest = {0.5, 1}
+}
+
 if CLIENT then
 	include("cl_hud.lua")
 else
@@ -81,6 +87,10 @@ include("sh_recoil.lua")
 include("sh_reload.lua")
 include("sh_sound.lua")
 include("sh_view.lua")
+
+if SERVER then
+	include("sv_npc.lua")
+end
 
 function SWEP:Initialize()
 	self:SetFiremode(self.Firemode)
@@ -100,6 +110,14 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Float", 0, "LowerTime")
 	self:NetworkVar("Float", 1, "NextIdle")
 	self:NetworkVar("Float", 2, "FinishReload")
+end
+
+function SWEP:OwnerChanged()
+	local ply = self:GetOwner()
+
+	if IsValid(ply) and ply:IsNPC() then
+		self:SetHoldType(self.HoldType)
+	end
 end
 
 function SWEP:OnDeploy()
@@ -172,7 +190,17 @@ function SWEP:CanPrimaryAttack()
 	end
 
 	if self:IsEmpty() then
-		if self:GetOwner():GetInfoNum("simple_weapons_auto_reload", 0) == 1 and self:GetBurstFired() == 0 then
+		local ply = self:GetOwner()
+
+		if ply:IsNPC() then
+			if SERVER then
+				ply:SetSchedule(SCHED_RELOAD) -- Metropolice don't like reloading...
+			end
+
+			return false
+		end
+
+		if ply:GetInfoNum("simple_weapons_auto_reload", 0) == 1 and self:GetBurstFired() == 0 then
 			self:Reload()
 		end
 
@@ -193,7 +221,7 @@ end
 function SWEP:PrimaryAttack()
 	local ply = self:GetOwner()
 
-	if ply:KeyDown(IN_USE) then
+	if ply:IsPlayer() and ply:KeyDown(IN_USE) then
 		if not self:CanAlternateAttack() then
 			return
 		end

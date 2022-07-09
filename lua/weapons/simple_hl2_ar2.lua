@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 SWEP.Base = "simple_base"
 
-SWEP.PrintName = "Pulse Rifle"
+SWEP.PrintName = "AR2"
 SWEP.Category = "Simple Weapons: Half-Life 2"
 
 SWEP.Slot = 2
@@ -62,3 +62,11 @@ function SWEP:DoImpactEffect(tr, dmgtype)
 
 	util.Effect("AR2Impact", effect)
 end
+
+SWEP.NPCData = {
+	Burst = {2, 5},
+	Delay = SWEP.Primary.Delay,
+	Rest = {SWEP.Primary.Delay * 2, SWEP.Primary.Delay * 3}
+}
+
+list.Add("NPCUsableWeapons", {class = "simple_hl2_ar2", title = "Simple Weapons: " .. SWEP.PrintName})

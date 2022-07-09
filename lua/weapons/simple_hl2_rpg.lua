@@ -42,6 +42,14 @@ SWEP.Primary = {
 	Sound = "Weapon_RPG.Single"
 }
 
+SWEP.NPCData = {
+	Burst = {1, 1},
+	Delay = SWEP.Primary.Delay,
+	Rest = {SWEP.Primary.Delay * 2, SWEP.Primary.Delay * 3}
+}
+
+list.Add("NPCUsableWeapons", {class = "simple_hl2_rpg", title = "Simple Weapons: " .. SWEP.PrintName})
+
 function SWEP:SetupDataTables()
 	BaseClass.SetupDataTables(self)
 
@@ -79,6 +87,10 @@ function SWEP:AlternateAttack()
 end
 
 if SERVER then
+	function SWEP:GetNPCBulletSpread(prof)
+		return 0
+	end
+
 	function SWEP:CreateDot()
 		if IsValid(self:GetDot()) then
 			return
@@ -109,7 +121,7 @@ function SWEP:FireWeapon()
 
 	if SERVER then
 		local ent = ents.Create("rpg_missile")
-		local ang = ply:GetAimVector():Angle() + ply:GetViewPunchAngles()
+		local ang = self:GetShootDir():Angle()
 
 		ent:SetPos(LocalToWorld(Vector(12, -6, 3), angle_zero, ply:GetShootPos(), ang))
 		ent:SetAngles(ang)

@@ -42,6 +42,14 @@ SWEP.Primary = {
 
 SWEP.ScopeZoom = 4.5
 
+SWEP.NPCData = {
+	Burst = {1, 1},
+	Delay = SWEP.Primary.Delay,
+	Rest = {SWEP.Primary.Delay, SWEP.Primary.Delay * 2}
+}
+
+list.Add("NPCUsableWeapons", {class = "simple_hl2_crossbow", title = "Simple Weapons: " .. SWEP.PrintName})
+
 function SWEP:OnDeploy()
 	BaseClass.OnDeploy(self)
 
@@ -67,8 +75,8 @@ function SWEP:FireWeapon()
 	if SERVER then
 		local ent = ents.Create("crossbow_bolt")
 
-		local ang = ply:GetAimVector():Angle() + ply:GetViewPunchAngles()
-		local dir = ang:Forward()
+		local dir = self:GetShootDir()
+		local ang = dir:Angle()
 
 		ent:SetPos(ply:GetShootPos())
 		ent:SetAngles(ang)
@@ -82,7 +90,9 @@ function SWEP:FireWeapon()
 		ent:Activate()
 	end
 
-	self:GetViewModel():SetSkin(0)
+	if ply:IsPlayer() then
+		self:GetViewModel():SetSkin(0)
+	end
 end
 
 function SWEP:TranslateWeaponAnim(act)

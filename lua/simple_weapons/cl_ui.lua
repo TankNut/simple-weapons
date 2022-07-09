@@ -67,6 +67,7 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 		})
 
 		pnl:NumSlider("Damage multiplier", "simple_weapons_damage_mult", 0.1, 4, 1)
+		pnl:NumSlider("NPC Damage multiplier", "simple_weapons_npc_damage_mult", 0.1, 2, 1)
 		pnl:NumSlider("Range multiplier", "simple_weapons_range_mult", 0, 4, 1)
 		pnl:NumSlider("Recoil multiplier", "simple_weapons_recoil_mult", 0, 2, 1)
 

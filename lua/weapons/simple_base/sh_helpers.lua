@@ -35,6 +35,12 @@ function SWEP:GetOwnerDefaultFOV()
 end
 
 function SWEP:GetTargetFOV()
+	local zoom = self:GetZoom()
+
+	if zoom == 1 then
+		return 0
+	end
+
 	return self:GetOwnerDefaultFOV() / self:GetZoom()
 end
 

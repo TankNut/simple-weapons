@@ -92,6 +92,10 @@ if SERVER then
 	include("sv_npc.lua")
 end
 
+if engine.ActiveGamemode() == "terrortown" then
+	include("sh_ttt.lua")
+end
+
 function SWEP:Initialize()
 	self:SetFiremode(self.Firemode)
 

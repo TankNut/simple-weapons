@@ -103,7 +103,7 @@ function SWEP:DrawHUDBackground()
 
 	cam.Start3D()
 		render.SetColorMaterial()
-		render.DrawSphere(tr.HitPos, spread * 0.5, 20, 20, sphere_red)
+		render.DrawSphere(tr.HitPos, spread, 20, 20, sphere_red)
 	cam.End3D()
 end
 

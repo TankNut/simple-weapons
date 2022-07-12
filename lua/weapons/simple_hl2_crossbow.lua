@@ -103,9 +103,17 @@ function SWEP:TranslateWeaponAnim(act)
 	return act
 end
 
+function SWEP:EmitBoltSound()
+	self:EmitSound("Weapon_Crossbow.BoltElectrify")
+
+	if SERVER and not game.SinglePlayer() then
+		self:CallOnClient("EmitBoltSound")
+	end
+end
+
 function SWEP:FireAnimationEvent(_, _, event)
 	if event == 3005 then
 		self:GetViewModel():SetSkin(1)
-		self:EmitSound("Weapon_Crossbow.BoltElectrify")
+		self:EmitBoltSound()
 	end
 end

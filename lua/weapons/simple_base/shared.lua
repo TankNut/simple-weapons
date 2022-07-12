@@ -319,7 +319,17 @@ end
 
 function SWEP:SetupMove(ply, mv)
 	local fraction = self:GetLowerFraction()
-	local min = WalkSpeed:GetBool() and (ply:Crouching() and ply:GetWalkSpeed() * ply:GetCrouchedWalkSpeed() or ply:GetSlowWalkSpeed()) or ply:GetWalkSpeed()
+
+	local min = hook.Run("SimpleLimitMoveSpeed", ply, self)
+
+	if not min then
+		if WalkSpeed:GetBool() then
+			min = ply:Crouching() and ply:GetWalkSpeed() * ply:GetCrouchedWalkSpeed() or ply:GetSlowWalkSpeed()
+		else
+			min = ply:GetWalkSpeed()
+		end
+	end
+
 	local speed = math.Remap(fraction, 0, 1, min, ply:GetRunSpeed())
 
 	mv:SetMaxSpeed(speed)

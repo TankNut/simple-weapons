@@ -34,7 +34,7 @@ function SWEP:GetSpread()
 
 	local spread = math.rad(MOA / 60)
 
-	return Vector(spread * 0.5, spread, 0)
+	return Vector(spread, spread, 0)
 end
 
 function SWEP:FireWeapon()

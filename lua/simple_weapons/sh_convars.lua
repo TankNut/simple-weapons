@@ -9,6 +9,8 @@ ReadyTime = CreateConVar("simple_weapons_ready_time", 0.4, {FCVAR_ARCHIVE, FCVAR
 InfiniteAmmo = CreateConVar("simple_weapons_infinite_ammo", 0, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Ammo mode to use for weapons. 0 = standard behavior, 1 = infinite reserves, 2 = bottomless magazines", 0, 2)
 
 LimitMovement = CreateConVar("simple_weapons_limit_movement", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Enables raised weapons limiting player movement.", 0, 1)
+WalkSpeed = CreateConVar("simple_weapons_walk_speed", 0, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Limits movement speed when raised to (alt) walk speed.", 0, 1)
+
 LoweredReloads = CreateConVar("simple_weapons_lowered_reloads", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether weapons can be reloaded when lowered.", 0, 1)
 
 MinDamage = CreateConVar("simple_weapons_min_damage", 0.2, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "The minimum percentage of damage a weapon deals regardless of range.", 0, 1)

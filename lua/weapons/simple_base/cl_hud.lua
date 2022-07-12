@@ -2,7 +2,23 @@ simple_weapons.Include("Convars")
 simple_weapons.Include("Enums")
 
 function SWEP:DoDrawCrosshair(x, y)
+	if self.OverrideCrosshairDraw then
+		return self:OverrideCrosshairDraw(x, y)
+	end
+
+	if not self:ShouldHideCrosshair() then
+		return self:DrawCrosshair(x, y)
+	end
+
+	return true
+end
+
+function SWEP:ShouldHideCrosshair()
 	return self:GetLowered() or self:IsReloading()
+end
+
+function SWEP:DrawCrosshair(x, y)
+	return false
 end
 
 local convar = GetConVar("developer")

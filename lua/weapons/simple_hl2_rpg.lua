@@ -171,7 +171,7 @@ function SWEP:OnHolster(removing, ply)
 end
 
 if CLIENT then
-	function SWEP:DoDrawCrosshair(x, y)
-		return BaseClass.DoDrawCrosshair(self, x, y) or self:GetDotEnabled()
+	function SWEP:ShouldHideCrosshair()
+		return BaseClass.ShouldHideCrosshair(self) or self:GetDotEnabled()
 	end
 end

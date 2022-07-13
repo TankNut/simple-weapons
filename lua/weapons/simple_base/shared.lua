@@ -323,10 +323,10 @@ function SWEP:SetupMove(ply, mv)
 	local min = hook.Run("SimpleLimitMoveSpeed", ply, self)
 
 	if not min then
-		if WalkSpeed:GetBool() then
-			min = ply:Crouching() and ply:GetWalkSpeed() * ply:GetCrouchedWalkSpeed() or ply:GetSlowWalkSpeed()
-		else
-			min = ply:GetWalkSpeed()
+		min = WalkSpeed:GetFloat()
+
+		if ply:Crouching() then
+			min = math.min(min, ply:GetWalkSpeed() * ply:GetCrouchedWalkSpeed())
 		end
 	end
 

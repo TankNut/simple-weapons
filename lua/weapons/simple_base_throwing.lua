@@ -18,7 +18,7 @@ SWEP.LowerHoldType = "normal"
 
 SWEP.Primary.Ammo = ""
 SWEP.Primary.ClipSize = -1
-SWEP.Primary.DefaultClip = 0
+SWEP.Primary.DefaultClip = 1
 SWEP.Primary.Automatic = false
 
 SWEP.Primary.ThrowAct = {ACT_VM_PULLBACK_HIGH, ACT_VM_THROW}
@@ -120,6 +120,10 @@ function SWEP:Throw()
 	end
 
 	self:SetFinishReload(CurTime() + self:SendTranslatedWeaponAnim(act))
+
+	if InfiniteAmmo:GetInt() == 0 then
+		self:TakePrimaryAmmo(1)
+	end
 end
 
 if SERVER then
@@ -214,19 +218,14 @@ function SWEP:SendTranslatedWeaponAnim(act)
 end
 
 function SWEP:FinishReload()
-	if InfiniteAmmo:GetInt() == 0 then
-		local ply = self:GetOwner()
-		local ammo = ply:GetAmmoCount(self.Primary.Ammo)
+	local ply = self:GetOwner()
 
-		if ammo <= 0 then
-			if SERVER then
-				ply:StripWeapon(self.ClassName)
-			end
-
-			return
+	if ply:GetAmmoCount(self.Primary.Ammo) <= 0 then
+		if SERVER then
+			ply:StripWeapon(self.ClassName)
 		end
 
-		ply:RemoveAmmo(1, self.Primary.Ammo)
+		return
 	end
 
 	local time = CurTime() + self:SendTranslatedWeaponAnim(ACT_VM_DRAW)

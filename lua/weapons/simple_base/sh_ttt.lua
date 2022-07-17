@@ -21,6 +21,10 @@ function SWEP:IsEquipment()
 	return WEPS.IsEquipment(self)
 end
 
+function SWEP:GetHeadshotMultiplier(victim, dmginfo)
+	return self.Primary.Count > 1 and 1 or 2
+end
+
 if CLIENT then
 	local sights_opacity = CreateConVar("ttt_ironsights_crosshair_opacity", "0.8", FCVAR_ARCHIVE)
 	local crosshair_brightness = CreateConVar("ttt_crosshair_brightness", "1.0", FCVAR_ARCHIVE)

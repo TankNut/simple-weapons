@@ -62,4 +62,13 @@ if CLIENT then
 
 		return true
 	end
+else
+	function SWEP:DampenDrop()
+		local phys = self:GetPhysicsObject()
+
+		if IsValid(phys) then
+			phys:SetVelocityInstantaneous(Vector(0, 0, -75) + phys:GetVelocity() * 0.001)
+			phys:AddAngleVelocity(phys:GetAngleVelocity() * -0.99)
+		end
+	end
 end

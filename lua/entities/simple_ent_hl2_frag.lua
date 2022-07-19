@@ -21,6 +21,11 @@ function ENT:Initialize()
 
 	if SERVER then
 		local attachment = self:LookupAttachment("fuse")
+
+		if attachment <= 0 then
+			return
+		end
+
 		local pos = self:GetAttachment(attachment).Pos
 
 		local main = ents.Create("env_sprite")

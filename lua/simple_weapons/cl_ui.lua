@@ -1,21 +1,44 @@
-hook.Add("PopulateToolMenu", "simple_weapons", function()
-	spawnmenu.AddToolMenuOption("Utilities", "Simple Weapons", "simple_weapons_cl", "Client", "", "", function(pnl)
-		pnl:ClearControls()
+REALM_CLIENT = 1
+REALM_SERVER = 2
 
-		pnl:Help("Client Settings. These settings save automatically.")
+function simple_weapons.CreateOptionsMenu(realm, identifier, name, convars, callback)
+	local category = "Options"
+	local header = "Simple - "
+	local helpText = ""
+	local check
+
+	if realm == REALM_CLIENT then
+		header = header .. "Client"
+		helpText = "Client Settings. These settings save automatically."
+		check = function(convar) return TypeID(convar) == TYPE_CONVAR and convar:IsFlagSet(FCVAR_LUA_CLIENT) end
+	else
+		header = header .. "Server"
+		helpText = "Server Settings. These settings can only be changed by the person who created the game server through the main menu."
+		check = function(convar) return TypeID(convar) == TYPE_CONVAR and convar:IsFlagSet(FCVAR_LUA_SERVER) end
+	end
+
+	spawnmenu.AddToolMenuOption(category, header, identifier, name, "", "", function(pnl)
+		pnl:ClearControls()
+		pnl:Help(helpText)
 
 		local default = {}
 
-		for _, v in pairs(simple_weapons.Convars) do
-			if TypeID(v) != TYPE_CONVAR or v:IsFlagSet(FCVAR_REPLICATED) then
+		for _, v in pairs(convars) do
+			if not check(v) then
 				continue
 			end
 
 			default[v:GetName()] = v:GetDefault()
 		end
 
-		pnl:AddControl("ComboBox", {MenuButton = 1, Folder = "simple_weapons_cl", Options = {["Default"] = default}, CVars = table.GetKeys(default)})
+		pnl:AddControl("ComboBox", {MenuButton = 1, Folder = identifier, Options = {["Default"] = default}, CVars = table.GetKeys(default)})
 
+		callback(pnl)
+	end)
+end
+
+hook.Add("PopulateToolMenu", "simple_weapons", function()
+	simple_weapons.CreateOptionsMenu(REALM_CLIENT, "simple_weapons_cl", "Base", simple_weapons.Convars, function(pnl)
 		pnl:CheckBox("Disable left click raising", "simple_weapons_disable_raise")
 
 		pnl:NumSlider("Aim focus (zoom)", "simple_weapons_zoom", 1, 1.5, 2)
@@ -30,23 +53,7 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 		pnl:NumSlider("Z offset (Up)", "simple_weapons_vm_offset_z", -10, 10, 2)
 	end)
 
-	spawnmenu.AddToolMenuOption("Utilities", "Simple Weapons", "simple_weapons_sv", "Server", "", "", function(pnl)
-		pnl:ClearControls()
-
-		pnl:Help("Server Settings. These settings can only be changed by the person who created the game server through the main menu.")
-
-		local default = {}
-
-		for _, v in pairs(simple_weapons.Convars) do
-			if TypeID(v) != TYPE_CONVAR then
-				continue
-			end
-
-			default[v:GetName()] = v:GetDefault()
-		end
-
-		pnl:AddControl("ComboBox", {MenuButton = 1, Folder = "simple_weapons_sv", Options = {["Default"] = default}, CVars = table.GetKeys(default)})
-
+	simple_weapons.CreateOptionsMenu(REALM_SERVER, "simple_weapons_sv", "Base", simple_weapons.Convars, function(pnl)
 		pnl:CheckBox("Replace weapons", "simple_weapons_replace_weapons")
 
 		pnl:NumSlider("Ready time", "simple_weapons_ready_time", 0, 1, 1)

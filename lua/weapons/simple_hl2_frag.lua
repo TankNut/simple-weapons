@@ -32,17 +32,19 @@ SWEP.Primary = {
 	RollAct = {ACT_VM_PULLBACK_LOW, ACT_VM_SECONDARYATTACK}
 }
 
-function SWEP:CreateEntity()
-	local ent = ents.Create("simple_ent_hl2_frag")
-	local ply = self:GetOwner()
+if SERVER then
+	function SWEP:CreateEntity()
+		local ent = ents.Create("simple_ent_hl2_frag")
+		local ply = self:GetOwner()
 
-	ent:SetPos(ply:GetPos())
-	ent:SetAngles(ply:EyeAngles())
-	ent:SetOwner(ply)
-	ent:Spawn()
-	ent:Activate()
+		ent:SetPos(ply:GetPos())
+		ent:SetAngles(ply:EyeAngles())
+		ent:SetOwner(ply)
+		ent:Spawn()
+		ent:Activate()
 
-	ent:SetTimer(3)
+		ent:SetTimer(3)
 
-	return ent
+		return ent
+	end
 end

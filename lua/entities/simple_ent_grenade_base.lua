@@ -3,7 +3,7 @@ AddCSLuaFile()
 ENT.Base = "base_anim"
 ENT.Type = "anim"
 
-ENT.AutomaticFrameAdvance 	= true
+ENT.AutomaticFrameAdvance = true
 
 ENT.Model = Model("models/weapons/w_npcnade.mdl")
 

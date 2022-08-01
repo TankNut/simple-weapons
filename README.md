@@ -8,7 +8,9 @@ Acting as the 'base', this addon includes accurate recreations of the original H
 ### [Workshop link](https://steamcommunity.com/sharedfiles/filedetails/?id=2821862386)
 
 ## Addon packs
-* [CS:S Weapons](https://github.com/TankNut/simple-weapons-css)
+* [Counter-Strike Source](https://github.com/TankNut/simple-weapons-css)
+* [Half-Life 2 Extended](https://github.com/TankNut/simple-weapons-hl2e)
+* [Glowsticks](https://github.com/TankNut/simple-weapons-glowsticks)
 
 ## Features
 ### For players:

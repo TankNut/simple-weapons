@@ -225,7 +225,7 @@ function SWEP:FinishReload()
 			ply:StripWeapon(self.ClassName)
 		end
 
-		return
+		return false
 	end
 
 	local time = CurTime() + self:SendTranslatedWeaponAnim(ACT_VM_DRAW)
@@ -236,6 +236,8 @@ function SWEP:FinishReload()
 	self:SetNextSecondaryFire(time)
 
 	self:SetHoldType(self.LowerHoldType)
+
+	return true
 end
 
 function SWEP:Think()

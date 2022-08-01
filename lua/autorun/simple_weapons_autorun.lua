@@ -9,9 +9,21 @@ local blacklist = {
 
 function Include(name, tab)
 	local lib = getfenv(1)
+	local tree = string.Explode(".", name)
+	local target = lib[tree[1]]
 
-	if not lib[name] then
+	if not target then
 		return
+	end
+
+	for i = 2, #tree do
+		local key = tree[i]
+
+		if not target[key] then
+			return
+		end
+
+		target = target[key]
 	end
 
 	local fenv = getfenv(2)
@@ -23,10 +35,10 @@ function Include(name, tab)
 	end
 
 	if tab then
-		fenv[tab] = lib[name]
+		fenv[tab] = target
 	else
-		for k, v in pairs(lib[name]) do
-			if blacklist[k] or isnumber(k) then
+		for k, v in pairs(target) do
+			if blacklist[k] or tonumber(k) then
 				continue
 			end
 

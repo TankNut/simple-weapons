@@ -103,17 +103,39 @@ function SWEP:Initialize()
 end
 
 function SWEP:SetupDataTables()
-	self:NetworkVar("Bool", 0, "Lowered")
-	self:NetworkVar("Bool", 1, "NeedPump")
-	self:NetworkVar("Bool", 2, "FirstReload")
-	self:NetworkVar("Bool", 3, "AbortReload")
+	self._NetworkVars = {
+		["String"] = 0,
+		["Bool"]   = 0,
+		["Float"]  = 0,
+		["Int"]    = 0,
+		["Vector"] = 0,
+		["Angle"]  = 0,
+		["Entity"] = 0
+	}
 
-	self:NetworkVar("Int", 0, "Firemode")
-	self:NetworkVar("Int", 1, "BurstFired")
+	self:AddNetworkVar("Bool", "Lowered")
+	self:AddNetworkVar("Bool", "NeedPump")
+	self:AddNetworkVar("Bool", "FirstReload")
+	self:AddNetworkVar("Bool", "AbortReload")
 
-	self:NetworkVar("Float", 0, "LowerTime")
-	self:NetworkVar("Float", 1, "NextIdle")
-	self:NetworkVar("Float", 2, "FinishReload")
+	self:AddNetworkVar("Int", "Firemode")
+	self:AddNetworkVar("Int", "BurstFired")
+
+	self:AddNetworkVar("Float", "LowerTime")
+	self:AddNetworkVar("Float", "NextIdle")
+	self:AddNetworkVar("Float", "FinishReload")
+end
+
+function SWEP:AddNetworkVar(varType, name, extended)
+	local index = assert(self._NetworkVars[varType], "Attempt to register unknown network var type " .. varType)
+	local max = varType == "String" and 3 or 31
+
+	if index >= max then
+		error("Network var limit exceeded for " .. varType)
+	end
+
+	self:NetworkVar(varType, index, name, extended)
+	self._NetworkVars[varType] = index + 1
 end
 
 function SWEP:OwnerChanged()

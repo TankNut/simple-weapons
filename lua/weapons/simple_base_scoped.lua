@@ -15,7 +15,7 @@ SWEP.ScopeSound = ""
 function SWEP:SetupDataTables()
 	BaseClass.SetupDataTables(self)
 
-	self:NetworkVar("Int", 2, "ScopeIndex")
+	self:AddNetworkVar("Int", "ScopeIndex")
 end
 
 function SWEP:OnDeploy()

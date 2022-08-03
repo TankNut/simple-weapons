@@ -113,7 +113,6 @@ end
 function SWEP:AlternateAttack()
 	local ply = self:GetOwner()
 
-	self.Primary.Automatic = false
 	self:TakeSecondaryAmmo(1)
 
 	self:EmitSound("Weapon_SMG1.Double")
@@ -143,6 +142,9 @@ function SWEP:AlternateAttack()
 		self:ApplyRecoil(ply)
 	end
 
+	self.Primary.Automatic = true
+
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
+	self:SetNextPrimaryFire(CurTime() + 0.5)
 	self:SetNextAlternateAttack(CurTime() + 1)
 end

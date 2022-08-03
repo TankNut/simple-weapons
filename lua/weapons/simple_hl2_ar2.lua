@@ -173,7 +173,6 @@ function SWEP:Think()
 
 		local ply = self:GetOwner()
 
-		self.Primary.Automatic = false
 		self:TakeSecondaryAmmo(1)
 
 		self:EmitSound("Weapon_IRifle.Single")
@@ -211,9 +210,11 @@ function SWEP:Think()
 			self:ApplyRecoil(ply)
 		end
 
+		self.Primary.Automatic = true
+
 		self:SetNextIdle(CurTime() + self:SequenceDuration())
 
-		self:SetNextPrimaryFire(CurTime())
-		self:SetNextAlternateAttack(CurTime() + 0.5)
+		self:SetNextPrimaryFire(CurTime() + 0.5)
+		self:SetNextAlternateAttack(CurTime() + 1)
 	end
 end

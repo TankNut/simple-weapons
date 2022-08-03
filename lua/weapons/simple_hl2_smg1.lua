@@ -1,5 +1,7 @@
 AddCSLuaFile()
 
+simple_weapons.Include("Convars")
+
 SWEP.Base = "simple_base"
 
 SWEP.PrintName = "SMG"
@@ -50,6 +52,10 @@ SWEP.Primary = {
 	TracerName = "Tracer"
 }
 
+SWEP.Secondary = {
+	Ammo = "SMG1_Grenade"
+}
+
 SWEP.NPCData = {
 	Burst = {3, 5},
 	Delay = SWEP.Primary.Delay,
@@ -78,3 +84,65 @@ function SWEP:TranslateWeaponAnim(act)
 	return act
 end
 
+function SWEP:CanAlternateAttack()
+	if (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
+		if self:GetOwner():GetInfoNum("simple_weapons_disable_raise", 0) == 0 then
+			self:SetLower(false)
+		end
+
+		return false
+	end
+
+	if self:IsReloading() then
+		return false
+	end
+
+	if InfiniteAmmo:GetInt() == 0 and self:GetOwner():GetAmmoCount(self.Secondary.Ammo) < 1 then
+		self:EmitEmptySound()
+
+		self:SetNextPrimaryFire(CurTime() + 0.2)
+
+		self.Primary.Automatic = false
+
+		return false
+	end
+
+	return true
+end
+
+function SWEP:AlternateAttack()
+	local ply = self:GetOwner()
+
+	self.Primary.Automatic = false
+	self:TakeSecondaryAmmo(1)
+
+	self:EmitSound("Weapon_SMG1.Double")
+
+	self:SendTranslatedWeaponAnim(ACT_VM_SECONDARYATTACK)
+
+	ply:SetAnimation(PLAYER_ATTACK1)
+
+	if SERVER then
+		local ent = ents.Create("simple_ent_hl2_40mm")
+
+		local ang = ply:GetAimVector():Angle() + ply:GetViewPunchAngles()
+		local dir = ang:Forward()
+
+		ent:SetPos(ply:GetShootPos())
+		ent:SetAngles(ang)
+
+		ent:SetOwner(ply)
+
+		ent:SetVelocity(dir * 1000)
+
+		ent:Spawn()
+		ent:Activate()
+	end
+
+	if ply:IsPlayer() then
+		self:ApplyRecoil(ply)
+	end
+
+	self:SetNextIdle(CurTime() + self:SequenceDuration())
+	self:SetNextAlternateAttack(CurTime() + 1)
+end

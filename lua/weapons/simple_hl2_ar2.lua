@@ -1,5 +1,9 @@
 AddCSLuaFile()
 
+simple_weapons.Include("Convars")
+
+DEFINE_BASECLASS("simple_base")
+
 SWEP.Base = "simple_base"
 
 SWEP.PrintName = "AR2"
@@ -46,6 +50,10 @@ SWEP.Primary = {
 	TracerName = "AR2Tracer"
 }
 
+SWEP.Secondary = {
+	Ammo = "AR2AltFire"
+}
+
 SWEP.NPCData = {
 	Burst = {2, 5},
 	Delay = SWEP.Primary.Delay,
@@ -53,6 +61,12 @@ SWEP.NPCData = {
 }
 
 list.Add("NPCUsableWeapons", {class = "simple_hl2_ar2", title = "Simple Weapons: " .. SWEP.PrintName})
+
+function SWEP:SetupDataTables()
+	BaseClass.SetupDataTables(self)
+
+	self:AddNetworkVar("Float", "FireBall")
+end
 
 function SWEP:DoImpactEffect(tr, dmgtype)
 	if tr.HitSky then
@@ -91,3 +105,95 @@ function SWEP:TranslateWeaponAnim(act)
 	return act
 end
 
+function SWEP:CanAlternateAttack()
+	if (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
+		if self:GetOwner():GetInfoNum("simple_weapons_disable_raise", 0) == 0 then
+			self:SetLower(false)
+		end
+
+		return false
+	end
+
+	if self:IsReloading() then
+		return false
+	end
+
+	if InfiniteAmmo:GetInt() == 0 and self:GetOwner():GetAmmoCount(self.Secondary.Ammo) < 1 then
+		self:EmitEmptySound()
+
+		self:SetNextPrimaryFire(CurTime() + 0.2)
+
+		self.Primary.Automatic = false
+
+		return false
+	end
+
+	return true
+end
+
+function SWEP:AlternateAttack()
+	self.Primary.Automatic = false
+
+	self:EmitSound("Weapon_CombineGuard.Special1")
+
+	self:SendTranslatedWeaponAnim(ACT_VM_FIDGET)
+	self:SetFireBall(CurTime() + 0.5)
+
+	self:SetNextPrimaryFire(math.huge)
+	self:SetNextAlternateAttack(math.huge)
+end
+
+function SWEP:Think()
+	BaseClass.Think(self)
+
+	local ball = self:GetFireBall()
+
+	if ball > 0 and ball <= CurTime() then
+		self:SetFireBall(0)
+
+		local ply = self:GetOwner()
+
+		self.Primary.Automatic = false
+		self:TakeSecondaryAmmo(1)
+
+		self:EmitSound("Weapon_IRifle.Single")
+
+		self:SendTranslatedWeaponAnim(ACT_VM_SECONDARYATTACK)
+
+		ply:SetAnimation(PLAYER_ATTACK1)
+
+		if SERVER then
+			local ent = ents.Create("prop_combine_ball")
+
+			local ang = ply:GetAimVector():Angle() + ply:GetViewPunchAngles()
+			local dir = ang:Forward()
+
+			ent:SetPos(ply:GetShootPos())
+			ent:SetAngles(ang)
+
+			ent:SetOwner(ply)
+
+			ent:SetSaveValue("m_flRadius", 10)
+
+			ent:Spawn()
+			ent:Activate()
+
+			ent:SetSaveValue("m_nState", 2)
+
+			ent:GetPhysicsObject():SetVelocity(dir * 1000)
+
+			ent:EmitSound("NPC_CombineBall.Launch")
+
+			ent:Fire("Explode", "", 4)
+		end
+
+		if ply:IsPlayer() then
+			self:ApplyRecoil(ply)
+		end
+
+		self:SetNextIdle(CurTime() + self:SequenceDuration())
+
+		self:SetNextPrimaryFire(CurTime())
+		self:SetNextAlternateAttack(CurTime() + 0.5)
+	end
+end

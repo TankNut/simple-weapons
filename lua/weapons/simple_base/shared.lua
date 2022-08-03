@@ -124,6 +124,7 @@ function SWEP:SetupDataTables()
 	self:AddNetworkVar("Float", "LowerTime")
 	self:AddNetworkVar("Float", "NextIdle")
 	self:AddNetworkVar("Float", "FinishReload")
+	self:AddNetworkVar("Float", "NextAlternateAttack")
 end
 
 function SWEP:AddNetworkVar(varType, name, extended)
@@ -248,6 +249,10 @@ function SWEP:PrimaryAttack()
 	local ply = self:GetOwner()
 
 	if ply:IsPlayer() and ply:KeyDown(IN_USE) then
+		if self:GetNextAlternateAttack() > CurTime() then
+			return
+		end
+
 		if not self:CanAlternateAttack() then
 			return
 		end

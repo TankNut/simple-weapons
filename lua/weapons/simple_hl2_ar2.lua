@@ -68,6 +68,18 @@ function SWEP:SetupDataTables()
 	self:AddNetworkVar("Float", "FireBall")
 end
 
+function SWEP:OnDeploy()
+	BaseClass.OnDeploy(self)
+
+	self:SetFireBall(0)
+end
+
+function SWEP:OnHolster(removing, ply)
+	BaseClass.OnHolster(self, removing, ply)
+
+	self:SetFireBall(0)
+end
+
 function SWEP:DoImpactEffect(tr, dmgtype)
 	if tr.HitSky then
 		return

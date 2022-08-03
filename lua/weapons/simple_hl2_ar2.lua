@@ -207,7 +207,7 @@ function SWEP:Think()
 		end
 
 		if ply:IsPlayer() then
-			self:ApplyRecoil(ply)
+			self:ApplyStaticRecoil(ply, Angle(-2, 0, 0))
 		end
 
 		self.Primary.Automatic = true

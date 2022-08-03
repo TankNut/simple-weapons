@@ -57,3 +57,24 @@ SWEP.NPCData = {
 }
 
 list.Add("NPCUsableWeapons", {class = "simple_hl2_smg1", title = "Simple Weapons: " .. SWEP.PrintName})
+
+-- ACT_VM_RECOIL support
+local transitions = {
+	[ACT_VM_PRIMARYATTACK] = ACT_VM_RECOIL1,
+	[ACT_VM_RECOIL1] = ACT_VM_RECOIL2,
+	[ACT_VM_RECOIL2] = ACT_VM_RECOIL3,
+	[ACT_VM_RECOIL3] = ACT_VM_RECOIL3
+}
+
+function SWEP:TranslateWeaponAnim(act)
+	if act == ACT_VM_PRIMARYATTACK then
+		local lookup = transitions[self:GetActivity()]
+
+		if lookup then
+			act = lookup
+		end
+	end
+
+	return act
+end
+

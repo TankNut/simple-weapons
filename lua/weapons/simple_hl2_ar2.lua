@@ -46,6 +46,14 @@ SWEP.Primary = {
 	TracerName = "AR2Tracer"
 }
 
+SWEP.NPCData = {
+	Burst = {2, 5},
+	Delay = SWEP.Primary.Delay,
+	Rest = {SWEP.Primary.Delay * 2, SWEP.Primary.Delay * 3}
+}
+
+list.Add("NPCUsableWeapons", {class = "simple_hl2_ar2", title = "Simple Weapons: " .. SWEP.PrintName})
+
 function SWEP:DoImpactEffect(tr, dmgtype)
 	if tr.HitSky then
 		return
@@ -63,10 +71,23 @@ function SWEP:DoImpactEffect(tr, dmgtype)
 	util.Effect("AR2Impact", effect)
 end
 
-SWEP.NPCData = {
-	Burst = {2, 5},
-	Delay = SWEP.Primary.Delay,
-	Rest = {SWEP.Primary.Delay * 2, SWEP.Primary.Delay * 3}
+-- ACT_VM_RECOIL support
+local transitions = {
+	[ACT_VM_PRIMARYATTACK] = ACT_VM_RECOIL1,
+	[ACT_VM_RECOIL1] = ACT_VM_RECOIL2,
+	[ACT_VM_RECOIL2] = ACT_VM_RECOIL3,
+	[ACT_VM_RECOIL3] = ACT_VM_RECOIL3
 }
 
-list.Add("NPCUsableWeapons", {class = "simple_hl2_ar2", title = "Simple Weapons: " .. SWEP.PrintName})
+function SWEP:TranslateWeaponAnim(act)
+	if act == ACT_VM_PRIMARYATTACK then
+		local lookup = transitions[self:GetActivity()]
+
+		if lookup then
+			act = lookup
+		end
+	end
+
+	return act
+end
+

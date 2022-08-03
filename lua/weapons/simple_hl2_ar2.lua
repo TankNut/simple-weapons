@@ -68,6 +68,14 @@ function SWEP:SetupDataTables()
 	self:AddNetworkVar("Float", "FireBall")
 end
 
+function SWEP:Holster()
+	if self:GetFireBall() > 0 then
+		return false
+	end
+
+	return true
+end
+
 function SWEP:OnDeploy()
 	BaseClass.OnDeploy(self)
 

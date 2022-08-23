@@ -31,7 +31,8 @@ if CLIENT then
 
 		if IsValid(ply) then
 			local const = math.pi / 360
-			local ratio = math.tan(ply:GetFOV() * const) / math.tan(self.ViewModelFOV * const)
+			local fov, vmfov = ply:GetFOV(), self.ViewModelFOV
+			local ratio = math.tan(math.min(fov, vmfov) * const) / math.tan(math.max(fov, vmfov) * const)
 
 			ang = ang + ply:GetViewPunchAngles() * ratio * self.Primary.Recoil.Ratio
 		end

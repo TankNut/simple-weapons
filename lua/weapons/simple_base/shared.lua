@@ -148,19 +148,23 @@ function SWEP:OwnerChanged()
 end
 
 function SWEP:OnDeploy()
-	self:SetLowered(true)
+	self.ClassicMode = ClassicMode:GetBool()
+
 	self:SetLowerTime(0)
 
-	self:SetHoldType(self.LowerHoldType)
+	if self.ClassicMode then
+		self:SetLowered(false)
+		self:SetHoldType(self.HoldType)
+	else
+		self:SetLowered(true)
+		self:SetHoldType(self.LowerHoldType)
+	end
 
 	self:SendTranslatedWeaponAnim(ACT_VM_DRAW)
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
 end
 
 function SWEP:OnHolster(removing, ply)
-	self:SetLowered(true)
-	self:SetLowerTime(0)
-
 	self:SetFirstReload(false)
 	self:SetAbortReload(false)
 	self:SetFinishReload(0)
@@ -200,7 +204,7 @@ function SWEP:SetLower(lower)
 end
 
 function SWEP:CanPrimaryAttack()
-	if (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
+	if not self.ClassicMode and (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
 		if self:GetOwner():GetInfoNum("simple_weapons_disable_raise", 0) == 0 then
 			self:SetLower(false)
 		end
@@ -248,7 +252,7 @@ end
 function SWEP:PrimaryAttack()
 	local ply = self:GetOwner()
 
-	if ply:IsPlayer() and ply:KeyDown(IN_USE) then
+	if not self.ClassicMode and ply:IsPlayer() and ply:KeyDown(IN_USE) then
 		if self:GetNextAlternateAttack() > CurTime() then
 			return
 		end
@@ -286,7 +290,19 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:SecondaryAttack()
-	self:SetLower(not self:GetLowered())
+	if self.ClassicMode then
+		if self:GetNextAlternateAttack() > CurTime() then
+			return
+		end
+
+		if not self:CanAlternateAttack() then
+			return
+		end
+
+		self:AlternateAttack()
+	else
+		self:SetLower(not self:GetLowered())
+	end
 end
 
 function SWEP:HandleIdle()
@@ -330,6 +346,26 @@ function SWEP:Think()
 	self:HandleIdle()
 	self:HandlePump()
 	self:HandleBurst()
+
+	local classic = ClassicMode:GetBool()
+
+	if self.ClassicMode != classic then
+		self.ClassicMode = classic
+		self:UpdateClassicMode()
+	end
+end
+
+function SWEP:UpdateClassicMode()
+	local classic = self.ClassicMode
+
+	if classic then
+		self:SetLowered(false)
+		self:SetLowerTime(0)
+
+		self:GetOwner():SetFOV(0, 0.1, self)
+	else
+		self:UpdateFOV(0.1)
+	end
 end
 
 function SWEP:OnReloaded()
@@ -345,8 +381,7 @@ function SWEP:OnRemove()
 end
 
 function SWEP:SetupMove(ply, mv)
-	local fraction = self:GetLowerFraction()
-
+	local fraction = self.ClassicMode and 1 or self:GetLowerFraction()
 	local min = hook.Run("SimpleLimitMoveSpeed", ply, self)
 
 	if not min then

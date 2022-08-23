@@ -91,19 +91,23 @@ function SWEP:AddNetworkVar(varType, name, extended)
 end
 
 function SWEP:OnDeploy()
-	self:SetLowered(true)
+	self.ClassicMode = ClassicMode:GetBool()
+
 	self:SetLowerTime(0)
 
-	self:SetHoldType(self.LowerHoldType)
+	if self.ClassicMode then
+		self:SetLowered(false)
+		self:SetHoldType(self.HoldType)
+	else
+		self:SetLowered(true)
+		self:SetHoldType(self.LowerHoldType)
+	end
 
 	self:SendTranslatedWeaponAnim(ACT_VM_DRAW)
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
 end
 
 function SWEP:OnHolster(removing, ply)
-	self:SetLowered(true)
-	self:SetLowerTime(0)
-
 	self:SetChargeTime(0)
 end
 
@@ -151,6 +155,10 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:SecondaryAttack()
+	if self.ClassicMode then
+		return
+	end
+
 	self:SetLower(not self:GetLowered())
 end
 
@@ -215,7 +223,7 @@ if CLIENT then
 end
 
 function SWEP:SetupMove(ply, mv)
-	local fraction = self:GetLowerFraction()
+	local fraction = self.ClassicMode and 1 or self:GetLowerFraction()
 	local speed = math.Remap(fraction, 0, 1, ply:GetWalkSpeed(), ply:GetRunSpeed())
 
 	if mv:GetForwardSpeed() <= 0 then

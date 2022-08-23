@@ -24,7 +24,7 @@ function SWEP:ConsumeAmmo()
 		return
 	end
 
-	self:TakePrimaryAmmo(self.Primary.Cost)
+	self:TakePrimaryAmmo(math.min(self.Primary.Cost, self:Clip1()))
 end
 
 function SWEP:GetAmmo()

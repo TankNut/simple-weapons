@@ -59,7 +59,7 @@ function SWEP:GetZoom()
 	local index = self:GetScopeIndex()
 
 	if index == 0 then
-		return self:GetOwner():GetInfoNum("simple_weapons_zoom", 1.25)
+		return self.ClassicMode and 1 or self:GetOwner():GetInfoNum("simple_weapons_zoom", 1.25)
 	else
 		return istable(self.ScopeZoom) and self.ScopeZoom[index] or self.ScopeZoom
 	end

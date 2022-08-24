@@ -51,6 +51,8 @@ SWEP.Primary = {
 }
 
 SWEP.Secondary = {
+	ChargeSound = "Weapon_CombineGuard.Special1",
+	FireSound = "Weapon_IRifle.Single",
 	Ammo = "AR2AltFire"
 }
 
@@ -126,15 +128,7 @@ function SWEP:TranslateWeaponAnim(act)
 end
 
 function SWEP:CanAlternateAttack()
-	if (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
-		if self:GetOwner():GetInfoNum("simple_weapons_disable_raise", 0) == 0 then
-			self:SetLower(false)
-		end
-
-		return false
-	end
-
-	if self:IsReloading() then
+	if not self:HandleAutoRaise() or self:IsReloading() then
 		return false
 	end
 
@@ -154,9 +148,11 @@ end
 function SWEP:AlternateAttack()
 	self.Primary.Automatic = false
 
-	self:EmitSound("Weapon_CombineGuard.Special1")
+	self:EmitSound(self.Secondary.ChargeSound)
 
 	self:SendTranslatedWeaponAnim(ACT_VM_FIDGET)
+	self:SetNextIdle(0)
+
 	self:SetFireBall(CurTime() + 0.5)
 
 	self:SetNextPrimaryFire(math.huge)
@@ -175,7 +171,7 @@ function SWEP:Think()
 
 		self:TakeSecondaryAmmo(1)
 
-		self:EmitSound("Weapon_IRifle.Single")
+		self:EmitSound(self.Secondary.FireSound)
 
 		self:SendTranslatedWeaponAnim(ACT_VM_SECONDARYATTACK)
 

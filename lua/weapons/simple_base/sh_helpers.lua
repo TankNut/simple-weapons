@@ -77,3 +77,15 @@ function SWEP:GetShootDir()
 		return (ply:GetAimVector():Angle() + ply:GetViewPunchAngles()):Forward()
 	end
 end
+
+function SWEP:HandleAutoRaise()
+	if not self.ClassicMode and (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
+		if self:GetOwner():GetInfoNum("simple_weapons_disable_raise", 0) == 0 then
+			self:SetLower(false)
+		end
+
+		return false
+	end
+
+	return true
+end

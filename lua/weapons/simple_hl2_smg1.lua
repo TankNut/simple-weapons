@@ -85,11 +85,7 @@ function SWEP:TranslateWeaponAnim(act)
 end
 
 function SWEP:CanAlternateAttack()
-	if (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
-		if self:GetOwner():GetInfoNum("simple_weapons_disable_raise", 0) == 0 then
-			self:SetLower(false)
-		end
-
+	if not self:HandleAutoRaise() or self:IsReloading() then
 		return false
 	end
 

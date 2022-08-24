@@ -25,8 +25,11 @@ function SWEP:UpdateAutomatic()
 	end
 end
 
-function SWEP:GetSpread()
-	local range, accuracy = self:GetRange()
+function SWEP:GetSpread(range, accuracy)
+	local range2, accuracy2 = self:GetRange()
+
+	range = range or range2
+	accuracy = accuracy or accuracy2
 
 	local inches = accuracy / 0.75
 	local yards = (range / 0.75) / 36

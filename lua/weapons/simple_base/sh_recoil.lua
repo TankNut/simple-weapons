@@ -2,10 +2,16 @@ AddCSLuaFile()
 
 simple_weapons.Include("Convars")
 
-function SWEP:ApplyRecoil(ply)
-	local seed = ply:GetCurrentCommand():CommandNumber()
+function SWEP:ApplyRecoil(recoil)
+	local ply = self:GetOwner()
 
-	local recoil = self.Primary.Recoil
+	if not ply:IsPlayer() then
+		return
+	end
+
+	recoil = recoil or self.Primary.Recoil
+
+	local seed = ply:GetCurrentCommand():CommandNumber()
 	local mult = self:GetRecoilMultiplier()
 
 	local pitch = -util.SharedRandom(self:EntIndex() .. seed .. "1", recoil.MinAng.p, recoil.MaxAng.p) * mult
@@ -18,8 +24,15 @@ function SWEP:ApplyRecoil(ply)
 	ply:ViewPunch(Angle(pitch, yaw, 0))
 end
 
-function SWEP:ApplyStaticRecoil(ply, ang)
-	local recoil = self.Primary.Recoil
+function SWEP:ApplyStaticRecoil(ang, recoil)
+	local ply = self:GetOwner()
+
+	if not ply:IsPlayer() then
+		return
+	end
+
+	recoil = recoil or self.Primary.Recoil
+
 	local mult = self:GetRecoilMultiplier()
 
 	local pitch = ang.p * mult

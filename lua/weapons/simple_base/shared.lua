@@ -274,9 +274,7 @@ function SWEP:PrimaryAttack()
 
 	local delay = self:GetDelay()
 
-	if ply:IsPlayer() then
-		self:ApplyRecoil(ply)
-	end
+	self:ApplyRecoil()
 
 	if self:ShouldPump() then
 		self:SetNeedPump(true)

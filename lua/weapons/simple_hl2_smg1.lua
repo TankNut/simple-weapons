@@ -134,9 +134,7 @@ function SWEP:AlternateAttack()
 		ent:Activate()
 	end
 
-	if ply:IsPlayer() then
-		self:ApplyRecoil(ply)
-	end
+	self:ApplyRecoil()
 
 	self.Primary.Automatic = true
 

@@ -204,11 +204,7 @@ function SWEP:SetLower(lower)
 end
 
 function SWEP:CanPrimaryAttack()
-	if not self.ClassicMode and (self:GetLowered() or not self:IsReady()) and not self:IsReloading() then
-		if self:GetOwner():GetInfoNum("simple_weapons_disable_raise", 0) == 0 then
-			self:SetLower(false)
-		end
-
+	if not self:HandleAutoRaise() then
 		return false
 	end
 

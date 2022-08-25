@@ -104,7 +104,7 @@ function SWEP:FinishReload()
 				self:SetFirstReload(false)
 			end
 
-			if reload.Sound != "" then
+			if reload.Sound != "" and IsFirstTimePredicted() then
 				self:EmitSound(reload.Sound)
 			end
 

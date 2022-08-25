@@ -321,7 +321,7 @@ function SWEP:HandlePump()
 
 		local snd = self.Primary.PumpSound
 
-		if snd != "" then
+		if snd != "" and IsFirstTimePredicted() then
 			self:EmitSound(snd)
 		end
 

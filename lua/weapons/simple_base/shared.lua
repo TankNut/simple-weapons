@@ -316,7 +316,11 @@ function SWEP:HandleIdle()
 end
 
 function SWEP:HandlePump()
-	if self:GetNeedPump() and not self:IsReloading() and self:GetNextPrimaryFire() <= CurTime() and self:Clip1() > 0 then
+	if self:GetNeedPump() and not self:IsReloading() and self:GetNextPrimaryFire() <= CurTime() then
+		if not self.Primary.PumpOnEmpty and self:Clip1() == 0 then
+			return
+		end
+
 		self:SendTranslatedWeaponAnim(ACT_SHOTGUN_PUMP)
 
 		local snd = self.Primary.PumpSound

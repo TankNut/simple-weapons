@@ -202,9 +202,7 @@ function SWEP:Think()
 			ent:Fire("Explode", "", 4)
 		end
 
-		if ply:IsPlayer() then
-			self:ApplyStaticRecoil(ply, Angle(-2, 0, 0))
-		end
+		self:ApplyStaticRecoil(Angle(-2, 0, 0))
 
 		self.Primary.Automatic = true
 

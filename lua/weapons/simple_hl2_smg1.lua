@@ -27,7 +27,7 @@ SWEP.Primary = {
 	Ammo = "SMG1",
 
 	ClipSize = 45,
-	DefaultClip = 45,
+	DefaultClip = 90,
 
 	Damage = 11,
 	Delay = 60 / 800,
@@ -53,7 +53,10 @@ SWEP.Primary = {
 }
 
 SWEP.Secondary = {
-	Ammo = "SMG1_Grenade"
+	Ammo = "SMG1_Grenade",
+	Class = "simple_ent_hl2_40mm",
+
+	Sound = "Weapon_SMG1.Double"
 }
 
 SWEP.NPCData = {
@@ -108,17 +111,18 @@ end
 
 function SWEP:AlternateAttack()
 	local ply = self:GetOwner()
+	local secondary = self.Secondary
 
 	self:TakeSecondaryAmmo(1)
 
-	self:EmitSound("Weapon_SMG1.Double")
+	self:EmitSound(secondary.Sound)
 
 	self:SendTranslatedWeaponAnim(ACT_VM_SECONDARYATTACK)
 
 	ply:SetAnimation(PLAYER_ATTACK1)
 
 	if SERVER then
-		local ent = ents.Create("simple_ent_hl2_40mm")
+		local ent = ents.Create(secondary.Class)
 
 		local ang = ply:GetAimVector():Angle() + ply:GetViewPunchAngles()
 		local dir = ang:Forward()

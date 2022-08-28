@@ -345,6 +345,7 @@ function SWEP:Think()
 	self:HandleIdle()
 	self:HandlePump()
 	self:HandleBurst()
+	self:HandleViewModel()
 
 	local classic = ClassicMode:GetBool()
 

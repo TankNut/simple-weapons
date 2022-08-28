@@ -41,9 +41,15 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 	simple_weapons.CreateOptionsMenu(REALM_CLIENT, "simple_weapons_cl", "Base", simple_weapons.Convars, function(pnl)
 		pnl:CheckBox("Disable left click raising", "simple_weapons_disable_raise")
 
+		pnl:CheckBox("Auto reload when empty", "simple_weapons_auto_reload")
+
 		pnl:NumSlider("Aim focus (zoom)", "simple_weapons_zoom", 1, 1.5, 2)
 
-		pnl:CheckBox("Auto reload when empty", "simple_weapons_auto_reload")
+		pnl:Help("")
+		pnl:Help("Viewmodel Settings")
+
+		pnl:NumSlider("Viewmodel sway", "simple_weapons_swayscale", 0, 3, 2)
+		pnl:NumSlider("Viewmodel bob", "simple_weapons_bobscale", 0, 3, 2)
 
 		pnl:Help("")
 		pnl:Help("Viewmodel Offset")

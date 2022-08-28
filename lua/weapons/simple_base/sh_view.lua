@@ -12,6 +12,13 @@ function SWEP:TranslateFOV(fov)
 	return fov
 end
 
+function SWEP:HandleViewModel()
+	if CLIENT then
+		self.SwayScale = SwayScale:GetFloat()
+		self.BobScale = BobScale:GetFloat()
+	end
+end
+
 if CLIENT then
 	function SWEP:CalcView(ply, pos, ang, fov)
 		if not self:HasCameraControl() then

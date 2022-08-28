@@ -79,15 +79,15 @@ SWEP.NPCData = {
 
 list.Add("NPCUsableWeapons", {class = "simple_hl2_shotgun", title = "Simple Weapons: " .. SWEP.PrintName})
 
-function SWEP:CanAlternateAttack()
-	if self:GetNextPrimaryFire() > CurTime() then
+function SWEP:CanAltFire()
+	if self:GetNextFire() > CurTime() then
 		return
 	end
 
 	return BaseClass.CanPrimaryAttack(self)
 end
 
-function SWEP:AlternateAttack()
+function SWEP:AltFire()
 	self.Primary.Automatic = false
 
 	if self:Clip1() == 1 then
@@ -103,7 +103,7 @@ function SWEP:AlternateAttack()
 		end
 
 		self:SetNextIdle(CurTime() + self:SequenceDuration())
-		self:SetNextPrimaryFire(CurTime() + delay)
+		self:SetNextFire(CurTime() + delay)
 
 		return
 	end
@@ -117,7 +117,7 @@ function SWEP:AlternateAttack()
 	local time = CurTime() + self:SequenceDuration()
 
 	self:SetNextIdle(time)
-	self:SetNextPrimaryFire(time)
+	self:SetNextFire(time)
 end
 
 function SWEP:FireWeaponDouble()

@@ -3,6 +3,18 @@ AddCSLuaFile()
 simple_weapons.Include("Convars")
 simple_weapons.Include("Enums")
 
+function SWEP:HandleReloadAbort()
+	if self:IsReloading() then
+		if self.Primary.Reload.Shotgun then
+			self:SetAbortReload(true)
+		end
+
+		return true
+	end
+
+	return false
+end
+
 function SWEP:IsReloading()
 	return self:GetFinishReload() != 0
 end
@@ -92,7 +104,7 @@ function SWEP:FinishReload()
 
 			local duration = self:SequenceDuration()
 
-			self:SetNextPrimaryFire(CurTime() + duration)
+			self:SetNextFire(CurTime() + duration)
 			self:SetNextIdle(CurTime() + duration)
 
 			self:SetAbortReload(false)

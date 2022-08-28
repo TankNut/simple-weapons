@@ -83,15 +83,11 @@ function SWEP:CycleScope()
 	end
 end
 
-function SWEP:CanAlternateAttack()
-	if self:GetLowered() then
-		return false
-	end
-
-	return BaseClass.CanAlternateAttack(self)
+function SWEP:CanAltFire()
+	return not self:GetLowered()
 end
 
-function SWEP:AlternateAttack()
+function SWEP:AltFire()
 	self.Primary.Automatic = false
 
 	self:CycleScope()

@@ -42,6 +42,21 @@ function SWEP:GetRange()
 	return self.Primary.Range * RangeMult:GetFloat(), self.Primary.Accuracy
 end
 
+function SWEP:GetSpread(range, accuracy)
+	local range2, accuracy2 = self:GetRange()
+
+	range = range or range2
+	accuracy = accuracy or accuracy2
+
+	local inches = accuracy / 0.75
+	local yards = (range / 0.75) / 36
+	local MOA = (inches * 100) / yards
+
+	local spread = math.rad(MOA / 60)
+
+	return Vector(spread, spread, 0)
+end
+
 -- Recoil
 function SWEP:GetRecoilMultiplier()
 	return math.tan(self:GetFOV() * (math.pi / 360)) * RecoilMult:GetFloat() * self:GetZoom()

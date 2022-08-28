@@ -70,7 +70,7 @@ function SWEP:SetLower(lower)
 	end
 end
 
-function SWEP:AlternateAttack()
+function SWEP:AltFire()
 	self.Primary.Automatic = false
 
 	self:SetDotEnabled(not self:GetDotEnabled())

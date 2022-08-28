@@ -125,7 +125,9 @@ function SWEP:SetupDataTables()
 	self:AddNetworkVar("Float", "LowerTime")
 	self:AddNetworkVar("Float", "NextIdle")
 	self:AddNetworkVar("Float", "FinishReload")
-	self:AddNetworkVar("Float", "NextAlternateAttack")
+
+	self:AddNetworkVar("Float", "NextFire")
+	self:AddNetworkVar("Float", "NextAltFire")
 end
 
 function SWEP:AddNetworkVar(varType, name, extended)
@@ -204,97 +206,25 @@ function SWEP:SetLower(lower)
 	return true
 end
 
-function SWEP:CanPrimaryAttack()
-	if not self:HandleAutoRaise() then
-		return false
-	end
-
-	if self:IsReloading() then
-		if self.Primary.Reload.Shotgun then
-			self:SetAbortReload(true)
-		end
-
-		return false
-	end
-
-	if self:IsEmpty() then
-		local ply = self:GetOwner()
-
-		if ply:IsNPC() then
-			if SERVER then
-				ply:SetSchedule(SCHED_RELOAD) -- Metropolice don't like reloading...
-			end
-
-			return false
-		end
-
-		if ply:GetInfoNum("simple_weapons_auto_reload", 0) == 1 and self:GetBurstFired() == 0 then
-			self:Reload()
-		end
-
-		if not self:IsReloading() then
-			self:EmitEmptySound()
-		end
-
-		self:SetNextPrimaryFire(CurTime() + 0.2)
-
-		self.Primary.Automatic = false
-
-		return false
-	end
-
-	return true
-end
-
 function SWEP:PrimaryAttack()
 	local ply = self:GetOwner()
 
 	if not self.ClassicMode and ply:IsPlayer() and ply:KeyDown(IN_USE) then
-		if self:GetNextAlternateAttack() > CurTime() then
-			return
-		end
-
-		if not self:CanAlternateAttack() then
-			return
-		end
-
-		self:AlternateAttack()
+		self:TryAltFire()
 
 		return
 	end
 
-	if not self:CanPrimaryAttack() then
+	if self:GetNextFire() > CurTime() or not self:CanPrimaryFire() then
 		return
 	end
 
-	self:UpdateAutomatic()
-	self:ConsumeAmmo()
-
-	self:FireWeapon()
-
-	local delay = self:GetDelay()
-
-	self:ApplyRecoil()
-
-	if self:ShouldPump() then
-		self:SetNeedPump(true)
-	end
-
-	self:SetNextIdle(CurTime() + self:SequenceDuration())
-	self:SetNextPrimaryFire(CurTime() + delay)
+	self:PrimaryFire()
 end
 
 function SWEP:SecondaryAttack()
 	if self.ClassicMode then
-		if self:GetNextAlternateAttack() > CurTime() then
-			return
-		end
-
-		if not self:CanAlternateAttack() then
-			return
-		end
-
-		self:AlternateAttack()
+		self:TryAltFire()
 	else
 		self:SetLower(not self:GetLowered())
 	end
@@ -311,7 +241,7 @@ function SWEP:HandleIdle()
 end
 
 function SWEP:HandlePump()
-	if self:GetNeedPump() and not self:IsReloading() and self:GetNextPrimaryFire() <= CurTime() then
+	if self:GetNeedPump() and not self:IsReloading() and self:GetNextFire() <= CurTime() then
 		if not self.Primary.PumpOnEmpty and self:Clip1() == 0 then
 			return
 		end
@@ -326,7 +256,7 @@ function SWEP:HandlePump()
 
 		local duration = self:SequenceDuration()
 
-		self:SetNextPrimaryFire(CurTime() + duration)
+		self:SetNextFire(CurTime() + duration)
 		self:SetNextIdle(CurTime() + duration)
 
 		self:SetNeedPump(false)
@@ -334,9 +264,9 @@ function SWEP:HandlePump()
 end
 
 function SWEP:HandleBurst()
-	if self:GetBurstFired() > 0 and CurTime() > self:GetNextPrimaryFire() + engine.TickInterval() then
+	if self:GetBurstFired() > 0 and CurTime() > self:GetNextFire() + engine.TickInterval() then
 		self:SetBurstFired(0)
-		self:SetNextPrimaryFire(CurTime() + self:GetDelay())
+		self:SetNextFire(CurTime() + self:GetDelay())
 	end
 end
 

@@ -84,8 +84,8 @@ function SWEP:HandleAutoRaise()
 			self:SetLower(false)
 		end
 
-		return false
+		return true
 	end
 
-	return true
+	return false
 end

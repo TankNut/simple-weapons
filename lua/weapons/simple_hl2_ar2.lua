@@ -127,15 +127,15 @@ function SWEP:TranslateWeaponAnim(act)
 	return act
 end
 
-function SWEP:CanAlternateAttack()
-	if not self:HandleAutoRaise() or self:IsReloading() then
+function SWEP:CanAltFire()
+	if self:HandleAutoRaise() or self:IsReloading() then
 		return false
 	end
 
 	if InfiniteAmmo:GetInt() == 0 and self:GetOwner():GetAmmoCount(self.Secondary.Ammo) < 1 then
 		self:EmitEmptySound()
 
-		self:SetNextPrimaryFire(CurTime() + 0.2)
+		self:SetNextFire(CurTime() + 0.2)
 
 		self.Primary.Automatic = false
 
@@ -145,7 +145,7 @@ function SWEP:CanAlternateAttack()
 	return true
 end
 
-function SWEP:AlternateAttack()
+function SWEP:AltFire()
 	self.Primary.Automatic = false
 
 	self:EmitSound(self.Secondary.ChargeSound)
@@ -155,8 +155,8 @@ function SWEP:AlternateAttack()
 
 	self:SetFireBall(CurTime() + 0.5)
 
-	self:SetNextPrimaryFire(math.huge)
-	self:SetNextAlternateAttack(math.huge)
+	self:SetNextFire(math.huge)
+	self:SetNextAltFire(math.huge)
 end
 
 function SWEP:Think()
@@ -208,7 +208,7 @@ function SWEP:Think()
 
 		self:SetNextIdle(CurTime() + self:SequenceDuration())
 
-		self:SetNextPrimaryFire(CurTime() + 0.5)
-		self:SetNextAlternateAttack(CurTime() + 1)
+		self:SetNextFire(CurTime() + 0.5)
+		self:SetNextAltFire(CurTime() + 1)
 	end
 end

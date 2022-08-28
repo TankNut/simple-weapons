@@ -84,7 +84,7 @@ function SWEP:CanAltFire()
 		return
 	end
 
-	return BaseClass.CanPrimaryAttack(self)
+	return BaseClass.CanPrimaryFire(self)
 end
 
 function SWEP:AltFire()

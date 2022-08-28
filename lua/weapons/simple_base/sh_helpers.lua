@@ -89,3 +89,17 @@ function SWEP:HandleAutoRaise()
 
 	return false
 end
+
+function SWEP:IsAltFireHeld()
+	local ply = self:GetOwner()
+
+	if not IsValid(ply) or ply:IsNPC() then
+		return false
+	end
+
+	if self.ClassicMode then
+		return ply:KeyDown(IN_ATTACK2)
+	else
+		return ply:KeyDown(IN_USE) and ply:KeyDown(IN_ATTACK)
+	end
+end

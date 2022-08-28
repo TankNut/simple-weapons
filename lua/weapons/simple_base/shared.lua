@@ -296,6 +296,8 @@ function SWEP:UpdateClassicMode()
 	else
 		self:UpdateFOV(0.1)
 	end
+
+	self:SetHoldType(self.HoldType)
 end
 
 function SWEP:OnReloaded()

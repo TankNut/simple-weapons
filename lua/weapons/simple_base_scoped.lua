@@ -12,6 +12,9 @@ SWEP.Primary.UnscopedAccuracy = 0
 SWEP.ScopeZoom = 1
 SWEP.ScopeSound = ""
 
+SWEP.UseScope = true
+SWEP.HideInScope = true
+
 function SWEP:SetupDataTables()
 	BaseClass.SetupDataTables(self)
 
@@ -91,4 +94,58 @@ function SWEP:AltFire()
 	self.Primary.Automatic = false
 
 	self:CycleScope()
+end
+
+if CLIENT then
+	function SWEP:PreDrawViewModel(vm, _, ply)
+		if not self.UseScope or not self.HideInScope or self:GetLowered() then
+			return
+		end
+
+		return self:GetScopeIndex() != 0 and UseScopes:GetBool()
+	end
+
+	function SWEP:ShouldHideCrosshair()
+		if self.UseScope and self:GetScopeIndex() != 0 and UseScopes:GetBool() then
+			return self:GetLowered()
+		else
+			return self:GetLowered() or self:IsReloading()
+		end
+	end
+
+	function SWEP:DrawCrosshair(x, y)
+		if self:GetScopeIndex() == 0 or not self.UseScope then
+			return false
+		else
+			return UseScopes:GetBool() and self:DrawScope(x, y) or false
+		end
+	end
+
+	local scope = Material("gmod/scope")
+
+	function SWEP:DrawScope(x, y)
+		local screenW = ScrW()
+		local screenH = ScrH()
+
+		local h = screenH
+		local w = (4 / 3) * h
+
+		local dw = (screenW - w) * 0.5
+
+		local midX = screenW * 0.5
+		local midY = screenH * 0.5
+
+		surface.SetMaterial(scope)
+		surface.SetDrawColor(0, 0, 0)
+
+		surface.DrawLine(0, midY, screenW, midY)
+		surface.DrawLine(midX, 0, midX, screenH)
+
+		surface.DrawRect(0, 0, dw, h)
+		surface.DrawRect(w + dw, 0, dw, h)
+
+		surface.DrawTexturedRect(dw, 0, w, h)
+
+		return true
+	end
 end

@@ -28,10 +28,11 @@ if CLIENT then
 
 	AutoReload = CreateClientConVar("simple_weapons_auto_reload", 1, true, true, "Whether weapons should automatically reload when you fire them.")
 
+	AimZoom = CreateClientConVar("simple_weapons_zoom", 1.25, true, true, "The amount of zoom to apply when raising a weapon.", 1, 1.5)
+	UseScopes = CreateClientConVar("simple_weapons_scopes", 0, true, false, "Whether to use scopes when zooming.")
+
 	SwayScale = CreateClientConVar("simple_weapons_swayscale", 1, true, false, "The amount of viewmodel sway to apply to weapons")
 	BobScale = CreateClientConVar("simple_weapons_bobscale", 1, true, false, "The amount of viewmodel bob to apply to weapons")
-
-	AimZoom = CreateClientConVar("simple_weapons_zoom", 1.25, true, true, "The amount of zoom to apply when raising a weapon.", 1, 1.5)
 
 	VMOffsetX = CreateClientConVar("simple_weapons_vm_offset_x", 0, true, false, "The forward/back offset to use for viewmodels.")
 	VMOffsetY = CreateClientConVar("simple_weapons_vm_offset_y", 0, true, false, "The left/right offset to use for viewmodels.")

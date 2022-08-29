@@ -45,6 +45,8 @@ hook.Add("PopulateToolMenu", "simple_weapons", function()
 
 		pnl:NumSlider("Aim focus (zoom)", "simple_weapons_zoom", 1, 1.5, 2)
 
+		pnl:CheckBox("Draw scopes", "simple_weapons_scopes")
+
 		pnl:Help("")
 		pnl:Help("Viewmodel Settings")
 

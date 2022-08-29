@@ -21,6 +21,7 @@ SWEP.Primary.DefaultClip = 0
 SWEP.Primary.Automatic = false
 
 SWEP.Primary.ChargeTime = 1
+SWEP.Primary.AutoSwing = true
 
 SWEP.Primary.Light = {
 	Damage = 1,
@@ -146,6 +147,7 @@ function SWEP:PrimaryAttack()
 	end
 
 	if self.Primary.ChargeTime == 0 then
+		self.Primary.Automatic = self.Primary.AutoSwing
 		self:LightAttack()
 
 		return

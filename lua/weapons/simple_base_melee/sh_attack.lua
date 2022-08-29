@@ -64,7 +64,7 @@ function SWEP:HandleCharge()
 
 		self:SetChargeTime(0)
 
-		self.Primary.Automatic = true
+		self.Primary.Automatic = self.Primary.AutoSwing
 	end
 end
 

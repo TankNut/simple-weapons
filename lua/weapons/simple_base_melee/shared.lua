@@ -18,13 +18,13 @@ SWEP.LowerHoldType = "normal"
 SWEP.Primary.Ammo = ""
 SWEP.Primary.ClipSize = -1
 SWEP.Primary.DefaultClip = 0
-SWEP.Primary.Automatic = true
+SWEP.Primary.Automatic = false
 
 SWEP.Primary.ChargeTime = 1
 
 SWEP.Primary.Light = {
 	Damage = 1,
-	DamageType = bit.bor(DMG_CLUB, DMG_SHOCK),
+	DamageType = DMG_CLUB,
 
 	Range = 75,
 	Delay = 0.1,
@@ -36,7 +36,7 @@ SWEP.Primary.Light = {
 
 SWEP.Primary.Heavy = {
 	Damage = 1,
-	DamageType = bit.bor(DMG_CLUB, DMG_SHOCK),
+	DamageType = DMG_CLUB,
 
 	Range = 75,
 	Delay = 0.1,
@@ -141,6 +141,12 @@ function SWEP:PrimaryAttack()
 		if self:GetOwner():GetInfoNum("simple_weapons_disable_raise", 0) == 0 then
 			self:SetLower(false)
 		end
+
+		return
+	end
+
+	if self.Primary.ChargeTime == 0 then
+		self:LightAttack()
 
 		return
 	end

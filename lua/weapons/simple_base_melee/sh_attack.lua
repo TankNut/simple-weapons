@@ -63,6 +63,8 @@ function SWEP:HandleCharge()
 		end
 
 		self:SetChargeTime(0)
+
+		self.Primary.Automatic = true
 	end
 end
 
@@ -216,8 +218,6 @@ function SWEP:GenericAttack(heavy)
 	end
 
 	self:SetNextPrimaryFire(CurTime() + delay)
-
-	self.Primary.Automatic = true
 
 	return hit, trace
 end

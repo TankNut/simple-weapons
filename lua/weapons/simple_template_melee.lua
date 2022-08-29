@@ -30,6 +30,7 @@ SWEP.LowerHoldType = "normal" -- Ditto, used when a weapon is lowered
 -- Weapon stats
 
 SWEP.Primary = {
+	AutoSwing = true, -- Whether finishing a swing requires you to release the mouse button before queueing up another one
 	ChargeTime = 0.4, -- The time a player needs to hold down attack to set up a heavy attack, if set to 0 will disable heavy attacks alltogether
 
 	-- Light attacks

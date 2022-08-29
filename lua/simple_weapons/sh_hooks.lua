@@ -26,10 +26,8 @@ hook.Add("Think", "simple_base", function()
 			continue
 		end
 
-		ply._ActiveWeapon = ply:GetActiveWeapon()
-
-		local oldWeapon = ply._LastActiveWeapon
-		local newWeapon = ply._ActiveWeapon
+		local oldWeapon = ply._SimpleActiveWeapon
+		local newWeapon = ply:GetActiveWeapon()
 
 		if not oldWeapon or oldWeapon != newWeapon then
 			if IsValid(oldWeapon) and oldWeapon.SimpleWeapon then
@@ -41,7 +39,7 @@ hook.Add("Think", "simple_base", function()
 			end
 		end
 
-		ply._LastActiveWeapon = newWeapon
+		ply._SimpleActiveWeapon = newWeapon
 	end
 end)
 

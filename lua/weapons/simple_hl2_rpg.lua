@@ -87,6 +87,20 @@ function SWEP:AltFire()
 end
 
 if SERVER then
+	function SWEP:OnDeploy()
+		BaseClass.OnDeploy(self)
+
+		if self.ClassicMode and self:GetDotEnabled() then
+			self:CreateDot()
+		end
+	end
+
+	function SWEP:OnHolster(removing, ply)
+		BaseClass.OnHolster(self, removing, ply)
+
+		SafeRemoveEntity(self:GetDot())
+	end
+
 	function SWEP:GetNPCBulletSpread(prof)
 		return 0
 	end
@@ -159,14 +173,6 @@ function SWEP:Think()
 
 		dot:SetPos(tr.HitPos)
 		dot:SetSaveValue("m_vecSurfaceNormal", tr.HitNormal)
-	end
-end
-
-function SWEP:OnHolster(removing, ply)
-	BaseClass.OnHolster(self, removing, ply)
-
-	if SERVER then
-		SafeRemoveEntity(self:GetDot())
 	end
 end
 

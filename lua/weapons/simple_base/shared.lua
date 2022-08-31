@@ -163,7 +163,6 @@ function SWEP:OnDeploy()
 		self:SetHoldType(self.LowerHoldType)
 	end
 
-	self:SendTranslatedWeaponAnim(ACT_VM_DRAW)
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
 end
 

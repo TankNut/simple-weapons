@@ -328,3 +328,17 @@ function SWEP:SetupMove(ply, mv)
 	mv:SetMaxSpeed(speed)
 	mv:SetMaxClientSpeed(speed)
 end
+
+function SWEP:OnRestore()
+	self:SetFirstReload(false)
+	self:SetAbortReload(false)
+
+	self:SetBurstFired(0)
+
+	self:SetLowerTime(0)
+	self:SetNextIdle(CurTime())
+	self:SetFinishReload(0)
+
+	self:SetNextFire(CurTime())
+	self:SetNextAltFire(CurTime())
+end

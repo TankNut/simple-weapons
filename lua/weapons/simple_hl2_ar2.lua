@@ -212,3 +212,9 @@ function SWEP:Think()
 		self:SetNextAltFire(CurTime() + 1)
 	end
 end
+
+function SWEP:OnRestore()
+	BaseClass.OnRestore(self)
+
+	self:SetFireBall(0)
+end

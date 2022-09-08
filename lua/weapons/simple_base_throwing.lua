@@ -304,3 +304,9 @@ if CLIENT then
 		}
 	end
 end
+
+function SWEP:OnRestore()
+	self:SetNextIdle(CurTime())
+	self:SetFinishThrow(0)
+	self:SetFinishReload(0)
+end

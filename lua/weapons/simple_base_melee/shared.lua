@@ -238,3 +238,9 @@ function SWEP:SetupMove(ply, mv)
 		mv:SetMaxClientSpeed(speed)
 	end
 end
+
+function SWEP:OnRestore()
+	self:SetLowerTime(0)
+	self:SetNextIdle(CurTime())
+	self:SetChargeTime(0)
+end

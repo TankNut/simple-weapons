@@ -107,3 +107,20 @@ end
 function SWEP:ForceStopFire()
 	self:GetOwner():ConCommand("-attack")
 end
+
+function SWEP:DoAR2Impact(tr)
+	if tr.HitSky then
+		return
+	end
+
+	if not game.SinglePlayer() and not IsFirstTimePredicted() then
+		return
+	end
+
+	local effect = EffectData()
+
+	effect:SetOrigin(tr.HitPos + tr.HitNormal)
+	effect:SetNormal(tr.HitNormal)
+
+	util.Effect("AR2Impact", effect)
+end

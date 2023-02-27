@@ -91,20 +91,7 @@ function SWEP:Holster()
 end
 
 function SWEP:DoImpactEffect(tr, dmgtype)
-	if tr.HitSky then
-		return
-	end
-
-	if not game.SinglePlayer() and IsFirstTimePredicted() then
-		return
-	end
-
-	local effect = EffectData()
-
-	effect:SetOrigin(tr.HitPos + tr.HitNormal)
-	effect:SetNormal(tr.HitNormal)
-
-	util.Effect("AR2Impact", effect)
+	self:DoAR2Impact(tr)
 end
 
 -- ACT_VM_RECOIL support

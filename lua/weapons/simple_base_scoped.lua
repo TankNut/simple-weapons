@@ -28,11 +28,9 @@ function SWEP:Deploy()
 end
 
 function SWEP:Holster()
-	BaseClass.Holster(self)
-
 	self:SetScopeIndex(0)
 
-	return true
+	return BaseClass.Holster(self)
 end
 
 function SWEP:GetRange()
@@ -64,7 +62,7 @@ function SWEP:GetZoom()
 	local index = self:GetScopeIndex()
 
 	if index == 0 then
-		return self.ClassicMode and 1 or self:GetOwner():GetInfoNum("simple_weapons_zoom", 1.25)
+		return ClassicMode:GetBool() and 1 or self:GetOwner():GetInfoNum("simple_weapons_zoom", 1.25)
 	else
 		return istable(self.ScopeZoom) and self.ScopeZoom[index] or self.ScopeZoom
 	end

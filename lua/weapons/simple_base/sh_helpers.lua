@@ -97,7 +97,7 @@ function SWEP:IsAltFireHeld()
 		return false
 	end
 
-	if self.ClassicMode then
+	if ClassicMode:GetBool() then
 		return ply:KeyDown(IN_ATTACK2)
 	else
 		return ply:KeyDown(IN_USE) and ply:KeyDown(IN_ATTACK)

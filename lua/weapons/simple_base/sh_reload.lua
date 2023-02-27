@@ -58,11 +58,9 @@ function SWEP:StartReload()
 
 	if reload.Shotgun then
 		self:SendTranslatedWeaponAnim(ACT_SHOTGUN_RELOAD_START)
-
 		self:SetFirstReload(true)
 	else
 		self:SendTranslatedWeaponAnim(ACT_VM_RELOAD)
-
 		self:EmitReloadSound()
 	end
 

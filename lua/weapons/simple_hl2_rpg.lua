@@ -90,7 +90,7 @@ if SERVER then
 	function SWEP:Deploy()
 		BaseClass.Deploy(self)
 
-		if self.ClassicMode and self:GetDotEnabled() then
+		if ClassicMode:GetBool() and self:GetDotEnabled() then
 			self:CreateDot()
 		end
 	end

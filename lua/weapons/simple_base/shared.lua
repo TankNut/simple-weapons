@@ -150,12 +150,10 @@ function SWEP:OwnerChanged()
 	end
 end
 
-	self.ClassicMode = ClassicMode:GetBool()
-
 function SWEP:Deploy()
 	self:SetLowerTime(0)
 
-	if self.ClassicMode then
+	if ClassicMode:GetBool() then
 		self:SetLowered(false)
 		self:SetHoldType(self.HoldType)
 	else
@@ -163,7 +161,10 @@ function SWEP:Deploy()
 		self:SetHoldType(self.LowerHoldType)
 	end
 
+	self:SendTranslatedWeaponAnim(ACT_VM_DRAW)
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
+
+	self.ClassicMode = ClassicMode:GetBool()
 end
 
 function SWEP:Holster()
@@ -171,7 +172,7 @@ function SWEP:Holster()
 	self:SetAbortReload(false)
 	self:SetFinishReload(0)
 
-	ply:SetFOV(0, 0.1, self)
+	self:GetOwner():SetFOV(0, 0.1, self)
 
 	return true
 end
@@ -210,7 +211,7 @@ end
 function SWEP:PrimaryAttack()
 	local ply = self:GetOwner()
 
-	if not self.ClassicMode and ply:IsPlayer() and ply:KeyDown(IN_USE) then
+	if not ClassicMode:GetBool() and ply:IsPlayer() and ply:KeyDown(IN_USE) then
 		self:TryAltFire()
 
 		return
@@ -224,7 +225,7 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:SecondaryAttack()
-	if self.ClassicMode then
+	if ClassicMode:GetBool() then
 		self:TryAltFire()
 	else
 		self:SetLower(not self:GetLowered())
@@ -278,43 +279,31 @@ function SWEP:Think()
 	self:HandleBurst()
 	self:HandleViewModel()
 
-	local classic = ClassicMode:GetBool()
-
-	if self.ClassicMode != classic then
-		self.ClassicMode = classic
-		self:UpdateClassicMode()
-	end
+	self:UpdateClassicMode()
 end
 
 function SWEP:UpdateClassicMode()
-	local classic = self.ClassicMode
+	local classic = ClassicMode:GetBool()
 
-	if classic then
+	if self.ClassicMode != classic then
 		self:SetLowered(false)
 		self:SetLowerTime(0)
 
-		self:GetOwner():SetFOV(0, 0.1, self)
-	else
 		self:UpdateFOV(0.1)
-	end
 
-	self:SetHoldType(self.HoldType)
+		self:SetHoldType(self.HoldType)
+		self.ClassicMode = ClassicMode:GetBool()
+	end
 end
 
 function SWEP:OnReloaded()
-	self:SetWeaponHoldType(self:GetHoldType())
-end
-
-function SWEP:OnRemove()
-	local ply = self:GetOwner()
-
-	if IsValid(ply) and ply._ActiveWeapon == self then
-		self:OnHolster(true, ply)
+	if self:GetHoldType() != "" then
+		self:SetWeaponHoldType(self:GetHoldType())
 	end
 end
 
 function SWEP:SetupMove(ply, mv)
-	local fraction = self.ClassicMode and 1 or self:GetLowerFraction()
+	local fraction = ClassicMode:GetBool() and 1 or self:GetLowerFraction()
 	local min = hook.Run("SimpleLimitMoveSpeed", ply, self)
 
 	if not min then

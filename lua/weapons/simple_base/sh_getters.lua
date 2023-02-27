@@ -69,7 +69,7 @@ end
 
 -- Zoom
 function SWEP:GetZoom()
-	if self:GetLowered() or self.ClassicMode then
+	if self:GetLowered() or ClassicMode:GetBool() then
 		return 1
 	end
 

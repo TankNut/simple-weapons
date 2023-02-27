@@ -50,8 +50,8 @@ SWEP.NPCData = {
 
 list.Add("NPCUsableWeapons", {class = "simple_hl2_crossbow", title = "Simple Weapons: " .. SWEP.PrintName})
 
-function SWEP:OnDeploy()
-	BaseClass.OnDeploy(self)
+function SWEP:Deploy()
+	BaseClass.Deploy(self)
 
 	if self:Clip1() > 0 then
 		self:GetViewModel():SetSkin(1)

@@ -91,7 +91,7 @@ function SWEP:AddNetworkVar(varType, name, extended)
 	self._NetworkVars[varType] = index + 1
 end
 
-function SWEP:OnDeploy()
+function SWEP:Deploy()
 	self.ClassicMode = ClassicMode:GetBool()
 
 	self:SetLowerTime(0)
@@ -108,8 +108,10 @@ function SWEP:OnDeploy()
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
 end
 
-function SWEP:OnHolster(removing, ply)
+function SWEP:Holster()
 	self:SetChargeTime(0)
+
+	return true
 end
 
 function SWEP:IsReady()

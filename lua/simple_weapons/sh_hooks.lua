@@ -20,29 +20,6 @@ hook.Add("SetupMove", "simple_base", function(ply, mv)
 	weapon:SetupMove(ply, mv)
 end)
 
-hook.Add("Think", "simple_base", function()
-	for _, ply in ipairs(player.GetAll()) do
-		if CLIENT and ply != LocalPlayer() then
-			continue
-		end
-
-		local oldWeapon = ply._SimpleActiveWeapon
-		local newWeapon = ply:GetActiveWeapon()
-
-		if not oldWeapon or oldWeapon != newWeapon then
-			if IsValid(oldWeapon) and oldWeapon.SimpleWeapon then
-				oldWeapon:OnHolster(false, ply)
-			end
-
-			if IsValid(newWeapon) and newWeapon.SimpleWeapon then
-				newWeapon:OnDeploy()
-			end
-		end
-
-		ply._SimpleActiveWeapon = newWeapon
-	end
-end)
-
 if CLIENT then
 	hook.Add("PostDrawTranslucentRenderables", "simple_base", function(depth, skybox, skybox3d)
 		if skybox or skybox3d then

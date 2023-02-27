@@ -21,16 +21,18 @@ function SWEP:SetupDataTables()
 	self:AddNetworkVar("Int", "ScopeIndex")
 end
 
-function SWEP:OnDeploy()
-	BaseClass.OnDeploy(self)
+function SWEP:Deploy()
+	BaseClass.Deploy(self)
 
 	self:SetScopeIndex(0)
 end
 
-function SWEP:OnHolster(removing, ply)
-	BaseClass.OnHolster(self, removing, ply)
+function SWEP:Holster()
+	BaseClass.Holster(self)
 
 	self:SetScopeIndex(0)
+
+	return true
 end
 
 function SWEP:GetRange()

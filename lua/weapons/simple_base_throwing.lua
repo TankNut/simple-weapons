@@ -60,13 +60,14 @@ function SWEP:AddNetworkVar(varType, name, extended)
 	self._NetworkVars[varType] = index + 1
 end
 
-function SWEP:OnDeploy()
+function SWEP:Deploy()
 	self:SetHoldType(self.LowerHoldType)
 
 	self:SetNextIdle(CurTime() + self:SendTranslatedWeaponAnim(ACT_VM_DRAW))
 end
 
-function SWEP:OnHolster(removing, ply)
+function SWEP:Holster()
+	return true
 end
 
 function SWEP:CanThrow()

@@ -150,9 +150,9 @@ function SWEP:OwnerChanged()
 	end
 end
 
-function SWEP:OnDeploy()
 	self.ClassicMode = ClassicMode:GetBool()
 
+function SWEP:Deploy()
 	self:SetLowerTime(0)
 
 	if self.ClassicMode then
@@ -166,12 +166,14 @@ function SWEP:OnDeploy()
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
 end
 
-function SWEP:OnHolster(removing, ply)
+function SWEP:Holster()
 	self:SetFirstReload(false)
 	self:SetAbortReload(false)
 	self:SetFinishReload(0)
 
 	ply:SetFOV(0, 0.1, self)
+
+	return true
 end
 
 function SWEP:CanLower()

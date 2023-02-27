@@ -78,16 +78,16 @@ function SWEP:Holster()
 	return true
 end
 
-function SWEP:OnDeploy()
-	BaseClass.OnDeploy(self)
+function SWEP:Deploy()
+	BaseClass.Deploy(self)
 
 	self:SetFireBall(0)
 end
 
-function SWEP:OnHolster(removing, ply)
-	BaseClass.OnHolster(self, removing, ply)
-
+function SWEP:Holster()
 	self:SetFireBall(0)
+
+	return BaseClass.Holster(self)
 end
 
 function SWEP:DoImpactEffect(tr, dmgtype)

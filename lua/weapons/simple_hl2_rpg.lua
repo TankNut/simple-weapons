@@ -87,17 +87,21 @@ function SWEP:AltFire()
 end
 
 if SERVER then
-	function SWEP:OnDeploy()
-		BaseClass.OnDeploy(self)
+	function SWEP:Deploy()
+		BaseClass.Deploy(self)
 
 		if self.ClassicMode and self:GetDotEnabled() then
 			self:CreateDot()
 		end
 	end
 
-	function SWEP:OnHolster(removing, ply)
-		BaseClass.OnHolster(self, removing, ply)
+	function SWEP:Holster()
+		SafeRemoveEntity(self:GetDot())
 
+		return BaseClass.Holster(self)
+	end
+
+	function SWEP:OnRemove()
 		SafeRemoveEntity(self:GetDot())
 	end
 

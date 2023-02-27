@@ -28,8 +28,7 @@ function SWEP:CanPrimaryFire()
 		end
 
 		self:SetNextFire(CurTime() + 0.2)
-
-		self.Primary.Automatic = false
+		self:ForceStopFire()
 
 		return false
 	end
@@ -75,20 +74,19 @@ function SWEP:UpdateAutomatic()
 	local primary = self.Primary
 	local firemode = self:GetFiremode()
 
-	if firemode == -1 then
-		primary.Automatic = true
-	elseif firemode == 0 then
+	if firemode == 0 then
 		primary.Automatic = false
 	else
+		primary.Automatic = true
+	end
+
+	if firemode > 0 then
 		local count = self:GetBurstFired()
 
 		if count + 1 >= firemode then
-			primary.Automatic = false
-
+			self:ForceStopFire()
 			self:SetBurstFired(0)
 		else
-			primary.Automatic = true
-
 			self:SetBurstFired(count + 1)
 		end
 	end

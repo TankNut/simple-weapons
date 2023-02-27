@@ -103,3 +103,7 @@ function SWEP:IsAltFireHeld()
 		return ply:KeyDown(IN_USE) and ply:KeyDown(IN_ATTACK)
 	end
 end
+
+function SWEP:ForceStopFire()
+	self:GetOwner():ConCommand("-attack")
+end

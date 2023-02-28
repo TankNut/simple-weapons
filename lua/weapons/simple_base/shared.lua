@@ -172,7 +172,11 @@ function SWEP:Holster()
 	self:SetAbortReload(false)
 	self:SetFinishReload(0)
 
-	self:GetOwner():SetFOV(0, 0.1, self)
+	local ply = self:GetOwner()
+
+	if IsValid(ply) then
+		ply:SetFOV(0, 0.1, self)
+	end
 
 	return true
 end

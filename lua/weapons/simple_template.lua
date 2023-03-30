@@ -27,6 +27,9 @@ SWEP.WorldModel = Model("models/weapons/w_pistol.mdl") -- Weapon worldmodel, alm
 SWEP.HoldType = "pistol" -- Default holdtype, you can find all the options here: https://wiki.facepunch.com/gmod/Hold_Types
 SWEP.LowerHoldType = "normal" -- Ditto, used when a weapon is lowered
 
+SWEP.CustomHoldType = {} -- Allows you to override any hold type animations with your own, uses [ACT_MP_STAND_IDLE] = ACT_HL2MP_IDLE_SHOTGUN formatting
+SWEP.CustomLowerHoldType = {} -- Ditto, used when a weapon is lowered
+
 -- Weapon stats
 
 SWEP.Firemode = 0 -- The default firemode, -1 = full-auto, 0 = semi-auto, >1 = burst fire

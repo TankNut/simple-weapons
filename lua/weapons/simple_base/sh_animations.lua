@@ -61,6 +61,12 @@ function SWEP:TranslateActivity(act)
 		translated = index[self.HoldType] + 6
 	end
 
+	local custom = self:GetLowered() and self.CustomLowerHoldType or self.CustomHoldType
+
+	if custom[act] then
+		return custom[act]
+	end
+
 	if not translated then
 		translated = BaseClass.TranslateActivity(self, act)
 	end

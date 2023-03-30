@@ -16,6 +16,9 @@ SWEP.SimpleWeapon = true
 SWEP.HoldType = "ar2"
 SWEP.LowerHoldType = "passive"
 
+SWEP.CustomHoldType = {}
+SWEP.CustomLowerHoldType = {}
+
 SWEP.Firemode = -1
 
 SWEP.Primary.Ammo = ""

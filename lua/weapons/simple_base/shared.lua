@@ -292,6 +292,12 @@ end
 function SWEP:UpdateClassicMode()
 	local classic = ClassicMode:GetBool()
 
+	if self.ClassicMode == nil then
+		self:Deploy()
+
+		return
+	end
+
 	if self.ClassicMode != classic then
 		self:SetLowered(false)
 		self:SetLowerTime(0)

@@ -44,8 +44,7 @@ SWEP.Primary.Heavy = {
 
 	Act = ACT_VM_HITCENTER,
 
-	HitSound = "",
-	MissSound = ""
+	Sound = ""
 }
 
 SWEP.Secondary.Ammo = ""

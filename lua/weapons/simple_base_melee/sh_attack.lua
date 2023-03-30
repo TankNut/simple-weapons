@@ -27,7 +27,11 @@ function SWEP:PlayAttackSound(heavy, hit, trace)
 	local snd = tab.Sound
 
 	if istable(snd) then
-		snd = hit and snd[1] or snd[2]
+		if snd[3] and trace.HitWorld then
+			snd = snd[3]
+		else
+			snd = hit and snd[1] or snd[2]
+		end
 	end
 
 	if snd != "" then

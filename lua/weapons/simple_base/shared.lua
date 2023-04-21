@@ -177,7 +177,7 @@ function SWEP:Holster()
 
 	local ply = self:GetOwner()
 
-	if IsValid(ply) then
+	if IsValid(ply) and not ply:IsNPC() then
 		ply:SetFOV(0, 0.1, self)
 	end
 

@@ -117,6 +117,8 @@ function SWEP:SetupDataTables()
 		["Entity"] = 0
 	}
 
+	self:AddNetworkVar("Entity", "LastOwner")
+
 	self:AddNetworkVar("Bool", "Lowered")
 	self:AddNetworkVar("Bool", "NeedPump")
 	self:AddNetworkVar("Bool", "FirstReload")
@@ -146,11 +148,19 @@ function SWEP:AddNetworkVar(varType, name, extended)
 end
 
 function SWEP:OwnerChanged()
+	local old = self:GetLastOwner()
+
+	if IsValid(old) and old:IsPlayer() then
+		old:SetFOV(0, 0.1, self)
+	end
+
 	local ply = self:GetOwner()
 
 	if IsValid(ply) and ply:IsNPC() then
 		self:SetHoldType(self.HoldType)
 	end
+
+	self:SetLastOwner(ply)
 end
 
 function SWEP:Deploy()
@@ -177,7 +187,7 @@ function SWEP:Holster()
 
 	local ply = self:GetOwner()
 
-	if IsValid(ply) and not ply:IsNPC() then
+	if IsValid(ply) and not ply:IsPlayer() then
 		ply:SetFOV(0, 0.1, self)
 	end
 

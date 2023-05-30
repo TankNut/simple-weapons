@@ -5,6 +5,10 @@ DEFINE_BASECLASS("weapon_base")
 simple_weapons.Include("Convars")
 
 function SWEP:TranslateFOV(fov)
+	if not IsValid(self:GetOwner()) then
+		return fov
+	end
+
 	local desired = self:GetOwnerDefaultFOV()
 
 	self.ViewModelFOV = self.ViewModelTargetFOV + (desired - fov) * 0.6

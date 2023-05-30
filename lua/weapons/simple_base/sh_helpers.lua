@@ -105,7 +105,13 @@ function SWEP:IsAltFireHeld()
 end
 
 function SWEP:ForceStopFire()
-	self:GetOwner():ConCommand("-attack")
+	local ply = self:GetOwner()
+
+	if not IsValid(ply) or not ply:IsPlayer() then
+		return
+	end
+
+	ply:ConCommand("-attack")
 end
 
 function SWEP:DoAR2Impact(tr)

@@ -325,6 +325,14 @@ function SWEP:OnReloaded()
 	end
 end
 
+function SWEP:OnRemove()
+	local ply = self:GetOwner()
+
+	if IsValid(ply) and ply:IsPlayer() then
+		ply:SetFOV(0, 0, self)
+	end
+end
+
 function SWEP:SetupMove(ply, mv)
 	local fraction = ClassicMode:GetBool() and 1 or self:GetLowerFraction()
 	local min = hook.Run("SimpleLimitMoveSpeed", ply, self)

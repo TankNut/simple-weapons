@@ -1,5 +1,7 @@
 AddCSLuaFile()
 
+simple_weapons.Include("Convars")
+
 SWEP.Kind = WEAPON_NONE
 
 SWEP.AutoSpawnable = false
@@ -36,8 +38,18 @@ if CLIENT then
 	end
 
 	function SWEP:OverrideCrosshairDraw(x, y)
-		if disable_crosshair:GetBool() then
-			return
+		if disable_crosshair:GetBool() or self:ShouldHideCrosshair() then
+			return true
+		end
+
+		if self.DrawScope then
+			if self:GetScopeIndex() == 0 then
+				return true
+			else
+				if UseScopes:GetBool() and self:DrawScope(x, y) then
+					return true
+				end
+			end
 		end
 
 		local ply = LocalPlayer()

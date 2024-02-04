@@ -42,13 +42,11 @@ if CLIENT then
 			return true
 		end
 
-		if self.DrawScope then
+		if self.DrawScope and self.UseScope then
 			if self:GetScopeIndex() == 0 then
 				return true
-			else
-				if UseScopes:GetBool() and self:DrawScope(x, y) then
-					return true
-				end
+			elseif UseScopes:GetBool() and self:DrawScope(x, y) then
+				return true
 			end
 		end
 

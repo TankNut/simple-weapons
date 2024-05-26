@@ -55,9 +55,8 @@ list.Add("NPCUsableWeapons", {class = "simple_hl2_rpg", title = "Simple Weapons:
 function SWEP:SetupDataTables()
 	BaseClass.SetupDataTables(self)
 
-	self:AddNetworkVar("Bool", "DotEnabled")
-
-	self:AddNetworkVar("Entity", "Dot")
+	self:NetworkVar("Bool", "DotEnabled")
+	self:NetworkVar("Entity", "Dot")
 end
 
 function SWEP:SetLower(lower)

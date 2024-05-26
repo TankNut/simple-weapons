@@ -31,33 +31,16 @@ SWEP.Secondary.DefaultClip = 0
 SWEP.Secondary.Automatic = false
 
 function SWEP:SetupDataTables()
-	self._NetworkVars = {
-		["String"] = 0,
-		["Bool"]   = 0,
-		["Float"]  = 0,
-		["Int"]    = 0,
-		["Vector"] = 0,
-		["Angle"]  = 0,
-		["Entity"] = 0
-	}
+	self:NetworkVar("Int", "ThrowMode")
 
-	self:AddNetworkVar("Int", "ThrowMode")
-
-	self:AddNetworkVar("Float", "NextIdle")
-	self:AddNetworkVar("Float", "FinishThrow")
-	self:AddNetworkVar("Float", "FinishReload")
+	self:NetworkVar("Float", "NextIdle")
+	self:NetworkVar("Float", "FinishThrow")
+	self:NetworkVar("Float", "FinishReload")
 end
 
-function SWEP:AddNetworkVar(varType, name, extended)
-	local index = assert(self._NetworkVars[varType], "Attempt to register unknown network var type " .. varType)
-	local max = varType == "String" and 3 or 31
-
-	if index >= max then
-		error("Network var limit exceeded for " .. varType)
-	end
-
-	self:NetworkVar(varType, index, name, extended)
-	self._NetworkVars[varType] = index + 1
+-- No longer needed now that NetworkVar does this internally
+function SWEP:AddNetworkVar(...)
+	self:NetworkVar(...)
 end
 
 function SWEP:Deploy()

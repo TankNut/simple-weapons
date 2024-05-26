@@ -61,33 +61,16 @@ include("sh_animations.lua")
 include("sh_attack.lua")
 
 function SWEP:SetupDataTables()
-	self._NetworkVars = {
-		["String"] = 0,
-		["Bool"]   = 0,
-		["Float"]  = 0,
-		["Int"]    = 0,
-		["Vector"] = 0,
-		["Angle"]  = 0,
-		["Entity"] = 0
-	}
+	self:NetworkVar("Bool", "Lowered")
 
-	self:AddNetworkVar("Bool", "Lowered")
-
-	self:AddNetworkVar("Float", "LowerTime")
-	self:AddNetworkVar("Float", "NextIdle")
-	self:AddNetworkVar("Float", "ChargeTime")
+	self:NetworkVar("Float", "LowerTime")
+	self:NetworkVar("Float", "NextIdle")
+	self:NetworkVar("Float", "ChargeTime")
 end
 
-function SWEP:AddNetworkVar(varType, name, extended)
-	local index = assert(self._NetworkVars[varType], "Attempt to register unknown network var type " .. varType)
-	local max = varType == "String" and 3 or 31
-
-	if index >= max then
-		error("Network var limit exceeded for " .. varType)
-	end
-
-	self:NetworkVar(varType, index, name, extended)
-	self._NetworkVars[varType] = index + 1
+-- No longer needed now that NetworkVar does this internally
+function SWEP:AddNetworkVar(...)
+	self:NetworkVar(...)
 end
 
 function SWEP:Deploy()

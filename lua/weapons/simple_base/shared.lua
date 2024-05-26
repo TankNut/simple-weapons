@@ -107,44 +107,27 @@ function SWEP:Initialize()
 end
 
 function SWEP:SetupDataTables()
-	self._NetworkVars = {
-		["String"] = 0,
-		["Bool"]   = 0,
-		["Float"]  = 0,
-		["Int"]    = 0,
-		["Vector"] = 0,
-		["Angle"]  = 0,
-		["Entity"] = 0
-	}
+	self:NetworkVar("Entity", "LastOwner")
 
-	self:AddNetworkVar("Entity", "LastOwner")
+	self:NetworkVar("Bool", "Lowered")
+	self:NetworkVar("Bool", "NeedPump")
+	self:NetworkVar("Bool", "FirstReload")
+	self:NetworkVar("Bool", "AbortReload")
 
-	self:AddNetworkVar("Bool", "Lowered")
-	self:AddNetworkVar("Bool", "NeedPump")
-	self:AddNetworkVar("Bool", "FirstReload")
-	self:AddNetworkVar("Bool", "AbortReload")
+	self:NetworkVar("Int", "Firemode")
+	self:NetworkVar("Int", "BurstFired")
 
-	self:AddNetworkVar("Int", "Firemode")
-	self:AddNetworkVar("Int", "BurstFired")
+	self:NetworkVar("Float", "LowerTime")
+	self:NetworkVar("Float", "NextIdle")
+	self:NetworkVar("Float", "FinishReload")
 
-	self:AddNetworkVar("Float", "LowerTime")
-	self:AddNetworkVar("Float", "NextIdle")
-	self:AddNetworkVar("Float", "FinishReload")
-
-	self:AddNetworkVar("Float", "NextFire")
-	self:AddNetworkVar("Float", "NextAltFire")
+	self:NetworkVar("Float", "NextFire")
+	self:NetworkVar("Float", "NextAltFire")
 end
 
-function SWEP:AddNetworkVar(varType, name, extended)
-	local index = assert(self._NetworkVars[varType], "Attempt to register unknown network var type " .. varType)
-	local max = varType == "String" and 3 or 31
-
-	if index >= max then
-		error("Network var limit exceeded for " .. varType)
-	end
-
-	self:NetworkVar(varType, index, name, extended)
-	self._NetworkVars[varType] = index + 1
+-- No longer needed now that NetworkVar does this internally
+function SWEP:AddNetworkVar(...)
+	self:NetworkVar(...)
 end
 
 function SWEP:OwnerChanged()

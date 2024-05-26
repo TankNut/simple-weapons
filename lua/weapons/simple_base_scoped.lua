@@ -18,7 +18,7 @@ SWEP.HideInScope = true
 function SWEP:SetupDataTables()
 	BaseClass.SetupDataTables(self)
 
-	self:AddNetworkVar("Int", "ScopeIndex")
+	self:NetworkVar("Int", "ScopeIndex")
 end
 
 function SWEP:Deploy()

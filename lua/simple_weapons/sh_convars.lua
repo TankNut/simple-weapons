@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 module("simple_weapons.Convars", package.seeall)
 
-ClassicMode = CreateConVar("simple_weapons_classic_mode", 0, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Disables the raise/lower system.", 0, 1)
+ClassicMode = CreateConVar("simple_weapons_classic_mode", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Disables the raise/lower system.", 0, 1)
 
 ReplaceWeapons = CreateConVar("simple_weapons_replace_weapons", 0, {FCVAR_ARCHIVE, FCVAR_REPLICATED}, "Whether the default HL2 weapons should be replaced.", 0, 1)
 

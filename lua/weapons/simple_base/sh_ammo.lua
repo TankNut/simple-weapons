@@ -24,7 +24,17 @@ function SWEP:ConsumeAmmo()
 		return
 	end
 
-	self:TakePrimaryAmmo(math.min(self.Primary.Cost, self:Clip1()))
+	local primary = self.Primary
+	local cost = primary.Cost
+	local ply = self:GetOwner()
+
+	if self.AmmoType == AMMO_NOMAG then
+		cost = math.min(cost, ply:GetAmmoCount(primary.Ammo))
+
+		ply:RemoveAmmo(cost, primary.Ammo)
+	else
+		self:TakePrimaryAmmo(math.min(cost, self:Clip1()))
+	end
 end
 
 function SWEP:GetAmmo()

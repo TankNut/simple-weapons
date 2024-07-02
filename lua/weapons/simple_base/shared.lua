@@ -320,6 +320,10 @@ function SWEP:SetupMove(ply, mv)
 	local fraction = ClassicMode:GetBool() and 1 or self:GetLowerFraction()
 	local min = hook.Run("SimpleLimitMoveSpeed", ply, self)
 
+	if fraction == 1 then
+		return
+	end
+
 	if not min then
 		min = WalkSpeed:GetFloat()
 

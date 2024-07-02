@@ -21,19 +21,27 @@ hook.Add("SetupMove", "simple_base", function(ply, mv)
 end)
 
 if CLIENT then
+	local entMeta = FindMetaTable("Entity")
+	local plyMeta = FindMetaTable("Player")
+
+	local isValid = entMeta.IsValid
+	local isDormant = entMeta.IsDormant
+	local inVehicle = plyMeta.InVehicle
+	local getWeapon = plyMeta.GetActiveWeapon
+
 	hook.Add("PostDrawTranslucentRenderables", "simple_base", function(depth, skybox, skybox3d)
 		if skybox or skybox3d then
 			return
 		end
 
-		for _, ply in ipairs(player.GetAll()) do
-			if ply:IsDormant() or ply:InVehicle() then
+		for _, ply in player.Iterator() do
+			if not isValid(ply) or isDormant(ply) or inVehicle(ply) then
 				continue
 			end
 
-			local weapon = ply:GetActiveWeapon()
+			local weapon = getWeapon(ply)
 
-			if not IsValid(weapon) or weapon:IsDormant() or not weapon.SimpleWeapon then
+			if not isValid(weapon) or isDormant(weapon) or not weapon.SimpleWeapon then
 				continue
 			end
 

@@ -24,7 +24,7 @@ function SWEP:CanReload()
 		return false
 	end
 
-	if self:GetNextPrimaryFire() > CurTime() then
+	if self:GetNextFire() > CurTime() then
 		return false
 	end
 

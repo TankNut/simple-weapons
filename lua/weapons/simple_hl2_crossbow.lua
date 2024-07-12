@@ -56,6 +56,8 @@ function SWEP:Deploy()
 	if self:Clip1() > 0 then
 		self:GetViewModel():SetSkin(1)
 	end
+
+	return true
 end
 
 function SWEP:EmitFireSound()

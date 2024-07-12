@@ -88,6 +88,8 @@ function SWEP:Deploy()
 
 	self:SendTranslatedWeaponAnim(ACT_VM_DRAW)
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
+
+	return true
 end
 
 function SWEP:Holster()

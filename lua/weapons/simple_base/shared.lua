@@ -161,6 +161,8 @@ function SWEP:Deploy()
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
 
 	self.ClassicMode = ClassicMode:GetBool()
+
+	return true
 end
 
 function SWEP:Holster()

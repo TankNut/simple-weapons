@@ -94,6 +94,8 @@ if SERVER then
 		if ClassicMode:GetBool() and self:GetDotEnabled() then
 			self:CreateDot()
 		end
+
+		return true
 	end
 
 	function SWEP:Holster()

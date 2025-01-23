@@ -73,20 +73,22 @@ function ENT:Explode()
 	self:Remove()
 end
 
-function ENT:Think()
-	if SERVER and self.Beep and self.Beep <= CurTime() then
-		self:EmitSound("Grenade.Blip")
-
-		local time = 1
-
-		if self.Detonate and self.Detonate - CurTime() <= 1.5 then
-			time = 0.3
+if SERVER then
+	function ENT:Think()
+		if self.Beep and self.Beep <= CurTime() then
+			self:EmitSound("Grenade.Blip")
+	
+			local time = 1
+	
+			if self.Detonate and self.Detonate - CurTime() <= 1.5 then
+				time = 0.3
+			end
+	
+			self.Beep = CurTime() + time
 		end
-
-		self.Beep = CurTime() + time
-	end
-
-	BaseClass.Think(self)
-
-	return true
+	
+		BaseClass.Think(self)
+	
+		return true
+	end	
 end

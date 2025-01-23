@@ -36,19 +36,17 @@ function ENT:Explode()
 	self:Remove()
 end
 
-function ENT:Think()
-	if CLIENT then
-		return
-	end
-
-	if self.Detonate and self.Detonate <= CurTime() then
-		self:Explode()
-		self:NextThink(math.huge)
-
+if SERVER then
+	function ENT:Think()
+		if self.Detonate and self.Detonate <= CurTime() then
+			self:Explode()
+			self:NextThink(math.huge)
+	
+			return true
+		end
+	
+		self:NextThink(CurTime() + 0.1)
+	
 		return true
 	end
-
-	self:NextThink(CurTime() + 0.1)
-
-	return true
 end

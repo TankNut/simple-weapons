@@ -35,7 +35,7 @@ if CLIENT then
 		end
 
 		for _, ply in player.Iterator() do
-			if not isValid(ply) or isDormant(ply) or inVehicle(ply) then
+			if isDormant(ply) or inVehicle(ply) then
 				continue
 			end
 

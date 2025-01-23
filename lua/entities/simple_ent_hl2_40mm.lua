@@ -58,13 +58,13 @@ end
 if SERVER then
 	function ENT:Touch(ent)
 		if self:GetTouchTrace().HitSky then
-			SafeRemoveEntity(self)
+			self:Remove()
 
 			return
 		end
 
 		if bit.band(ent:GetSolidFlags(), FSOLID_VOLUME_CONTENTS + FSOLID_TRIGGER) > 0 then
-			local takedamage = ent:GetSaveTable().m_takedamage
+			local takedamage = ent:GetInternalVariable("m_takedamage")
 
 			if takedamage == 0 or takedamage == 1 then
 				return
@@ -82,6 +82,6 @@ if SERVER then
 		explo:Activate()
 		explo:Fire("Explode")
 
-		SafeRemoveEntity(self)
+		self:Remove()
 	end
 end

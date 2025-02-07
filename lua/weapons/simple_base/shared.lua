@@ -157,9 +157,7 @@ function SWEP:Deploy()
 		self:SetHoldType(self.LowerHoldType)
 	end
 
-	self:SendTranslatedWeaponAnim(ACT_VM_DRAW)
 	self:SetNextIdle(CurTime() + self:SequenceDuration())
-
 	self.ClassicMode = ClassicMode:GetBool()
 
 	return true

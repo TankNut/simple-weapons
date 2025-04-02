@@ -105,6 +105,7 @@ function SWEP:FireWeapon()
 	local damage = self:GetDamage()
 
 	local bullet = {
+		Inflictor = self,
 		Num = primary.Count,
 		Src = ply:GetShootPos(),
 		Dir = self:GetShootDir(),

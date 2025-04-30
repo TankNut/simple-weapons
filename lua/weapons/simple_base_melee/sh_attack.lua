@@ -184,6 +184,7 @@ function SWEP:GenericAttack(heavy)
 		dmg:SetDamage(damage)
 		dmg:SetDamageType(damageType)
 
+		dmg:SetWeapon(self)
 		dmg:SetInflictor(self)
 		dmg:SetAttacker(self:GetOwner())
 
